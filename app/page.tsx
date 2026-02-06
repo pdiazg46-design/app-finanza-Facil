@@ -10,26 +10,17 @@ import { PrivacyProvider } from "@/components/PrivacyContext"
 import { CurrencyText } from "@/components/CurrencyText"
 import { InstallPWA } from "@/components/InstallPWA"
 import { UserProfile } from "@/components/UserProfile"
-// import { auth } from "@/lib/auth"
+import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
-import { PremiumUpgradeButton } from "@/components/PremiumUpgradeButton"
-import { WelcomeBanner } from "@/components/WelcomeBanner"
-import { AdminHeaderToggle } from "@/components/AdminHeaderToggle"
-import logo from "../public/logo.png"
-import Image from "next/image"
-import { FreedomDimension } from "@/components/FreedomDimension"
-import { PrivacyToggle } from "@/components/PrivacyToggle"
-import { HelpButton } from "@/components/HelpButton"
-import { CompassSection } from "@/components/CompassSection"
-import { LiquidityCard } from "@/components/LiquidityCard"
-// import { ClientSyncTrigger } from "@/components/ClientSyncTrigger"
-
-export const dynamic = 'force-static'
-// export const revalidate = 0
 
 export default async function Home() {
-  // Mock Session
-  const session = { user: { name: "Usuario Demo", email: "demo@finanzafacil.app", image: null, plan: "FREE" } }
+  // Real Session
+  const session = await auth()
+
+  // Guard: Require Login
+  if (!session?.user?.email) {
+    redirect("/auth/signin")
+  }
 
   const user = session.user
   const isPremium = (user as any).plan === "PREMIUM"
@@ -64,6 +55,7 @@ export default async function Home() {
       <>
         <PrivacyProvider>
           {/* <ClientSyncTrigger /> */}
+          <CountrySelector />
           <div className="min-h-screen bg-slate-50 flex flex-col items-center">
             <main className="w-full max-w-md h-screen h-[100dvh] bg-white flex flex-col relative overflow-hidden shadow-2xl">
               {/* Header - FIXED */}

@@ -51,41 +51,41 @@ export const DEFAULT_DB: DBContent = {
     movements: []
 }
 
-// HOT CACHE para entornos Serverless (Vercel)
-// Esto permite que el estado persista mientras la lambda esté "tibia" (Warm)
 let _dbCache: DBContent | null = null
 
 export function getDB(): DBContent {
+    // Si tenemos caché (caliente) en memoria, usarla para velocidad
     if (_dbCache) return _dbCache
 
     if (!fs.existsSync(DB_PATH)) {
-        if (!_dbCache) {
-            console.log("[STORAGE] DB File not found. Initializing with DEFAULT_DB.");
-            _dbCache = { ...DEFAULT_DB }
+        // Asegurar que el directorio data existe
+        const dir = path.dirname(DB_PATH)
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true })
         }
-        return _dbCache
+        _dbCache = DEFAULT_DB
+        return DEFAULT_DB
     }
 
     try {
-        const content = fs.readFileSync(DB_PATH, 'utf-8')
-        _dbCache = JSON.parse(content)
-        return _dbCache!
-    } catch (e) {
+        const raw = fs.readFileSync(DB_PATH, 'utf-8')
+        _dbCache = JSON.parse(raw)
+        return _dbCache as DBContent
+    } catch (error) {
+        console.error("Error reading DB:", error)
         return DEFAULT_DB
     }
 }
 
 export function saveDB(data: DBContent) {
-    _dbCache = data // Actualizar cache siempre primero (Efecto instantáneo en memoria)
+    _dbCache = data // Actualizar caché caliente inmediatamente
     try {
         const dir = path.dirname(DB_PATH)
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true })
         }
         fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8')
-    } catch (e) {
-        // En Vercel el write puede fallar por solo-lectura, pero el cache en memoria 
-        // servirá para la sesión activa del usuario.
-        console.warn("Vercel FS Persistence limited. Using memory cache.")
+    } catch (error) {
+        console.error("Error saving DB:", error)
     }
 }
