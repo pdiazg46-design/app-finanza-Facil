@@ -127,6 +127,34 @@
     "setup": {
         "title": "Cuentas Clave",
         "myRealNumbers": "Mis Números Reales",
+        "saveAll": "Guardar todo",
+        "add": "Añadir",
+        "categories": {
+            "credits": "Deudas de Cuotas (Créditos)",
+            "subscriptions": "Gastos Hormiga (Suscripciones)",
+            "services": "Cuentas por Pagar (Servicios)",
+            "assets": "Bienes y Ahorros (Activos)",
+            "partner": "Aportes de Pareja"
+        },
+        "labels": {
+            "name": "Nombre",
+            "conceptName": "Nombre del concepto...",
+            "monthlyAmount": "Monto Mensual",
+            "totalInstallments": "Total cuotas:",
+            "weightOnBreathing": "Peso en mi Respiro:",
+            "remaining": "restantes",
+            "automaticAverage": "Promedio Automático",
+            "automatic": "automático",
+            "assetsNote": "* Solo \"Inversión\" suma a Días de Respiro",
+            "burnRate": "Costo de Mantención (Burn Rate)",
+            "monthlyGoal": "Meta mensual"
+        },
+        "assetTypes": {
+            "property": "Inmueble",
+            "vehicle": "Vehículo",
+            "investment": "Inversión",
+            "other": "Otro"
+        },
         "credits": {
             "title": "Deudas en Cuotas",
             "subtitle": "Créditos",

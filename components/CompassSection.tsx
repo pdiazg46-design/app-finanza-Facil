@@ -36,7 +36,7 @@ export function CompassSection({ freedomDays }: CompassSectionProps) {
                     <div className="relative z-10">
                         <p className="font-black mb-3 text-sm flex items-center gap-2 uppercase tracking-widest italic">
                             <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
-                            Anatomía de tu Libertad
+                            {t('compass.anatomy')}
                         </p>
                         <p className="text-[11px] leading-relaxed text-slate-300 font-medium">
                             {t('freedom.compass.description')}

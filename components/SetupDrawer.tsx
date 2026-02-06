@@ -232,12 +232,12 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                             <div className="flex items-center justify-between mb-4 px-1">
                                 <h3 className="text-[14px] font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
                                     <cat.icon className="w-4 h-4" /> {
-                                        cat.type === 'FIXED_PAGO' ? 'Deudas de Cuotas (Créditos)' :
-                                            cat.type === 'SUBSCRIPTION' ? 'Gastos Hormiga (Suscripciones)' :
-                                                'Cuentas por Pagar (Servicios)'
+                                        cat.type === 'FIXED_PAGO' ? t('setup.categories.credits') :
+                                            cat.type === 'SUBSCRIPTION' ? t('setup.categories.subscriptions') :
+                                                t('setup.categories.services')
                                     }
                                     {cat.type === 'VARIABLE_SERVICE' && (
-                                        <span className="ml-2 bg-blue-100 text-blue-700 text-[11px] px-2 py-0.5 rounded-full lowercase font-bold">automático</span>
+                                        <span className="ml-2 bg-blue-100 text-blue-700 text-[11px] px-2 py-0.5 rounded-full lowercase font-bold">{t('setup.labels.automatic')}</span>
                                     )}
                                 </h3>
                                 {cat.type !== 'VARIABLE_SERVICE' && (
@@ -245,7 +245,7 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                                         onClick={() => handleAddItem(cat.type)}
                                         className="p-1.5 px-4 bg-slate-100 text-slate-700 rounded-full text-[13px] font-black uppercase hover:bg-atsit-blue hover:text-white transition-colors border border-slate-200"
                                     >
-                                        + Añadir
+                                        + {t('setup.add')}
                                     </button>
                                 )}
                             </div>
