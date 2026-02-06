@@ -7,7 +7,7 @@ import { X, ArrowUpRight, ArrowDownRight, Coffee, ShoppingBag, Utensils, PiggyBa
 import { Movement } from '@/lib/db'
 import { deleteMovement } from '@/app/actions/fund-actions'
 import { CurrencyText } from './CurrencyText'
-import { useLocale } from './LocaleContext'
+import { useLocaleContext } from './LocaleContext'
 
 interface HistoryDrawerProps {
     isOpen: boolean
@@ -19,7 +19,7 @@ interface HistoryDrawerProps {
 type Period = 'today' | 'week' | 'month' | 'all'
 
 export function HistoryDrawer({ isOpen, onClose, movements, isPrivate }: HistoryDrawerProps) {
-    const { t } = useLocale()
+    const { t } = useLocaleContext()
     const now = new Date()
     const [startDate, setStartDate] = useState(format(startOfMonth(now), 'yyyy-MM-dd'))
     const [endDate, setEndDate] = useState(format(now, 'yyyy-MM-dd'))

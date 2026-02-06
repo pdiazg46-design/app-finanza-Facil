@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ChevronRight, ChevronLeft, Target, Flame, Database, Mic, Sun, Trophy, Rocket, Sparkles } from 'lucide-react'
-import { useLocale } from './LocaleContext'
+import { useLocaleContext } from './LocaleContext'
 
 interface Step {
     title: string
@@ -144,7 +144,7 @@ interface RoutineCoachProps {
 }
 
 export function RoutineCoach({ isOpen, onClose }: RoutineCoachProps) {
-    const { t } = useLocale()
+    const { t } = useLocaleContext()
     const [currentStep, setCurrentStep] = useState<number | null>(null)
     const [isExiting, setIsExiting] = useState(false)
 
