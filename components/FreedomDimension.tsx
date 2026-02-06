@@ -5,6 +5,7 @@ import { ShieldCheck, Info, TrendingDown, TrendingUp, Wallet } from "lucide-reac
 import { usePrivacy } from "./PrivacyContext"
 import { InfoTooltip } from "./InfoTooltip"
 import { useSession } from "next-auth/react"
+import { useLocaleContext } from "./LocaleContext"
 
 interface FreedomDimensionProps {
     freedomDays: number;
@@ -23,6 +24,7 @@ export function FreedomDimension({
     totalAssets = 0,
     netWorth = 0
 }: FreedomDimensionProps) {
+    const { t } = useLocaleContext()
     const { isPrivate } = usePrivacy();
     const { data: session } = useSession();
     const dailyBurn = Math.floor(monthlyBurnRate / 30);
@@ -50,7 +52,7 @@ export function FreedomDimension({
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-1.5 text-slate-900">
                             <TrendingDown className="w-3.5 h-3.5" />
-                            <span className="text-[11px] font-black uppercase tracking-wider">Mi Costo por Día</span>
+                            <span className="text-[11px] font-black uppercase tracking-wider">{t('dimension.burnRate')}</span>
                         </div>
                         <InfoTooltip
                             title="Mi Costo por Día"
@@ -73,7 +75,7 @@ export function FreedomDimension({
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-1.5 text-slate-900">
                             <Wallet className="w-3.5 h-3.5" />
-                            <span className="text-[11px] font-black uppercase tracking-wider">Mis Ahorros de Emergencia</span>
+                            <span className="text-[11px] font-black uppercase tracking-wider">{t('dimension.reserves')}</span>
                         </div>
                         <InfoTooltip
                             title="Ahorros para Emergencias"

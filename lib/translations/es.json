@@ -39,11 +39,19 @@
     },
     "dimension": {
         "title": "Dimensión Libertad",
-        "burnRate": "Quema Mensual",
-        "reserves": "Reservas Líquidas",
+        "burnRate": "Mi Costo por Día",
+        "reserves": "Mis Ahorros de Emergencia",
         "debt": "Deuda Total",
         "assets": "Activos",
-        "netWorth": "Patrimonio Neto"
+        "netWorth": "Patrimonio Neto",
+        "dailyCost": "Tu costo diario",
+        "emergencySavings": "Efectivo + Inversiones",
+        "debtImpact": "Tiempo perdido en deudas",
+        "allPending": "Todo lo pendiente",
+        "realWealth": "Mi Riqueza Real",
+        "whatIHave": "Lo que tengo (Bienes)",
+        "whatIOwe": "Lo que debo (Deudas)",
+        "netWorthLabel": "Riqueza Real"
     },
     "movements": {
         "title": "Movimientos Recientes",

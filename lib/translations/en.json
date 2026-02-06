@@ -39,11 +39,19 @@
     },
     "dimension": {
         "title": "Freedom Dimension",
-        "burnRate": "Monthly Burn Rate",
-        "reserves": "Liquid Reserves",
+        "burnRate": "My Daily Cost",
+        "reserves": "My Emergency Savings",
         "debt": "Total Debt",
         "assets": "Assets",
-        "netWorth": "Net Worth"
+        "netWorth": "Net Worth",
+        "dailyCost": "Your daily cost",
+        "emergencySavings": "Cash + Investments",
+        "debtImpact": "Time lost to debt",
+        "allPending": "All pending",
+        "realWealth": "My Real Wealth",
+        "whatIHave": "What I have (Assets)",
+        "whatIOwe": "What I owe (Debts)",
+        "netWorthLabel": "Real Wealth"
     },
     "movements": {
         "title": "Recent Movements",

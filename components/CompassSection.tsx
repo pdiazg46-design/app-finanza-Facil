@@ -3,12 +3,14 @@
 import { useState } from "react"
 import { Info, Sparkles } from "lucide-react"
 import { FinanceEngine } from "@/lib/finance-engine"
+import { useLocaleContext } from "./LocaleContext"
 
 interface CompassSectionProps {
     freedomDays: number
 }
 
 export function CompassSection({ freedomDays }: CompassSectionProps) {
+    const { t } = useLocaleContext()
     const [showInfo, setShowInfo] = useState(false)
     const tier = FinanceEngine.getTier(freedomDays)
 
@@ -25,7 +27,7 @@ export function CompassSection({ freedomDays }: CompassSectionProps) {
                 className="flex items-center gap-2 px-6 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-slate-900 shadow-sm hover:bg-white hover:shadow-md transition-all active:scale-95"
             >
                 <Info className="w-4 h-4 text-atsit-blue" />
-                <span className="text-[12px] font-black uppercase tracking-widest font-[family-name:var(--font-montserrat)]">Tu Brújula</span>
+                <span className="text-[12px] font-black uppercase tracking-widest font-[family-name:var(--font-montserrat)]">{t('freedom.compass.title')}</span>
             </button>
 
             {showInfo && (
