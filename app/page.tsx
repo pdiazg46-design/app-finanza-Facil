@@ -1,4 +1,4 @@
-// import { getFundMetrics } from "./actions/fund-actions"
+import { getFundMetrics } from "./actions/fund-actions"
 import { FreedomCircle } from "@/components/FreedomCircle"
 import { VoiceSimulator } from "@/components/VoiceSimulator"
 import { MiniChart } from "@/components/MiniChart"
@@ -59,40 +59,43 @@ export default async function Home() {
   const user = session.user
   const isPremium = (user as any).plan === "PREMIUM"
 
-  // Mock Data (Safe Fallback if DB fails downstream)
-  let fundMetrics: any = null;
-
-  // Try to fetch real metrics, but don't crash if DB fails
-  // ... (rest of the component logic adapted to verify DB connection)
-
-  // For now, let's keep the existing mock data structure but rename 'fund' to 'mockFund' to avoid confusion if we planned to fetch real data
-  // But wait, the previous code had 'Mock Data' hardcoded.
-  // We need to keep the render safe.
-
-  const fund = {
-    balance: 1500000,
-    monthlyBurnRate: 800000,
-    budget: {},
-    assets: [],
-    partnerName: "Pareja",
-    partnerContribution: 0,
-    movements: [
-      { id: "1", type: "EXPENSE", amount: 15000, description: "Supermercado", date: new Date().toISOString(), category: "Alimentación" },
-      { id: "2", type: "INCOME", amount: 2500000, description: "Sueldo", date: new Date().toISOString(), category: "Ingresos" },
-      { id: "3", type: "EXPENSE", amount: 45000, description: "Combustible", date: new Date().toISOString(), category: "Transporte" },
-    ]
-  }
-  const freedomDays = 45
-  const totalLiquidReserves = 1200000
-  const targetDays = 90
-  const projectedExpenses = 750000
-  const disposableIncome = 450000
-  const totalDebt = 0
-  const totalAssets = 0
-  const netWorth = 1200000
+  // Fetch real data from database
+  let fund, freedomDays, totalLiquidReserves, targetDays, projectedExpenses, disposableIncome, totalDebt, totalAssets, netWorth;
 
   try {
-    // const { fund, freedomDays, totalLiquidReserves, targetDays, projectedExpenses, disposableIncome, totalDebt, totalAssets, netWorth } = await getFundMetrics()
+    const metrics = await getFundMetrics()
+    fund = metrics.fund
+    freedomDays = metrics.freedomDays
+    totalLiquidReserves = metrics.totalLiquidReserves
+    targetDays = metrics.targetDays
+    projectedExpenses = metrics.projectedExpenses
+    disposableIncome = metrics.disposableIncome
+    totalDebt = metrics.totalDebt
+    totalAssets = metrics.totalAssets
+    netWorth = metrics.netWorth
+  } catch (error) {
+    console.error("[Home Page] Error loading metrics:", error)
+    // Fallback to safe defaults if DB fails
+    fund = {
+      balance: 0,
+      monthlyBurnRate: 0,
+      budget: {},
+      assets: [],
+      partnerName: "Pareja",
+      partnerContribution: 0,
+      movements: []
+    }
+    freedomDays = 0
+    totalLiquidReserves = 0
+    targetDays = 90
+    projectedExpenses = 0
+    disposableIncome = 0
+    totalDebt = 0
+    totalAssets = 0
+    netWorth = 0
+  }
+
+  try {
 
     return (
       <>
