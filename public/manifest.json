@@ -1,0 +1,50 @@
+{
+    "id": "finanza-facil-v5-force",
+    "name": "Finanza Fácil",
+    "short_name": "Finanza Fácil",
+    "description": "Tu camino simple a la libertad financiera.",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#001a33",
+    "theme_color": "#0056B3",
+    "icons": [
+        {
+            "src": "/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+    "categories": [
+        "finance",
+        "productivity",
+        "utilities"
+    ],
+    "screenshots": [
+        {
+            "src": "/logo-atsit.png",
+            "sizes": "1024x1024",
+            "type": "image/png",
+            "form_factor": "wide"
+        },
+        {
+            "src": "/logo-atsit.png",
+            "sizes": "1024x1024",
+            "type": "image/png",
+            "form_factor": "narrow"
+        }
+    ]
+}

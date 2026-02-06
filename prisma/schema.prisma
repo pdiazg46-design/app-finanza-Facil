@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String      @id @default(cuid())
+  name             String?
+  email            String?     @unique
+  emailVerified    DateTime?
+  image            String?
+  plan             String      @default("FREE")
+  stripeCustomerId String?
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  accounts         Account[]
+  sessions         Session[]
+  sharedFund       SharedFund?
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model SharedFund {
+  id                  String       @id @default(cuid())
+  name                String       @default("Nuestro Fondo Común")
+  balance             Float        @default(0)
+  monthlyBurnRate     Float        @default(0)
+  totalSavings        Float        @default(0)
+  partnerName         String       @default("Pareja")
+  partnerContribution Float        @default(0)
+  userId              String       @unique
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  budget              BudgetItem[]
+  assets              Asset[]
+  movements           Movement[]
+  user                User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model BudgetItem {
+  id                   String     @id @default(cuid())
+  name                 String
+  amount               Float
+  type                 String
+  isAutomated          Boolean    @default(false)
+  installments         Int?       @default(1)
+  currentInstallment   Int?       @default(1)
+  installmentStartDate DateTime?  @default(now())
+  fundId               String
+  createdAt            DateTime   @default(now())
+  updatedAt            DateTime   @updatedAt
+  fund                 SharedFund @relation(fields: [fundId], references: [id], onDelete: Cascade)
+}
+
+model Asset {
+  id        String     @id @default(cuid())
+  name      String
+  value     Float
+  type      String     // 'PROPERTY', 'VEHICLE', 'INVESTMENT', 'OTHER'
+  fundId    String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  fund      SharedFund @relation(fields: [fundId], references: [id], onDelete: Cascade)
+}
+
+model Movement {
+  id           String     @id @default(cuid())
+  type         String
+  description  String
+  amount       Float
+  date         DateTime   @default(now())
+  installments Int        @default(1)
+  category     String     @default("General")
+  fundId       String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  fund         SharedFund @relation(fields: [fundId], references: [id], onDelete: Cascade)
+}

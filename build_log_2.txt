@@ -1,0 +1,23 @@
+
+> at-sit-final@0.1.0 build
+> prisma generate && next build
+
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+
+✔ Generated Prisma Client (v6.4.1, engine=binary) to .\node_modules\@prisma\client in 77ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Want real-time updates to your database without manual polling? Discover how with Pulse: https://pris.ly/tip-0-pulse
+
+▲ Next.js 16.1.6 (Turbopack)
+- Environments: .env
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 4.5s
+  Running TypeScript ...
+  Collecting page data using 11 workers ...
+
+> Server Actions are not supported with static export.
+Read more: https://nextjs.org/docs/app/building-your-application/deploying/static-exports#unsupported-features
