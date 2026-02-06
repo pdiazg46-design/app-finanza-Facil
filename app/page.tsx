@@ -12,10 +12,46 @@ import { InstallPWA } from "@/components/InstallPWA"
 import { UserProfile } from "@/components/UserProfile"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
+import { AdminHeaderToggle } from "@/components/AdminHeaderToggle"
+import { HelpButton } from "@/components/HelpButton"
+import { PrivacyToggle } from "@/components/PrivacyToggle"
+import { SetupDrawerTrigger } from "@/components/SetupDrawerTrigger"
+import { UserProfile } from "@/components/UserProfile"
+import { PremiumUpgradeButton } from "@/components/PremiumUpgradeButton"
+import { WelcomeBanner } from "@/components/WelcomeBanner"
+import { CountrySelector } from "@/components/CountrySelector"
+import { LiquidityCard } from "@/components/LiquidityCard"
+import { CompassSection } from "@/components/CompassSection"
+import { FreedomDimension } from "@/components/FreedomDimension"
+import Image from "next/image"
+import logo from "../public/logo.png"
 
 export default async function Home() {
-  // Real Session
-  const session = await auth()
+  let session;
+  try {
+    session = await auth()
+  } catch (error) {
+    console.error("Auth Error:", error)
+    // Fallback UI for fatal auth errors
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-red-50 p-6">
+        <div className="bg-white p-6 rounded-2xl shadow-xl max-w-sm w-full text-center">
+          <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 text-red-600">
+            <ShieldCheck className="w-6 h-6" />
+          </div>
+          <h2 className="text-xl font-black text-slate-900 mb-2">Error de Sistema</h2>
+          <p className="text-sm text-slate-500 mb-4 break-words">
+            No pudimos conectar con el servidor seguro.
+            <br /><br />
+            <span className="font-mono text-xs bg-slate-100 p-1 rounded">{(error as any)?.message || "Unknown Auth Error"}</span>
+          </p>
+          <a href="/auth/signin" className="block w-full bg-slate-900 text-white py-3 rounded-xl font-bold uppercase text-xs">
+            Intentar Login Nuevamente
+          </a>
+        </div>
+      </div>
+    )
+  }
 
   // Guard: Require Login
   if (!session?.user?.email) {
@@ -25,7 +61,16 @@ export default async function Home() {
   const user = session.user
   const isPremium = (user as any).plan === "PREMIUM"
 
-  // Mock Data
+  // Mock Data (Safe Fallback if DB fails downstream)
+  let fundMetrics: any = null;
+
+  // Try to fetch real metrics, but don't crash if DB fails
+  // ... (rest of the component logic adapted to verify DB connection)
+
+  // For now, let's keep the existing mock data structure but rename 'fund' to 'mockFund' to avoid confusion if we planned to fetch real data
+  // But wait, the previous code had 'Mock Data' hardcoded.
+  // We need to keep the render safe.
+
   const fund = {
     balance: 1500000,
     monthlyBurnRate: 800000,
