@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react'
 import { X, Settings, Mic, Trophy } from 'lucide-react'
 import { RoutineCoach } from './RoutineCoach'
+import { useLocaleContext } from './LocaleContext'
 
 export function WelcomeBanner() {
+    const { t } = useLocaleContext()
     const [isVisible, setIsVisible] = useState(false)
     const [isCoachOpen, setIsCoachOpen] = useState(false)
     const [isMounted, setIsMounted] = useState(false)

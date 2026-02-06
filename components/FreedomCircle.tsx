@@ -4,6 +4,7 @@ import { FinanceEngine } from "@/lib/finance-engine"
 import { Sparkles } from "lucide-react"
 import { usePrivacy } from "./PrivacyContext"
 import { InfoTooltip } from "./InfoTooltip"
+import { useLocaleContext } from "./LocaleContext"
 
 interface FreedomCircleProps {
     freedomDays: number
@@ -11,6 +12,7 @@ interface FreedomCircleProps {
 }
 
 export function FreedomCircle({ freedomDays, targetDays }: FreedomCircleProps) {
+    const { t } = useLocaleContext()
     const { isPrivate } = usePrivacy()
     const tier = FinanceEngine.getTier(freedomDays)
 

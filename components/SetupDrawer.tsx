@@ -5,6 +5,7 @@ import { syncFullBudget } from '../app/actions/fund-actions'
 import { BudgetCategory, CategoryType } from '@/lib/db'
 import { usePrivacy } from './PrivacyContext'
 import { CurrencyText } from './CurrencyText'
+import { useLocaleContext } from './LocaleContext'
 
 interface SetupDrawerProps {
     isOpen: boolean
@@ -16,6 +17,7 @@ interface SetupDrawerProps {
 }
 
 export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, freedomDays }: SetupDrawerProps) {
+    const { t } = useLocaleContext()
     const { isPrivate } = usePrivacy()
     const [localBudget, setLocalBudget] = useState<any[]>(() => {
         return budget.map(item => {
@@ -197,8 +199,8 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
             {/* Header */}
             <div className="px-6 pt-10 pb-4 flex items-center justify-between border-b border-slate-50 sticky top-0 bg-white/80 backdrop-blur-md z-10">
                 <div>
-                    <h2 className="text-xl font-black text-slate-900 tracking-tight">Cuentas Clave</h2>
-                    <p className="text-[12px] text-slate-600 font-bold uppercase tracking-widest mt-0.5">Mis Números Reales</p>
+                    <h2 className="text-xl font-black text-slate-900 tracking-tight">{t('setup.title')}</h2>
+                    <p className="text-[12px] text-slate-600 font-bold uppercase tracking-widest mt-0.5">{t('setup.myRealNumbers')}</p>
                 </div>
                 <div className="flex items-center gap-2">
                     <button
