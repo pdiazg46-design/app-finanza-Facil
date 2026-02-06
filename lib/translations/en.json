@@ -71,6 +71,27 @@
         "whatIOwe": "What I owe (Debts)",
         "netWorthLabel": "Real Wealth"
     },
+    "tooltips": {
+        "freedomDays": {
+            "title": "Breathing Room Days",
+            "content": "Represents the time you could live without external income while maintaining your current expenses.",
+            "description": "Your days are the result of dividing your total backup (Balances + Investments) by what you spend each day."
+        },
+        "burnRate": {
+            "title": "My Daily Cost",
+            "content": "What it costs you to live each day based on your declared Real Structure."
+        },
+        "reserves": {
+            "title": "Emergency Savings",
+            "content": "Sum of your bank balances, savings and liquid investments.",
+            "description": "Only what you can convert to cash in 24-48 hours is considered real backup."
+        },
+        "debt": {
+            "title": "Total Debt",
+            "content": "Sum of all your active debts (credits, pending installments).",
+            "description": "Every peso in debt reduces your financial freedom."
+        }
+    },
     "movements": {
         "title": "Recent Movements",
         "recentActivity": "Recent Activities",

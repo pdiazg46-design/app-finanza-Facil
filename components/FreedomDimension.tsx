@@ -55,8 +55,8 @@ export function FreedomDimension({
                             <span className="text-[11px] font-black uppercase tracking-wider">{t('dimension.burnRate')}</span>
                         </div>
                         <InfoTooltip
-                            title="Mi Costo por Día"
-                            content="Lo que te cuesta vivir cada día basado en tu Estructura Real declarada."
+                            title={t('tooltips.burnRate.title')}
+                            content={t('tooltips.burnRate.content')}
                         />
                     </div>
                     <div>
@@ -67,7 +67,7 @@ export function FreedomDimension({
                                 new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(dailyBurn)
                             )}
                         </div>
-                        <p className="text-[11px] text-slate-700 font-bold mt-1 uppercase tracking-tight">Tu costo diario</p>
+                        <p className="text-[11px] text-slate-700 font-bold mt-1 uppercase tracking-tight">{t('dimension.dailyCost')}</p>
                     </div>
                 </div>
 
@@ -78,9 +78,9 @@ export function FreedomDimension({
                             <span className="text-[11px] font-black uppercase tracking-wider">{t('dimension.reserves')}</span>
                         </div>
                         <InfoTooltip
-                            title="Ahorros para Emergencias"
-                            content="Suma de tus saldos bancarios, ahorros e inversiones líquidas."
-                            description="Solo lo que puedes convertir en efectivo en 24-48 horas se considera respaldo real."
+                            title={t('tooltips.reserves.title')}
+                            content={t('tooltips.reserves.content')}
+                            description={t('tooltips.reserves.description')}
                         />
                     </div>
                     <div>
@@ -91,7 +91,7 @@ export function FreedomDimension({
                                 new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(totalReserves)
                             )}
                         </div>
-                        <p className="text-[11px] text-slate-700 font-black mt-1 uppercase tracking-tight">Efectivo + Inversiones</p>
+                        <p className="text-[11px] text-slate-700 font-black mt-1 uppercase tracking-tight">{t('dimension.emergencySavings')}</p>
                     </div>
                 </div>
 

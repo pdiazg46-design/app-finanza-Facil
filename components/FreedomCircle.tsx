@@ -32,9 +32,9 @@ export function FreedomCircle({ freedomDays, targetDays }: FreedomCircleProps) {
                 <div className="absolute inset-0 flex items-center justify-center">
                     <div className="absolute top-0 right-0 z-10">
                         <InfoTooltip
-                            title="Días de Respiro"
-                            content="Representa el tiempo que podrías vivir sin ingresos externos manteniendo tus gastos actuales."
-                            description="Tus días son el resultado de dividir tu respaldo total (Saldos + Inversiones) por lo que gastas cada día."
+                            title={t('tooltips.freedomDays.title')}
+                            content={t('tooltips.freedomDays.content')}
+                            description={t('tooltips.freedomDays.description')}
                         />
                     </div>
                     <div className={`w-32 h-32 rounded-full ${circleColor} shadow-2xl flex items-center justify-center transition-colors duration-700`}>

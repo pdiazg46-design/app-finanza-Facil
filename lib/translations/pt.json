@@ -71,6 +71,27 @@
         "whatIOwe": "O que devo (Dívidas)",
         "netWorthLabel": "Riqueza Real"
     },
+    "tooltips": {
+        "freedomDays": {
+            "title": "Dias de Respiro",
+            "content": "Representa o tempo que você poderia viver sem renda externa mantendo seus gastos atuais.",
+            "description": "Seus dias são o resultado de dividir seu suporte total (Saldos + Investimentos) pelo que você gasta por dia."
+        },
+        "burnRate": {
+            "title": "Meu Custo por Dia",
+            "content": "O que custa viver cada dia com base na sua Estrutura Real declarada."
+        },
+        "reserves": {
+            "title": "Economias para Emergências",
+            "content": "Soma dos seus saldos bancários, economias e investimentos líquidos.",
+            "description": "Apenas o que você pode converter em dinheiro em 24-48 horas é considerado suporte real."
+        },
+        "debt": {
+            "title": "Dívida Total",
+            "content": "Soma de todas as suas dívidas ativas (créditos, parcelas pendentes).",
+            "description": "Cada peso em dívida reduz sua liberdade financeira."
+        }
+    },
     "movements": {
         "title": "Movimentos Recentes",
         "recentActivity": "Atividades Recentes",
