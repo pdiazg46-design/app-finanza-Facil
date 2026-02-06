@@ -1,222 +1,213 @@
 {
-    "app": {
-        "title": "Finança Fácil",
-        "subtitle": "Controle Total"
-    },
-    "auth": {
-        "signin": {
-            "title": "Controle Total",
-            "subtitle": "Sua liberdade financeira começa com um primeiro comando. Digite seu email para começar.",
-            "secureLogin": "Entre com sua conta segura",
-            "continueWith": "Ou continue com",
-            "google": "Google",
-            "securedBy": "Protegido por Finança Fácil Cloud"
-        }
-    },
-    "freedom": {
-        "days": "Dias de Liberdade",
-        "target": "Meta",
-        "status": "Estado",
-        "compass": {
-            "title": "Bússola Financeira",
-            "yourCompass": "Sua Bússola",
-            "anatomy": "Anatomia da sua Liberdade",
-            "description": "Representa o tempo que você poderia viver sem renda externa mantendo seus gastos atuais.",
-            "tip": "Terminando dívidas e economizando, este número cresce para proteger seu tempo de vida.",
-            "currentLevel": "Seu Nível Atual:",
-            "safe": "Zona Segura",
-            "warning": "Zona de Alerta",
-            "danger": "Zona Crítica"
-        },
-        "tiers": {
-            "survival": "Na corda bamba",
-            "survivalDesc": "Estado Crítico. Você não tem respiro suficiente para o mês. O objetivo é sair daqui rápido.",
-            "security": "Piso Firme",
-            "securityDesc": "Você tem uma almofada de 3 a 6 meses. Está protegido contra imprevistos.",
-            "flexibility": "Caminhando sozinho",
-            "flexibilityDesc": "Você pode começar a tomar decisões sem pressão imediata.",
-            "independence": "Dono do meu Tempo",
-            "independenceDesc": "Parabéns! Você tem mais de um ano de vida garantida.",
-            "abundance": "Liberdade Total",
-            "abundanceDesc": "Você alcançou o topo. Seu tempo hoje é 100% seu."
-        }
-    },
-    "liquidity": {
-        "available": {
-            "title": "Total Disponível",
-            "subtitle": "Entradas - Saídas fixas",
-            "info": "Sua renda declarada menos os gastos fixos do mês. É o valor total disponível para suas contas compartilhadas.",
-            "description": "Manter este poço positivo garante que seus compromissos fixos estejam cobertos."
-        },
-        "disposable": {
-            "title": "Dinheiro para Aproveitar",
-            "subtitle": "Sua margem hoje",
-            "info": "Sua margem real de hoje. É o dinheiro que sobra livre depois de garantir seus gastos e dívidas do mês.",
-            "description": "Este é o dinheiro que você pode gastar hoje sem culpa e sem comprometer seu futuro."
-        }
-    },
-    "dimension": {
-        "title": "Dimensão Liberdade",
-        "burnRate": "Meu Custo por Dia",
-        "reserves": "Minhas Economias de Emergência",
-        "debt": "Dívida Total",
-        "assets": "Ativos",
-        "netWorth": "Patrimônio Líquido",
-        "dailyCost": "Seu custo diário",
-        "emergencySavings": "Dinheiro + Investimentos",
-        "debtImpact": "Tempo perdido em dívidas",
-        "allPending": "Tudo pendente",
-        "realWealth": "Minha Riqueza Real",
-        "whatIHave": "O que tenho (Bens)",
-        "whatIOwe": "O que devo (Dívidas)",
-        "netWorthLabel": "Riqueza Real"
-    },
-    "tooltips": {
-        "freedomDays": {
-            "title": "Dias de Respiro",
-            "content": "Representa o tempo que você poderia viver sem renda externa mantendo seus gastos atuais.",
-            "description": "Seus dias são o resultado de dividir seu suporte total (Saldos + Investimentos) pelo que você gasta por dia."
-        },
-        "burnRate": {
-            "title": "Meu Custo por Dia",
-            "content": "O que custa viver cada dia com base na sua Estrutura Real declarada."
-        },
-        "reserves": {
-            "title": "Economias para Emergências",
-            "content": "Soma dos seus saldos bancários, economias e investimentos líquidos.",
-            "description": "Apenas o que você pode converter em dinheiro em 24-48 horas é considerado suporte real."
-        },
-        "debt": {
-            "title": "Dívida Total",
-            "content": "Soma de todas as suas dívidas ativas (créditos, parcelas pendentes).",
-            "description": "Cada peso em dívida reduz sua liberdade financeira."
-        }
-    },
-    "movements": {
-        "title": "Movimentos Recentes",
-        "recentActivity": "Atividades Recentes",
-        "viewAll": "Ver tudo",
-        "empty": "Não há movimentos registrados",
-        "expense": "Gasto",
-        "income": "Renda",
-        "contribution": "Contribuição"
-    },
-    "voice": {
-        "recording": "🎤 Gravando... Solte para enviar",
-        "processing": "Analisando...",
-        "saving": "Salvando...",
-        "saved": "✅ Adicionado!",
-        "incomeSaved": "✅ Renda registrada!",
-        "error": "Não entendi. Tente novamente.",
-        "noAudio": "Nenhum áudio detectado",
-        "audioError": "Erro de áudio",
-        "holdToSpeak": "Mantenha pressionado para falar"
-    },
-    "country": {
-        "selector": {
-            "title": "De onde você nos visita?",
-            "subtitle": "Isso nos ajuda a personalizar sua experiência",
-            "search": "Buscar país...",
-            "confirm": "Confirmar"
-        }
-    },
-    "premium": {
-        "banner": "Mude para Premium e ative o Assistente AI avançado!",
-        "upgrade": "Melhorar"
-    },
-    "setup": {
-        "title": "Contas Chave",
-        "myRealNumbers": "Meus Números Reais",
-        "credits": {
-            "title": "Dívidas Parceladas",
-            "subtitle": "Créditos",
-            "add": "Adicionar",
-            "totalInstallments": "Total de Parcelas",
-            "installmentOf": "parcela {current} de {total}",
-            "remaining": "{count} restantes",
-            "month": "mês"
-        },
-        "subscriptions": {
-            "title": "Gastos Formiga",
-            "subtitle": "Assinaturas"
-        },
-        "services": {
-            "title": "Contas a Pagar",
-            "subtitle": "Serviços",
-            "autoAverage": "Média automática",
-            "autoAverageInfo": "O sistema calcula a média dos seus últimos 3 meses automaticamente"
-        },
-        "assets": {
-            "title": "Bens e Economias",
-            "subtitle": "Ativos",
-            "property": "Imóvel",
-            "vehicle": "Veículo",
-            "investment": "Investimento",
-            "other": "Outro"
-        },
-        "partner": {
-            "title": "Contribuição do Parceiro",
-            "name": "Nome",
-            "monthlyAmount": "Valor mensal"
-        },
-        "burnRate": {
-            "title": "Custo de Manutenção",
-            "subtitle": "BurnRate"
-        },
-        "goal": {
-            "title": "Meta Mensal",
-            "monthlyGoal": "Meta mensal"
-        },
-        "saveAll": "Salvar tudo",
-        "add": "Adicionar",
-        "saveChanges": "Salvar Alterações",
-        "labels": {
-            "name": "Nome",
-            "conceptName": "Nome do conceito...",
-            "monthlyAmount": "Valor mensal",
-            "totalInstallments": "Total de parcelas:",
-            "totalDebt": "Dívida Total:",
-            "weightOnBreathing": "Peso no meu Respiro:",
-            "remaining": "restantes",
-            "automaticAverage": "Média Automática",
-            "automatic": "automático",
-            "assetsNote": "* Apenas \"Investimento\" soma aos Dias de Respiro",
-            "burnRate": "Custo de Manutenção (Burn Rate)",
-            "monthlyGoal": "Meta mensal",
-            "assetPlaceholder": "Ex: Carro, Apto, Investimentos..."
-        }
-    },
-    "history": {
-        "title": "Histórico",
-        "subtitle": "Analise seus movimentos",
-        "filterByPeriod": "Filtrar por período",
-        "from": "De",
-        "to": "Até",
-        "income": "Rendas",
-        "expenses": "Gastos",
-        "noMovements": "Não há movimentos neste período"
-    },
-    "movements": {
-        "title": "Movimentos Recentes",
-        "recentActivity": "Atividades Recentes",
-        "viewAll": "Ver tudo",
-        "empty": "Não há movimentos recentes",
-        "emptyHint": "Use o botão FALAR para registrar algo",
-        "today": "HOJE",
-        "expense": "Gasto",
-        "income": "Renda",
-        "contribution": "Contribuição"
-    },
-    "routine": {
-        "dailyBurn": "Gasto Diário",
-        "days": "Dias"
-    },
-    "common": {
-        "close": "Fechar",
-        "save": "Salvar",
-        "cancel": "Cancelar",
-        "search": "Buscar",
-        "loading": "Carregando...",
-        "private": "PRIVADO"
+  "app": {
+    "title": "Finança Fácil",
+    "subtitle": "Controle Total"
+  },
+  "auth": {
+    "signin": {
+      "title": "Controle Total",
+      "subtitle": "Sua liberdade financeira começa com um primeiro comando. Digite seu email para começar.",
+      "secureLogin": "Entre com sua conta segura",
+      "continueWith": "Ou continue com",
+      "google": "Google",
+      "securedBy": "Protegido por Finança Fácil Cloud"
     }
+  },
+  "freedom": {
+    "days": "Dias de Liberdade",
+    "target": "Meta",
+    "status": "Estado",
+    "compass": {
+      "title": "Bússola Financeira",
+      "yourCompass": "Sua Bússola",
+      "anatomy": "Anatomia da sua Liberdade",
+      "description": "Representa o tempo que você poderia viver sem renda externa mantendo seus gastos atuais.",
+      "tip": "Terminando dívidas e economizando, este número cresce para proteger seu tempo de vida.",
+      "currentLevel": "Seu Nível Atual:",
+      "safe": "Zona Segura",
+      "warning": "Zona de Alerta",
+      "danger": "Zona Crítica"
+    },
+    "tiers": {
+      "survival": "Na corda bamba",
+      "survivalDesc": "Estado Crítico. Você não tem respiro suficiente para o mês. O objetivo é sair daqui rápido.",
+      "security": "Piso Firme",
+      "securityDesc": "Você tem uma almofada de 3 a 6 meses. Está protegido contra imprevistos.",
+      "flexibility": "Caminhando sozinho",
+      "flexibilityDesc": "Você pode começar a tomar decisões sem pressão imediata.",
+      "independence": "Dono do meu Tempo",
+      "independenceDesc": "Parabéns! Você tem mais de um ano de vida garantida.",
+      "abundance": "Liberdade Total",
+      "abundanceDesc": "Você alcançou o topo. Seu tempo hoje é 100% seu."
+    }
+  },
+  "liquidity": {
+    "available": {
+      "title": "Total Disponível",
+      "subtitle": "Entradas - Saídas fixas",
+      "info": "Sua renda declarada menos os gastos fixos do mês. É o valor total disponível para suas contas compartilhadas.",
+      "description": "Manter este poço positivo garante que seus compromissos fixos estejam cobertos."
+    },
+    "disposable": {
+      "title": "Dinheiro para Aproveitar",
+      "subtitle": "Sua margem hoje",
+      "info": "Sua margem real de hoje. É o dinheiro que sobra livre depois de garantir seus gastos e dívidas do mês.",
+      "description": "Este é o dinheiro que você pode gastar hoje sem culpa e sem comprometer seu futuro."
+    }
+  },
+  "dimension": {
+    "title": "Dimensão Liberdade",
+    "burnRate": "Meu Custo por Dia",
+    "reserves": "Minhas Economias de Emergência",
+    "debt": "Dívida Total",
+    "assets": "Ativos",
+    "netWorth": "Patrimônio Líquido",
+    "dailyCost": "Seu custo diário",
+    "emergencySavings": "Dinheiro + Investimentos",
+    "debtImpact": "Tempo perdido em dívidas",
+    "allPending": "Tudo pendente",
+    "realWealth": "Minha Riqueza Real",
+    "whatIHave": "O que tenho (Bens)",
+    "whatIOwe": "O que devo (Dívidas)",
+    "netWorthLabel": "Riqueza Real"
+  },
+  "tooltips": {
+    "freedomDays": {
+      "title": "Dias de Respiro",
+      "content": "Representa o tempo que você poderia viver sem renda externa mantendo seus gastos atuais.",
+      "description": "Seus dias são o resultado de dividir seu suporte total (Saldos + Investimentos) pelo que você gasta por dia."
+    },
+    "burnRate": {
+      "title": "Meu Custo por Dia",
+      "content": "O que custa viver cada dia com base na sua Estrutura Real declarada."
+    },
+    "reserves": {
+      "title": "Economias para Emergências",
+      "content": "Soma dos seus saldos bancários, economias e investimentos líquidos.",
+      "description": "Apenas o que você pode converter em dinheiro em 24-48 horas é considerado suporte real."
+    },
+    "debt": {
+      "title": "Dívida Total",
+      "content": "Soma de todas as suas dívidas ativas (créditos, parcelas pendentes).",
+      "description": "Cada peso em dívida reduz sua liberdade financeira."
+    }
+  },
+  "movements": {
+    "title": "Movimentos Recentes",
+    "recentActivity": "Atividades Recentes",
+    "viewAll": "Ver tudo",
+    "empty": "Não há movimentos recentes",
+    "emptyHint": "Use o botão FALAR para registrar algo",
+    "today": "HOJE",
+    "expense": "Gasto",
+    "income": "Renda",
+    "contribution": "Contribuição"
+  },
+  "voice": {
+    "recording": "🎤 Gravando... Solte para enviar",
+    "processing": "Analisando...",
+    "saving": "Salvando...",
+    "saved": "✅ Adicionado!",
+    "incomeSaved": "✅ Renda registrada!",
+    "error": "Não entendi. Tente novamente.",
+    "noAudio": "Nenhum áudio detectado",
+    "audioError": "Erro de áudio",
+    "holdToSpeak": "Mantenha pressionado para falar"
+  },
+  "country": {
+    "selector": {
+      "title": "De onde você nos visita?",
+      "subtitle": "Isso nos ajuda a personalizar sua experiência",
+      "search": "Buscar país...",
+      "confirm": "Confirmar"
+    }
+  },
+  "premium": {
+    "banner": "Mude para Premium e ative o Assistente AI avançado!",
+    "upgrade": "Melhorar"
+  },
+  "setup": {
+    "title": "Contas Chave",
+    "myRealNumbers": "Meus Números Reais",
+    "credits": {
+      "title": "Dívidas Parceladas",
+      "subtitle": "Créditos",
+      "add": "Adicionar",
+      "totalInstallments": "Total de Parcelas",
+      "installmentOf": "parcela {current} de {total}",
+      "remaining": "{count} restantes",
+      "month": "mês"
+    },
+    "subscriptions": {
+      "title": "Gastos Formiga",
+      "subtitle": "Assinaturas"
+    },
+    "services": {
+      "title": "Contas a Pagar",
+      "subtitle": "Serviços",
+      "autoAverage": "Média automática",
+      "autoAverageInfo": "O sistema calcula a média dos seus últimos 3 meses automaticamente"
+    },
+    "assets": {
+      "title": "Bens e Economias",
+      "subtitle": "Ativos",
+      "property": "Imóvel",
+      "vehicle": "Veículo",
+      "investment": "Investimento",
+      "other": "Outro"
+    },
+    "partner": {
+      "title": "Contribuição do Parceiro",
+      "name": "Nome",
+      "monthlyAmount": "Valor mensal"
+    },
+    "burnRate": {
+      "title": "Custo de Manutenção",
+      "subtitle": "BurnRate"
+    },
+    "goal": {
+      "title": "Meta Mensal",
+      "monthlyGoal": "Meta mensal"
+    },
+    "saveAll": "Salvar tudo",
+    "add": "Adicionar",
+    "saveChanges": "Salvar Alterações",
+    "labels": {
+      "name": "Nome",
+      "conceptName": "Nome do conceito...",
+      "monthlyAmount": "Valor mensal",
+      "totalInstallments": "Total de parcelas:",
+      "totalDebt": "Dívida Total:",
+      "weightOnBreathing": "Peso no meu Respiro:",
+      "remaining": "restantes",
+      "automaticAverage": "Média Automática",
+      "automatic": "automático",
+      "assetsNote": "* Apenas \"Investimento\" soma aos Dias de Respiro",
+      "burnRate": "Custo de Manutenção (Burn Rate)",
+      "monthlyGoal": "Meta mensal",
+      "assetPlaceholder": "Ex: Carro, Apto, Investimentos..."
+    }
+  },
+  "history": {
+    "title": "Histórico",
+    "subtitle": "Analise seus movimentos",
+    "filterByPeriod": "Filtrar por período",
+    "from": "De",
+    "to": "Até",
+    "income": "Rendas",
+    "expenses": "Gastos",
+    "noMovements": "Não há movimentos neste período"
+  },
+  "routine": {
+    "dailyBurn": "Gasto Diário",
+    "days": "Dias"
+  },
+  "common": {
+    "close": "Fechar",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "search": "Buscar",
+    "loading": "Carregando...",
+    "private": "PRIVADO"
+  }
 }

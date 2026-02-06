@@ -1,222 +1,213 @@
 {
-    "app": {
-        "title": "Easy Finance",
-        "subtitle": "Total Control"
-    },
-    "auth": {
-        "signin": {
-            "title": "Total Control",
-            "subtitle": "Your financial freedom starts with a first command. Enter your email to begin.",
-            "secureLogin": "Sign in with your secure account",
-            "continueWith": "Or continue with",
-            "google": "Google",
-            "securedBy": "Secured by Easy Finance Cloud"
-        }
-    },
-    "freedom": {
-        "days": "Freedom Days",
-        "target": "Target",
-        "status": "Status",
-        "compass": {
-            "title": "Financial Compass",
-            "yourCompass": "Your Compass",
-            "anatomy": "Anatomy of your Freedom",
-            "description": "Represents the time you could live without external income while maintaining your current expenses.",
-            "tip": "By finishing debts and saving, this number grows to protect your lifetime.",
-            "currentLevel": "Your Current Level:",
-            "safe": "Safe Zone",
-            "warning": "Warning Zone",
-            "danger": "Critical Zone"
-        },
-        "tiers": {
-            "survival": "On the edge",
-            "survivalDesc": "Critical State. You don't have enough breathing room for the month. The goal is to get out of here fast.",
-            "security": "Solid Ground",
-            "securityDesc": "You have a 3 to 6 month cushion. You're protected against unforeseen events.",
-            "flexibility": "Walking alone",
-            "flexibilityDesc": "You can start making decisions without immediate pressure.",
-            "independence": "Master of my Time",
-            "independenceDesc": "Congratulations! You have more than a year of life secured.",
-            "abundance": "Total Freedom",
-            "abundanceDesc": "You've reached the top. Your time today is 100% yours."
-        }
-    },
-    "liquidity": {
-        "available": {
-            "title": "Total Available",
-            "subtitle": "Income - Fixed Expenses",
-            "info": "Your declared income minus fixed monthly expenses. It's the total amount available for your shared accounts.",
-            "description": "Keeping this pool positive ensures your fixed commitments are covered."
-        },
-        "disposable": {
-            "title": "Money to Enjoy",
-            "subtitle": "Your margin today",
-            "info": "Your real margin today. It's the money left free after securing your monthly expenses and debts.",
-            "description": "This is the money you can spend today guilt-free without compromising your future."
-        }
-    },
-    "dimension": {
-        "title": "Freedom Dimension",
-        "burnRate": "My Daily Cost",
-        "reserves": "My Emergency Savings",
-        "debt": "Total Debt",
-        "assets": "Assets",
-        "netWorth": "Net Worth",
-        "dailyCost": "Your daily cost",
-        "emergencySavings": "Cash + Investments",
-        "debtImpact": "Time lost to debt",
-        "allPending": "All pending",
-        "realWealth": "My Real Wealth",
-        "whatIHave": "What I have (Assets)",
-        "whatIOwe": "What I owe (Debts)",
-        "netWorthLabel": "Real Wealth"
-    },
-    "tooltips": {
-        "freedomDays": {
-            "title": "Breathing Room Days",
-            "content": "Represents the time you could live without external income while maintaining your current expenses.",
-            "description": "Your days are the result of dividing your total backup (Balances + Investments) by what you spend each day."
-        },
-        "burnRate": {
-            "title": "My Daily Cost",
-            "content": "What it costs you to live each day based on your declared Real Structure."
-        },
-        "reserves": {
-            "title": "Emergency Savings",
-            "content": "Sum of your bank balances, savings and liquid investments.",
-            "description": "Only what you can convert to cash in 24-48 hours is considered real backup."
-        },
-        "debt": {
-            "title": "Total Debt",
-            "content": "Sum of all your active debts (credits, pending installments).",
-            "description": "Every peso in debt reduces your financial freedom."
-        }
-    },
-    "movements": {
-        "title": "Recent Movements",
-        "recentActivity": "Recent Activities",
-        "viewAll": "View all",
-        "empty": "No movements recorded",
-        "expense": "Expense",
-        "income": "Income",
-        "contribution": "Contribution"
-    },
-    "voice": {
-        "recording": "🎤 Recording... Release to send",
-        "processing": "Analyzing...",
-        "saving": "Saving...",
-        "saved": "✅ Added!",
-        "incomeSaved": "✅ Income recorded!",
-        "error": "Didn't understand. Try again.",
-        "noAudio": "No audio detected",
-        "audioError": "Audio error",
-        "holdToSpeak": "Hold to speak"
-    },
-    "country": {
-        "selector": {
-            "title": "Where are you visiting from?",
-            "subtitle": "This helps us personalize your experience",
-            "search": "Search country...",
-            "confirm": "Confirm"
-        }
-    },
-    "premium": {
-        "banner": "Upgrade to Premium and activate the advanced AI Assistant!",
-        "upgrade": "Upgrade"
-    },
-    "setup": {
-        "title": "Key Accounts",
-        "myRealNumbers": "My Real Numbers",
-        "credits": {
-            "title": "Installment Debts",
-            "subtitle": "Credits",
-            "add": "Add",
-            "totalInstallments": "Total Installments",
-            "installmentOf": "installment {current} of {total}",
-            "remaining": "{count} remaining",
-            "month": "month"
-        },
-        "subscriptions": {
-            "title": "Ant Expenses",
-            "subtitle": "Subscriptions"
-        },
-        "services": {
-            "title": "Bills to Pay",
-            "subtitle": "Services",
-            "autoAverage": "Auto average",
-            "autoAverageInfo": "The system automatically calculates the average of your last 3 months"
-        },
-        "assets": {
-            "title": "Goods and Savings",
-            "subtitle": "Assets",
-            "property": "Property",
-            "vehicle": "Vehicle",
-            "investment": "Investment",
-            "other": "Other"
-        },
-        "partner": {
-            "title": "Partner Contribution",
-            "name": "Name",
-            "monthlyAmount": "Monthly amount"
-        },
-        "burnRate": {
-            "title": "Maintenance Cost",
-            "subtitle": "BurnRate"
-        },
-        "goal": {
-            "title": "Monthly Goal",
-            "monthlyGoal": "Monthly goal"
-        },
-        "saveAll": "Save all",
-        "add": "Add",
-        "saveChanges": "Save Changes",
-        "labels": {
-            "name": "Name",
-            "conceptName": "Concept name...",
-            "monthlyAmount": "Monthly amount",
-            "totalInstallments": "Total installments:",
-            "totalDebt": "Total Debt:",
-            "weightOnBreathing": "Weight on my Breathing:",
-            "remaining": "remaining",
-            "automaticAverage": "Automatic Average",
-            "automatic": "automatic",
-            "assetsNote": "* Only \"Investment\" adds to Breathing Days",
-            "burnRate": "Maintenance Cost (Burn Rate)",
-            "monthlyGoal": "Monthly goal",
-            "assetPlaceholder": "Ex: Car, Apt, Investments..."
-        }
-    },
-    "history": {
-        "title": "History",
-        "subtitle": "Analyze your movements",
-        "filterByPeriod": "Filter by period",
-        "from": "From",
-        "to": "To",
-        "income": "Income",
-        "expenses": "Expenses",
-        "noMovements": "No movements in this period"
-    },
-    "movements": {
-        "title": "Recent Movements",
-        "recentActivity": "Recent Activities",
-        "viewAll": "View all",
-        "empty": "No recent movements",
-        "emptyHint": "Use the SPEAK button to record something",
-        "today": "TODAY",
-        "expense": "Expense",
-        "income": "Income",
-        "contribution": "Contribution"
-    },
-    "routine": {
-        "dailyBurn": "Daily Burn",
-        "days": "Days"
-    },
-    "common": {
-        "close": "Close",
-        "save": "Save",
-        "cancel": "Cancel",
-        "search": "Search",
-        "loading": "Loading...",
-        "private": "PRIVATE"
+  "app": {
+    "title": "Easy Finance",
+    "subtitle": "Total Control"
+  },
+  "auth": {
+    "signin": {
+      "title": "Total Control",
+      "subtitle": "Your financial freedom starts with a first command. Enter your email to begin.",
+      "secureLogin": "Sign in with your secure account",
+      "continueWith": "Or continue with",
+      "google": "Google",
+      "securedBy": "Secured by Easy Finance Cloud"
     }
+  },
+  "freedom": {
+    "days": "Freedom Days",
+    "target": "Target",
+    "status": "Status",
+    "compass": {
+      "title": "Financial Compass",
+      "yourCompass": "Your Compass",
+      "anatomy": "Anatomy of your Freedom",
+      "description": "Represents the time you could live without external income while maintaining your current expenses.",
+      "tip": "By finishing debts and saving, this number grows to protect your lifetime.",
+      "currentLevel": "Your Current Level:",
+      "safe": "Safe Zone",
+      "warning": "Warning Zone",
+      "danger": "Critical Zone"
+    },
+    "tiers": {
+      "survival": "On the edge",
+      "survivalDesc": "Critical State. You don't have enough breathing room for the month. The goal is to get out of here fast.",
+      "security": "Solid Ground",
+      "securityDesc": "You have a 3 to 6 month cushion. You're protected against unforeseen events.",
+      "flexibility": "Walking alone",
+      "flexibilityDesc": "You can start making decisions without immediate pressure.",
+      "independence": "Master of my Time",
+      "independenceDesc": "Congratulations! You have more than a year of life secured.",
+      "abundance": "Total Freedom",
+      "abundanceDesc": "You've reached the top. Your time today is 100% yours."
+    }
+  },
+  "liquidity": {
+    "available": {
+      "title": "Total Available",
+      "subtitle": "Income - Fixed Expenses",
+      "info": "Your declared income minus fixed monthly expenses. It's the total amount available for your shared accounts.",
+      "description": "Keeping this pool positive ensures your fixed commitments are covered."
+    },
+    "disposable": {
+      "title": "Money to Enjoy",
+      "subtitle": "Your margin today",
+      "info": "Your real margin today. It's the money left free after securing your monthly expenses and debts.",
+      "description": "This is the money you can spend today guilt-free without compromising your future."
+    }
+  },
+  "dimension": {
+    "title": "Freedom Dimension",
+    "burnRate": "My Daily Cost",
+    "reserves": "My Emergency Savings",
+    "debt": "Total Debt",
+    "assets": "Assets",
+    "netWorth": "Net Worth",
+    "dailyCost": "Your daily cost",
+    "emergencySavings": "Cash + Investments",
+    "debtImpact": "Time lost to debt",
+    "allPending": "All pending",
+    "realWealth": "My Real Wealth",
+    "whatIHave": "What I have (Assets)",
+    "whatIOwe": "What I owe (Debts)",
+    "netWorthLabel": "Real Wealth"
+  },
+  "tooltips": {
+    "freedomDays": {
+      "title": "Breathing Room Days",
+      "content": "Represents the time you could live without external income while maintaining your current expenses.",
+      "description": "Your days are the result of dividing your total backup (Balances + Investments) by what you spend each day."
+    },
+    "burnRate": {
+      "title": "My Daily Cost",
+      "content": "What it costs you to live each day based on your declared Real Structure."
+    },
+    "reserves": {
+      "title": "Emergency Savings",
+      "content": "Sum of your bank balances, savings and liquid investments.",
+      "description": "Only what you can convert to cash in 24-48 hours is considered real backup."
+    },
+    "debt": {
+      "title": "Total Debt",
+      "content": "Sum of all your active debts (credits, pending installments).",
+      "description": "Every peso in debt reduces your financial freedom."
+    }
+  },
+  "movements": {
+    "title": "Recent Movements",
+    "recentActivity": "Recent Activities",
+    "viewAll": "View all",
+    "empty": "No recent movements",
+    "emptyHint": "Use the SPEAK button to record something",
+    "today": "TODAY",
+    "expense": "Expense",
+    "income": "Income",
+    "contribution": "Contribution"
+  },
+  "voice": {
+    "recording": "🎤 Recording... Release to send",
+    "processing": "Analyzing...",
+    "saving": "Saving...",
+    "saved": "✅ Added!",
+    "incomeSaved": "✅ Income recorded!",
+    "error": "Didn't understand. Try again.",
+    "noAudio": "No audio detected",
+    "audioError": "Audio error",
+    "holdToSpeak": "Hold to speak"
+  },
+  "country": {
+    "selector": {
+      "title": "Where are you visiting from?",
+      "subtitle": "This helps us personalize your experience",
+      "search": "Search country...",
+      "confirm": "Confirm"
+    }
+  },
+  "premium": {
+    "banner": "Upgrade to Premium and activate the advanced AI Assistant!",
+    "upgrade": "Upgrade"
+  },
+  "setup": {
+    "title": "Key Accounts",
+    "myRealNumbers": "My Real Numbers",
+    "credits": {
+      "title": "Installment Debts",
+      "subtitle": "Credits",
+      "add": "Add",
+      "totalInstallments": "Total Installments",
+      "installmentOf": "installment {current} of {total}",
+      "remaining": "{count} remaining",
+      "month": "month"
+    },
+    "subscriptions": {
+      "title": "Ant Expenses",
+      "subtitle": "Subscriptions"
+    },
+    "services": {
+      "title": "Bills to Pay",
+      "subtitle": "Services",
+      "autoAverage": "Auto average",
+      "autoAverageInfo": "The system automatically calculates the average of your last 3 months"
+    },
+    "assets": {
+      "title": "Goods and Savings",
+      "subtitle": "Assets",
+      "property": "Property",
+      "vehicle": "Vehicle",
+      "investment": "Investment",
+      "other": "Other"
+    },
+    "partner": {
+      "title": "Partner Contribution",
+      "name": "Name",
+      "monthlyAmount": "Monthly amount"
+    },
+    "burnRate": {
+      "title": "Maintenance Cost",
+      "subtitle": "BurnRate"
+    },
+    "goal": {
+      "title": "Monthly Goal",
+      "monthlyGoal": "Monthly goal"
+    },
+    "saveAll": "Save all",
+    "add": "Add",
+    "saveChanges": "Save Changes",
+    "labels": {
+      "name": "Name",
+      "conceptName": "Concept name...",
+      "monthlyAmount": "Monthly amount",
+      "totalInstallments": "Total installments:",
+      "totalDebt": "Total Debt:",
+      "weightOnBreathing": "Weight on my Breathing:",
+      "remaining": "remaining",
+      "automaticAverage": "Automatic Average",
+      "automatic": "automatic",
+      "assetsNote": "* Only \"Investment\" adds to Breathing Days",
+      "burnRate": "Maintenance Cost (Burn Rate)",
+      "monthlyGoal": "Monthly goal",
+      "assetPlaceholder": "Ex: Car, Apt, Investments..."
+    }
+  },
+  "history": {
+    "title": "History",
+    "subtitle": "Analyze your movements",
+    "filterByPeriod": "Filter by period",
+    "from": "From",
+    "to": "To",
+    "income": "Income",
+    "expenses": "Expenses",
+    "noMovements": "No movements in this period"
+  },
+  "routine": {
+    "dailyBurn": "Daily Burn",
+    "days": "Days"
+  },
+  "common": {
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "search": "Search",
+    "loading": "Loading...",
+    "private": "PRIVATE"
+  }
 }
