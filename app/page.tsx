@@ -26,6 +26,10 @@ import { FreedomDimension } from "@/components/FreedomDimension"
 import Image from "next/image"
 import logo from "../public/logo.png"
 
+// Force dynamic rendering because we use auth() which requires headers
+export const dynamic = 'force-dynamic'
+
+
 export default async function Home() {
   let session;
   try {
