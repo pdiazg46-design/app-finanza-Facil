@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import { Check, Globe } from 'lucide-react'
+import { useLocaleContext } from './LocaleContext'
 
 export function CountrySelector() {
+    const { t } = useLocaleContext()
     const [isVisible, setIsVisible] = useState(false)
     const [mounted, setMounted] = useState(false)
 
@@ -57,8 +59,8 @@ export function CountrySelector() {
                     <div className="mx-auto w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3 text-blue-600">
                         <Globe className="w-6 h-6" />
                     </div>
-                    <h2 className="text-xl font-black text-slate-800 mb-1">Bienvenido</h2>
-                    <p className="text-sm text-slate-500">Selecciona tu país</p>
+                    <h2 className="text-xl font-black text-slate-800 mb-1">{t('country.selector.title')}</h2>
+                    <p className="text-sm text-slate-500">{t('country.selector.subtitle')}</p>
                 </div>
 
                 {/* Options List */}

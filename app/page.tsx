@@ -20,6 +20,7 @@ import { PremiumUpgradeButton } from "@/components/PremiumUpgradeButton"
 import { WelcomeBanner } from "@/components/WelcomeBanner"
 import { CountrySelector } from "@/components/CountrySelector"
 import { LiquidityCard } from "@/components/LiquidityCard"
+import { TranslatedLiquidityCards } from "@/components/TranslatedLiquidityCards"
 import { CompassSection } from "@/components/CompassSection"
 import { FreedomDimension } from "@/components/FreedomDimension"
 import Image from "next/image"
@@ -158,6 +159,7 @@ export default async function Home() {
                 {/* Scrollable Content - Padding for fixed header */}
                 <div className="flex-1 overflow-y-auto px-4 pt-[70px] pb-36 overscroll-behavior-none">
                   <h2 className="text-center text-[10px] font-black text-atsit-blue uppercase tracking-[0.2em] mb-1 mt-2">
+                    {/* Title will be translated via LocaleProvider */}
                     Finanza Fácil
                   </h2>
 
@@ -166,26 +168,11 @@ export default async function Home() {
                   <CompassSection freedomDays={freedomDays || 0} />
 
                   {/* Cognitive Decision cards Section */}
-                  <div className="grid grid-cols-2 gap-3 mt-4 mb-3">
-                    <LiquidityCard
-                      type="common"
-                      title="Total Disponible"
-                      subtitle="Entradas - Salidas fijos"
-                      amount={(fund as any).balance}
-                      projectedExpenses={projectedExpenses}
-                      infoContent="Tus ingresos declarados menos los gastos fijos del mes. Es el monto total disponible para tus cuentas compartidas."
-                      infoDescription="Mantener este pozo positivo asegura que tus compromisos fijos estén cubiertos."
-                    />
-
-                    <LiquidityCard
-                      type="disposable"
-                      title="Plata para Disfrutar"
-                      subtitle="Tu margen hoy"
-                      amount={disposableIncome}
-                      infoContent="Tu margen real de hoy. Es la plata que queda libre después de asegurar tus gastos y deudas del mes."
-                      infoDescription="Este es el dinero que puedes gastar hoy sin culpa y sin comprometer tu futuro."
-                    />
-                  </div>
+                  <TranslatedLiquidityCards
+                    commonBalance={(fund as any).balance}
+                    disposableIncome={disposableIncome}
+                    projectedExpenses={projectedExpenses}
+                  />
 
                   <FreedomDimension
                     freedomDays={freedomDays || 0}

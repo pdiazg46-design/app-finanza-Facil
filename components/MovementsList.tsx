@@ -9,12 +9,14 @@ import { deleteMovement } from '../app/actions/fund-actions'
 import { HistoryDrawer } from './HistoryDrawer'
 import { usePrivacy } from './PrivacyContext'
 import { CurrencyText } from './CurrencyText'
+import { useLocaleContext } from './LocaleContext'
 
 interface MovementsListProps {
     movements: Movement[]
 }
 
 export function MovementsList({ movements }: MovementsListProps) {
+    const { t } = useLocaleContext()
     const { isPrivate, togglePrivacy } = usePrivacy()
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 

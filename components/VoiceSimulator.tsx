@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { parseVoiceCommand, generateConfirmationMessage, ParsedCommand } from "@/lib/voice-nlp"
 import { registerExpense, addContribution, getFundMetrics } from '../app/actions/fund-actions'
 import { FinanceEngine } from '@/lib/finance-engine'
+import { useLocaleContext } from './LocaleContext'
 
 // Extend browser types for Speech Recognition
 declare global {
@@ -16,6 +17,7 @@ declare global {
 }
 
 export function VoiceSimulator() {
+    const { t } = useLocaleContext()
     const router = useRouter()
     const [isProcessing, setIsProcessing] = useState(false)
     const [isRecording, setIsRecording] = useState(false)
@@ -87,7 +89,7 @@ export function VoiceSimulator() {
         recognition.onstart = () => {
             setIsPreparing(false)
             setIsRecording(true)
-            setStatus("🎤 Grabando... Suelta para enviar")
+            setStatus(t('voice.recording'))
             setInterimTranscript("")
             playReadySound()
         }
@@ -111,7 +113,7 @@ export function VoiceSimulator() {
             console.error("Speech Recognition Error:", event.error)
             setIsPreparing(false)
             if (event.error !== 'no-speech' && event.error !== 'aborted') {
-                setStatus("Error de audio")
+                setStatus(t('voice.audioError'))
             }
             setIsRecording(false)
             setTimeout(() => setStatus(null), 2000)
@@ -125,8 +127,8 @@ export function VoiceSimulator() {
                 handleProcessCommand(finalVal)
             } else if (!finalVal || finalVal.length <= 2) {
                 // Keep the "no audio" feedback brief
-                if (status === "Iniciando..." || isRecording) {
-                    setStatus("No se detectó audio")
+                if (status === t('voice.preparing') || isRecording) {
+                    setStatus(t('voice.noAudio'))
                     setTimeout(() => setStatus(null), 2000)
                 }
             }
@@ -151,7 +153,7 @@ export function VoiceSimulator() {
         if (!command || isProcessing) return
 
         setIsProcessing(true)
-        setStatus("Analizando...")
+        setStatus(t('voice.processing'))
         interimRef.current = ""
 
         try {
@@ -159,7 +161,7 @@ export function VoiceSimulator() {
             const parsed = parseVoiceCommand(command)
 
             if (!parsed || parsed.confidence < 0.5) {
-                setStatus("No entendí. Intenta de nuevo.")
+                setStatus(t('voice.error'))
                 setTimeout(() => {
                     setStatus(null)
                     setInterimTranscript("")
@@ -169,7 +171,7 @@ export function VoiceSimulator() {
             }
 
             // Add expense or contribution directly
-            setStatus("Guardando...")
+            setStatus(t('voice.saving'))
 
             let result;
             if (parsed.type === 'CONTRIBUTION') {
@@ -192,7 +194,7 @@ export function VoiceSimulator() {
                 }
 
                 setLastResult({ name: parsed.name, amount: parsed.amount, impact })
-                setStatus(parsed.type === 'CONTRIBUTION' ? `✅ ¡Ingreso registrado!` : `✅ ¡Agregado!`)
+                setStatus(parsed.type === 'CONTRIBUTION' ? t('voice.incomeSaved') : t('voice.saved'))
 
                 router.refresh()
 
