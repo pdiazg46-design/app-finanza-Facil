@@ -1,0 +1,77 @@
+{
+    "app": {
+        "title": "Finanza Fácil",
+        "subtitle": "Control Total"
+    },
+    "auth": {
+        "signin": {
+            "title": "Control Total",
+            "subtitle": "Tu libertad financiera comienza con un primer comando. Ingresa tu email para comenzar.",
+            "secureLogin": "Ingresa con tu cuenta segura",
+            "continueWith": "O continúa con",
+            "google": "Google",
+            "securedBy": "Asegurado por Finanza Fácil Cloud"
+        }
+    },
+    "freedom": {
+        "days": "Días de Libertad",
+        "target": "Meta",
+        "compass": {
+            "title": "Brújula Financiera",
+            "safe": "Zona Segura",
+            "warning": "Zona de Alerta",
+            "danger": "Zona Crítica"
+        }
+    },
+    "liquidity": {
+        "available": {
+            "title": "Total Disponible",
+            "subtitle": "Entradas - Salidas fijos",
+            "info": "Tus ingresos declarados menos los gastos fijos del mes. Es el monto total disponible para tus cuentas compartidas.",
+            "description": "Mantener este pozo positivo asegura que tus compromisos fijos estén cubiertos."
+        },
+        "disposable": {
+            "title": "Plata para Disfrutar",
+            "subtitle": "Tu margen hoy",
+            "info": "Tu margen real de hoy. Es la plata que queda libre después de asegurar tus gastos y deudas del mes.",
+            "description": "Este es el dinero que puedes gastar hoy sin culpa y sin comprometer tu futuro."
+        }
+    },
+    "dimension": {
+        "title": "Dimensión Libertad",
+        "burnRate": "Quema Mensual",
+        "reserves": "Reservas Líquidas",
+        "debt": "Deuda Total",
+        "assets": "Activos",
+        "netWorth": "Patrimonio Neto"
+    },
+    "movements": {
+        "title": "Movimientos Recientes",
+        "empty": "No hay movimientos registrados",
+        "expense": "Gasto",
+        "income": "Ingreso",
+        "contribution": "Aporte"
+    },
+    "voice": {
+        "recording": "🎤 Grabando... Suelta para enviar",
+        "processing": "Analizando...",
+        "saving": "Guardando...",
+        "saved": "✅ ¡Agregado!",
+        "incomeSaved": "✅ ¡Ingreso registrado!",
+        "error": "No entendí. Intenta de nuevo.",
+        "noAudio": "No se detectó audio",
+        "audioError": "Error de audio"
+    },
+    "country": {
+        "selector": {
+            "title": "¿Desde dónde nos visitas?",
+            "subtitle": "Esto nos ayuda a personalizar tu experiencia",
+            "search": "Buscar país...",
+            "confirm": "Confirmar"
+        }
+    },
+    "premium": {
+        "banner": "¡Pásate a Premium y activa el Asistente AI avanzado!",
+        "upgrade": "Mejorar"
+    }
+}

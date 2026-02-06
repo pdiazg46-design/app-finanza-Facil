@@ -1,0 +1,77 @@
+{
+    "app": {
+        "title": "Easy Finance",
+        "subtitle": "Total Control"
+    },
+    "auth": {
+        "signin": {
+            "title": "Total Control",
+            "subtitle": "Your financial freedom starts with a first command. Enter your email to begin.",
+            "secureLogin": "Sign in with your secure account",
+            "continueWith": "Or continue with",
+            "google": "Google",
+            "securedBy": "Secured by Easy Finance Cloud"
+        }
+    },
+    "freedom": {
+        "days": "Freedom Days",
+        "target": "Target",
+        "compass": {
+            "title": "Financial Compass",
+            "safe": "Safe Zone",
+            "warning": "Warning Zone",
+            "danger": "Critical Zone"
+        }
+    },
+    "liquidity": {
+        "available": {
+            "title": "Total Available",
+            "subtitle": "Income - Fixed expenses",
+            "info": "Your declared income minus fixed monthly expenses. This is the total amount available for your shared accounts.",
+            "description": "Keeping this pool positive ensures your fixed commitments are covered."
+        },
+        "disposable": {
+            "title": "Money to Enjoy",
+            "subtitle": "Your margin today",
+            "info": "Your real margin today. This is the money left free after securing your monthly expenses and debts.",
+            "description": "This is the money you can spend today guilt-free without compromising your future."
+        }
+    },
+    "dimension": {
+        "title": "Freedom Dimension",
+        "burnRate": "Monthly Burn Rate",
+        "reserves": "Liquid Reserves",
+        "debt": "Total Debt",
+        "assets": "Assets",
+        "netWorth": "Net Worth"
+    },
+    "movements": {
+        "title": "Recent Movements",
+        "empty": "No movements recorded",
+        "expense": "Expense",
+        "income": "Income",
+        "contribution": "Contribution"
+    },
+    "voice": {
+        "recording": "🎤 Recording... Release to send",
+        "processing": "Analyzing...",
+        "saving": "Saving...",
+        "saved": "✅ Added!",
+        "incomeSaved": "✅ Income recorded!",
+        "error": "Didn't understand. Try again.",
+        "noAudio": "No audio detected",
+        "audioError": "Audio error"
+    },
+    "country": {
+        "selector": {
+            "title": "Where are you visiting from?",
+            "subtitle": "This helps us personalize your experience",
+            "search": "Search country...",
+            "confirm": "Confirm"
+        }
+    },
+    "premium": {
+        "banner": "Upgrade to Premium and activate the advanced AI Assistant!",
+        "upgrade": "Upgrade"
+    }
+}

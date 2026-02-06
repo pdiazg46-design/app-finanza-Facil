@@ -15,9 +15,11 @@ export function CountrySelector() {
         }
     }, [])
 
-    const handleSelect = (country: string, currency: string, locale: string) => {
+    const handleSelect = (country: string, currency: string, locale: string, symbol: string) => {
+        localStorage.setItem('selectedCountry', country) // Used by LocaleContext
         localStorage.setItem('at-sit-user-country', country)
         localStorage.setItem('at-sit-user-currency', currency)
+        localStorage.setItem('at-sit-user-currency-symbol', symbol) // Used by CurrencyText
         localStorage.setItem('at-sit-user-locale', locale)
 
         window.dispatchEvent(new Event('storage'))
@@ -64,7 +66,7 @@ export function CountrySelector() {
                     {COUNTRIES.map((country) => (
                         <button
                             key={country.code}
-                            onClick={() => handleSelect(country.code, country.currency, country.locale)}
+                            onClick={() => handleSelect(country.code, country.currency, country.locale, country.symbol)}
                             className="w-full group relative flex items-center gap-4 p-3 rounded-2xl border-2 border-slate-100 hover:border-blue-500 hover:bg-blue-50 transition-all active:scale-95"
                         >
                             <span className="text-3xl shadow-sm rounded-full overflow-hidden">{country.flag}</span>

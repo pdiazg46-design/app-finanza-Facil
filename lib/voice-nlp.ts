@@ -13,22 +13,46 @@ export interface ParsedCommand {
 const LOCALIZED_SYNONYMS: Record<string, Record<string, number>> = {
     'CLP': {
         'lucas': 1000, 'luca': 1000, 'luka': 1000, 'lukas': 1000,
-        'mil': 1000, 'palo': 1000000, 'palos': 1000000, 'millón': 1000000, 'millon': 1000000
+        'gamba': 100, 'gambas': 100,
+        'quina': 500, 'quinas': 500,
+        'mil': 1000, 'palo': 1000000, 'palos': 1000000,
+        'millón': 1000000, 'millon': 1000000
+    },
+    'BRL': {
+        'real': 1, 'reais': 1,
+        'pau': 1000, 'paus': 1000,
+        'conto': 1000000, 'contos': 1000000,
+        'grana': 1, // Generic money term
+        'mil': 1000, 'milhão': 1000000, 'milhao': 1000000
     },
     'PEN': {
         'sol': 1, 'soles': 1, 'quinto': 0.5, 'luca': 1, 'mil': 1000,
         'palo': 1000000, 'palos': 1000000, 'millón': 1000000, 'millon': 1000000
     },
     'USD': {
-        'buck': 1, 'bucks': 1, 'grand': 1000, 'mil': 1000,
-        'million': 1000000, 'millon': 1000000
+        'buck': 1, 'bucks': 1, 'dollar': 1, 'dollars': 1,
+        'grand': 1000, 'k': 1000, 'thousand': 1000,
+        'mil': 1000, 'million': 1000000, 'millon': 1000000
+    },
+    'ARS': {
+        'luca': 1000, 'lucas': 1000, 'palo': 1000000, 'palos': 1000000,
+        'mil': 1000, 'millón': 1000000, 'millon': 1000000
+    },
+    'MXN': {
+        'mil': 1000, 'millón': 1000000, 'millon': 1000000,
+        'varos': 1, 'varo': 1, 'lana': 1 // Mexican slang for money
+    },
+    'COP': {
+        'mil': 1000, 'millón': 1000000, 'millon': 1000000,
+        'luca': 1000, 'lucas': 1000, 'palo': 1000000
     }
 }
 
 // Default synonyms if currency not found
 const DEFAULT_AMOUNT_SYNONYMS: Record<string, number> = LOCALIZED_SYNONYMS['CLP']
 
-const NUMBER_WORDS: Record<string, number> = {
+// Spanish number words
+const NUMBER_WORDS_ES: Record<string, number> = {
     'cero': 0, 'uno': 1, 'una': 1, 'dos': 2, 'tres': 3, 'cuatro': 4,
     'cinco': 5, 'seis': 6, 'siete': 7, 'ocho': 8, 'nueve': 9,
     'diez': 10, 'once': 11, 'doce': 12, 'trece': 13, 'catorce': 14,
@@ -40,6 +64,34 @@ const NUMBER_WORDS: Record<string, number> = {
     'quinientos': 500, 'seiscientos': 600, 'setecientos': 700,
     'ochocientos': 800, 'novecientos': 900
 }
+
+// Portuguese number words
+const NUMBER_WORDS_PT: Record<string, number> = {
+    'zero': 0, 'um': 1, 'uma': 1, 'dois': 2, 'duas': 2, 'três': 3, 'tres': 3,
+    'quatro': 4, 'cinco': 5, 'seis': 6, 'sete': 7, 'oito': 8, 'nove': 9,
+    'dez': 10, 'onze': 11, 'doze': 12, 'treze': 13, 'catorze': 14, 'quatorze': 14,
+    'quinze': 15, 'dezesseis': 16, 'dezessete': 17, 'dezoito': 18, 'dezenove': 19,
+    'vinte': 20, 'trinta': 30, 'quarenta': 40, 'cinquenta': 50,
+    'sessenta': 60, 'setenta': 70, 'oitenta': 80, 'noventa': 90,
+    'cem': 100, 'cento': 100, 'duzentos': 200, 'trezentos': 300,
+    'quatrocentos': 400, 'quinhentos': 500, 'seiscentos': 600,
+    'setecentos': 700, 'oitocentos': 800, 'novecentos': 900
+}
+
+// English number words
+const NUMBER_WORDS_EN: Record<string, number> = {
+    'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
+    'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10,
+    'eleven': 11, 'twelve': 12, 'thirteen': 13, 'fourteen': 14, 'fifteen': 15,
+    'sixteen': 16, 'seventeen': 17, 'eighteen': 18, 'nineteen': 19, 'twenty': 20,
+    'thirty': 30, 'forty': 40, 'fifty': 50, 'sixty': 60, 'seventy': 70,
+    'eighty': 80, 'ninety': 90, 'hundred': 100, 'two hundred': 200,
+    'three hundred': 300, 'four hundred': 400, 'five hundred': 500,
+    'six hundred': 600, 'seven hundred': 700, 'eight hundred': 800, 'nine hundred': 900
+}
+
+// Combined number words (default to Spanish)
+const NUMBER_WORDS: Record<string, number> = { ...NUMBER_WORDS_ES, ...NUMBER_WORDS_PT, ...NUMBER_WORDS_EN }
 
 // Subscription keywords
 const SUBSCRIPTION_KEYWORDS = [

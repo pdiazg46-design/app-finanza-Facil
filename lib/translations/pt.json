@@ -1,0 +1,77 @@
+{
+    "app": {
+        "title": "Finança Fácil",
+        "subtitle": "Controle Total"
+    },
+    "auth": {
+        "signin": {
+            "title": "Controle Total",
+            "subtitle": "Sua liberdade financeira começa com um primeiro comando. Digite seu e-mail para começar.",
+            "secureLogin": "Entre com sua conta segura",
+            "continueWith": "Ou continue com",
+            "google": "Google",
+            "securedBy": "Protegido por Finança Fácil Cloud"
+        }
+    },
+    "freedom": {
+        "days": "Dias de Liberdade",
+        "target": "Meta",
+        "compass": {
+            "title": "Bússola Financeira",
+            "safe": "Zona Segura",
+            "warning": "Zona de Alerta",
+            "danger": "Zona Crítica"
+        }
+    },
+    "liquidity": {
+        "available": {
+            "title": "Total Disponível",
+            "subtitle": "Entradas - Saídas fixas",
+            "info": "Sua renda declarada menos as despesas fixas do mês. É o valor total disponível para suas contas compartilhadas.",
+            "description": "Manter esse fundo positivo garante que seus compromissos fixos estejam cobertos."
+        },
+        "disposable": {
+            "title": "Grana para Aproveitar",
+            "subtitle": "Sua margem hoje",
+            "info": "Sua margem real de hoje. É a grana que sobra livre depois de garantir suas despesas e dívidas do mês.",
+            "description": "Este é o dinheiro que você pode gastar hoje sem culpa e sem comprometer seu futuro."
+        }
+    },
+    "dimension": {
+        "title": "Dimensão Liberdade",
+        "burnRate": "Queima Mensal",
+        "reserves": "Reservas Líquidas",
+        "debt": "Dívida Total",
+        "assets": "Ativos",
+        "netWorth": "Patrimônio Líquido"
+    },
+    "movements": {
+        "title": "Movimentos Recentes",
+        "empty": "Nenhum movimento registrado",
+        "expense": "Despesa",
+        "income": "Receita",
+        "contribution": "Contribuição"
+    },
+    "voice": {
+        "recording": "🎤 Gravando... Solte para enviar",
+        "processing": "Analisando...",
+        "saving": "Salvando...",
+        "saved": "✅ Adicionado!",
+        "incomeSaved": "✅ Receita registrada!",
+        "error": "Não entendi. Tente novamente.",
+        "noAudio": "Nenhum áudio detectado",
+        "audioError": "Erro de áudio"
+    },
+    "country": {
+        "selector": {
+            "title": "De onde você está nos visitando?",
+            "subtitle": "Isso nos ajuda a personalizar sua experiência",
+            "search": "Buscar país...",
+            "confirm": "Confirmar"
+        }
+    },
+    "premium": {
+        "banner": "Mude para Premium e ative o Assistente AI avançado!",
+        "upgrade": "Melhorar"
+    }
+}
