@@ -29,12 +29,16 @@
             "danger": "Critical Zone"
         },
         "tiers": {
-            "survival": "Survival",
-            "security": "Security",
-            "flexibility": "Flexibility",
-            "independence": "Independence",
-            "freedom": "Freedom",
-            "walkingAlone": "Walking alone"
+            "survival": "On the edge",
+            "survivalDesc": "Critical State. You don't have enough breathing room for the month. The goal is to get out of here fast.",
+            "security": "Solid Ground",
+            "securityDesc": "You have a 3 to 6 month cushion. You're protected against unforeseen events.",
+            "flexibility": "Walking alone",
+            "flexibilityDesc": "You can start making decisions without immediate pressure.",
+            "independence": "Master of my Time",
+            "independenceDesc": "Congratulations! You have more than a year of life secured.",
+            "abundance": "Total Freedom",
+            "abundanceDesc": "You've reached the top. Your time today is 100% yours."
         }
     },
     "liquidity": {

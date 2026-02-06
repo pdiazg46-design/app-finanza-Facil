@@ -29,12 +29,16 @@
             "danger": "Zona Crítica"
         },
         "tiers": {
-            "survival": "Supervivencia",
-            "security": "Seguridad",
-            "flexibility": "Flexibilidad",
-            "independence": "Independencia",
-            "freedom": "Libertad",
-            "walkingAlone": "Caminando solo"
+            "survival": "En la cuerda floja",
+            "survivalDesc": "Estado Crítico. No tienes suficiente respiro para el mes. El objetivo es salir de aquí rápido.",
+            "security": "Piso Firme",
+            "securityDesc": "Tienes un colchón de 3 a 6 meses. Estás protegido ante imprevistos.",
+            "flexibility": "Caminando solo",
+            "flexibilityDesc": "Puedes empezar a tomar decisiones sin presión inmediata.",
+            "independence": "Dueño de mi Tiempo",
+            "independenceDesc": "¡Felicidades! Tienes más de un año de vida asegurada.",
+            "abundance": "Libertad Total",
+            "abundanceDesc": "Has alcanzado la cima. Tu tiempo hoy es 100% tuyo."
         }
     },
     "liquidity": {

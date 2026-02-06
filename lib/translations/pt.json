@@ -29,12 +29,16 @@
             "danger": "Zona Crítica"
         },
         "tiers": {
-            "survival": "Sobrevivência",
-            "security": "Segurança",
-            "flexibility": "Flexibilidade",
-            "independence": "Independência",
-            "freedom": "Liberdade",
-            "walkingAlone": "Caminhando sozinho"
+            "survival": "Na corda bamba",
+            "survivalDesc": "Estado Crítico. Você não tem respiro suficiente para o mês. O objetivo é sair daqui rápido.",
+            "security": "Piso Firme",
+            "securityDesc": "Você tem uma almofada de 3 a 6 meses. Está protegido contra imprevistos.",
+            "flexibility": "Caminhando sozinho",
+            "flexibilityDesc": "Você pode começar a tomar decisões sem pressão imediata.",
+            "independence": "Dono do meu Tempo",
+            "independenceDesc": "Parabéns! Você tem mais de um ano de vida garantida.",
+            "abundance": "Liberdade Total",
+            "abundanceDesc": "Você alcançou o topo. Seu tempo hoje é 100% seu."
         }
     },
     "liquidity": {

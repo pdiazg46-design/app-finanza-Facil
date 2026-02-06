@@ -14,17 +14,54 @@ export type FreedomTier = 'SURVIVAL' | 'SECURITY' | 'FLEXIBILITY' | 'INDEPENDENC
 
 export interface TierInfo {
     label: string;
+    labelKey: string; // Translation key
     color: string;
     description: string;
+    descriptionKey: string; // Translation key
     minDays: number;
 }
 
 export const TIERS: Record<FreedomTier, TierInfo> = {
-    SURVIVAL: { label: 'En la cuerda floja', color: 'text-red-500', minDays: 0, description: 'Estado Crítico. No tienes suficiente respiro para el mes. El objetivo es salir de aquí rápido.' },
-    SECURITY: { label: 'Piso Firme', color: 'text-orange-500', minDays: 90, description: 'Tienes un colchón de 3 a 6 meses. Estás protegido ante imprevistos.' },
-    FLEXIBILITY: { label: 'Caminando solo', color: 'text-blue-500', minDays: 180, description: 'Puedes empezar a tomar decisiones sin presión inmediata.' },
-    INDEPENDENCE: { label: 'Dueño de mi Tiempo', color: 'text-emerald-500', minDays: 365, description: '¡Felicidades! Tienes más de un año de vida asegurada.' },
-    ABUNDANCE: { label: 'Libertad Total', color: 'text-purple-600', minDays: 1000, description: 'Has alcanzado la cima. Tu tiempo hoy es 100% tuyo.' }
+    SURVIVAL: {
+        label: 'En la cuerda floja',
+        labelKey: 'freedom.tiers.survival',
+        color: 'text-red-500',
+        minDays: 0,
+        description: 'Estado Crítico. No tienes suficiente respiro para el mes. El objetivo es salir de aquí rápido.',
+        descriptionKey: 'freedom.tiers.survivalDesc'
+    },
+    SECURITY: {
+        label: 'Piso Firme',
+        labelKey: 'freedom.tiers.security',
+        color: 'text-orange-500',
+        minDays: 90,
+        description: 'Tienes un colchón de 3 a 6 meses. Estás protegido ante imprevistos.',
+        descriptionKey: 'freedom.tiers.securityDesc'
+    },
+    FLEXIBILITY: {
+        label: 'Caminando solo',
+        labelKey: 'freedom.tiers.flexibility',
+        color: 'text-blue-500',
+        minDays: 180,
+        description: 'Puedes empezar a tomar decisiones sin presión inmediata.',
+        descriptionKey: 'freedom.tiers.flexibilityDesc'
+    },
+    INDEPENDENCE: {
+        label: 'Dueño de mi Tiempo',
+        labelKey: 'freedom.tiers.independence',
+        color: 'text-emerald-500',
+        minDays: 365,
+        description: '¡Felicidades! Tienes más de un año de vida asegurada.',
+        descriptionKey: 'freedom.tiers.independenceDesc'
+    },
+    ABUNDANCE: {
+        label: 'Libertad Total',
+        labelKey: 'freedom.tiers.abundance',
+        color: 'text-purple-600',
+        minDays: 1000,
+        description: 'Has alcanzado la cima. Tu tiempo hoy es 100% tuyo.',
+        descriptionKey: 'freedom.tiers.abundanceDesc'
+    }
 };
 
 export class FinanceEngine {
