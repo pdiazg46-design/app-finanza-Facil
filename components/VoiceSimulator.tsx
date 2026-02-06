@@ -341,7 +341,7 @@ export function VoiceSimulator() {
                 {/* Instruction text */}
                 {!isRecording && !pendingCommand && !status && (
                     <p className="text-[9px] text-slate-400 font-bold uppercase tracking-wider text-center">
-                        Mantén presionado para hablar
+                        {t('voice.holdToSpeak')}
                     </p>
                 )}
 
