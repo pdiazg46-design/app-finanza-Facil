@@ -16,11 +16,25 @@
     "freedom": {
         "days": "Días de Libertad",
         "target": "Meta",
+        "status": "Estado",
         "compass": {
             "title": "Brújula Financiera",
+            "yourCompass": "Tu Brújula",
+            "anatomy": "Anatomía de tu Libertad",
+            "description": "Representa el tiempo que podrías vivir sin ingresos externos manteniendo tus gastos actuales.",
+            "tip": "Terminando deudas y ahorrando, este número crece para proteger tu tiempo de vida.",
+            "currentLevel": "Tu Nivel Actual:",
             "safe": "Zona Segura",
             "warning": "Zona de Alerta",
             "danger": "Zona Crítica"
+        },
+        "tiers": {
+            "survival": "Supervivencia",
+            "security": "Seguridad",
+            "flexibility": "Flexibilidad",
+            "independence": "Independencia",
+            "freedom": "Libertad",
+            "walkingAlone": "Caminando solo"
         }
     },
     "liquidity": {
@@ -55,6 +69,8 @@
     },
     "movements": {
         "title": "Movimientos Recientes",
+        "recentActivity": "Actividades Recientes",
+        "viewAll": "Ver todo",
         "empty": "No hay movimientos registrados",
         "expense": "Gasto",
         "income": "Ingreso",
@@ -68,7 +84,8 @@
         "incomeSaved": "✅ ¡Ingreso registrado!",
         "error": "No entendí. Intenta de nuevo.",
         "noAudio": "No se detectó audio",
-        "audioError": "Error de audio"
+        "audioError": "Error de audio",
+        "holdToSpeak": "Mantén presionado para hablar"
     },
     "country": {
         "selector": {
@@ -81,5 +98,54 @@
     "premium": {
         "banner": "¡Pásate a Premium y activa el Asistente AI avanzado!",
         "upgrade": "Mejorar"
+    },
+    "setup": {
+        "title": "Cuentas Clave",
+        "myRealNumbers": "Mis Números Reales",
+        "credits": {
+            "title": "Deudas en Cuotas",
+            "subtitle": "Créditos",
+            "add": "Añadir",
+            "totalInstallments": "Total Cuotas",
+            "installmentOf": "cuota {current} de {total}",
+            "remaining": "{count} restantes",
+            "month": "mes"
+        },
+        "subscriptions": {
+            "title": "Gastos Hormiga",
+            "subtitle": "Suscripciones"
+        },
+        "services": {
+            "title": "Cuentas por Pagar",
+            "subtitle": "Servicios",
+            "autoAverage": "Promedio automático",
+            "autoAverageInfo": "El sistema calcula el promedio de tus últimos 3 meses automáticamente"
+        },
+        "assets": {
+            "title": "Bienes y Ahorros",
+            "subtitle": "Activos",
+            "property": "Inmueble",
+            "vehicle": "Vehículo",
+            "investment": "Inversión",
+            "other": "Otro"
+        },
+        "partner": {
+            "title": "Aporte Pareja",
+            "name": "Nombre",
+            "monthlyAmount": "Monto mensual"
+        },
+        "burnRate": {
+            "title": "Costo de Mantención",
+            "subtitle": "BurnRate"
+        },
+        "goal": {
+            "title": "Meta Mensual",
+            "monthlyGoal": "Meta mensual"
+        },
+        "saveChanges": "Guardar Cambios"
+    },
+    "welcome": {
+        "title": "La Meta Maestra",
+        "description": "Descripción de la meta maestra"
     }
 }

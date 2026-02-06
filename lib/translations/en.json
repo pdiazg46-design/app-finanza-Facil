@@ -16,24 +16,38 @@
     "freedom": {
         "days": "Freedom Days",
         "target": "Target",
+        "status": "Status",
         "compass": {
             "title": "Financial Compass",
+            "yourCompass": "Your Compass",
+            "anatomy": "Anatomy of your Freedom",
+            "description": "Represents the time you could live without external income while maintaining your current expenses.",
+            "tip": "By finishing debts and saving, this number grows to protect your lifetime.",
+            "currentLevel": "Your Current Level:",
             "safe": "Safe Zone",
             "warning": "Warning Zone",
             "danger": "Critical Zone"
+        },
+        "tiers": {
+            "survival": "Survival",
+            "security": "Security",
+            "flexibility": "Flexibility",
+            "independence": "Independence",
+            "freedom": "Freedom",
+            "walkingAlone": "Walking alone"
         }
     },
     "liquidity": {
         "available": {
             "title": "Total Available",
-            "subtitle": "Income - Fixed expenses",
-            "info": "Your declared income minus fixed monthly expenses. This is the total amount available for your shared accounts.",
+            "subtitle": "Income - Fixed Expenses",
+            "info": "Your declared income minus fixed monthly expenses. It's the total amount available for your shared accounts.",
             "description": "Keeping this pool positive ensures your fixed commitments are covered."
         },
         "disposable": {
             "title": "Money to Enjoy",
             "subtitle": "Your margin today",
-            "info": "Your real margin today. This is the money left free after securing your monthly expenses and debts.",
+            "info": "Your real margin today. It's the money left free after securing your monthly expenses and debts.",
             "description": "This is the money you can spend today guilt-free without compromising your future."
         }
     },
@@ -55,6 +69,8 @@
     },
     "movements": {
         "title": "Recent Movements",
+        "recentActivity": "Recent Activities",
+        "viewAll": "View all",
         "empty": "No movements recorded",
         "expense": "Expense",
         "income": "Income",
@@ -68,7 +84,8 @@
         "incomeSaved": "✅ Income recorded!",
         "error": "Didn't understand. Try again.",
         "noAudio": "No audio detected",
-        "audioError": "Audio error"
+        "audioError": "Audio error",
+        "holdToSpeak": "Hold to speak"
     },
     "country": {
         "selector": {
@@ -81,5 +98,54 @@
     "premium": {
         "banner": "Upgrade to Premium and activate the advanced AI Assistant!",
         "upgrade": "Upgrade"
+    },
+    "setup": {
+        "title": "Key Accounts",
+        "myRealNumbers": "My Real Numbers",
+        "credits": {
+            "title": "Installment Debts",
+            "subtitle": "Credits",
+            "add": "Add",
+            "totalInstallments": "Total Installments",
+            "installmentOf": "installment {current} of {total}",
+            "remaining": "{count} remaining",
+            "month": "month"
+        },
+        "subscriptions": {
+            "title": "Ant Expenses",
+            "subtitle": "Subscriptions"
+        },
+        "services": {
+            "title": "Bills to Pay",
+            "subtitle": "Services",
+            "autoAverage": "Auto average",
+            "autoAverageInfo": "The system automatically calculates the average of your last 3 months"
+        },
+        "assets": {
+            "title": "Goods and Savings",
+            "subtitle": "Assets",
+            "property": "Property",
+            "vehicle": "Vehicle",
+            "investment": "Investment",
+            "other": "Other"
+        },
+        "partner": {
+            "title": "Partner Contribution",
+            "name": "Name",
+            "monthlyAmount": "Monthly amount"
+        },
+        "burnRate": {
+            "title": "Maintenance Cost",
+            "subtitle": "BurnRate"
+        },
+        "goal": {
+            "title": "Monthly Goal",
+            "monthlyGoal": "Monthly goal"
+        },
+        "saveChanges": "Save Changes"
+    },
+    "welcome": {
+        "title": "The Master Goal",
+        "description": "Master goal description"
     }
 }

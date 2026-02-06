@@ -6,7 +6,7 @@
     "auth": {
         "signin": {
             "title": "Controle Total",
-            "subtitle": "Sua liberdade financeira começa com um primeiro comando. Digite seu e-mail para começar.",
+            "subtitle": "Sua liberdade financeira começa com um primeiro comando. Digite seu email para começar.",
             "secureLogin": "Entre com sua conta segura",
             "continueWith": "Ou continue com",
             "google": "Google",
@@ -16,24 +16,38 @@
     "freedom": {
         "days": "Dias de Liberdade",
         "target": "Meta",
+        "status": "Estado",
         "compass": {
             "title": "Bússola Financeira",
+            "yourCompass": "Sua Bússola",
+            "anatomy": "Anatomia da sua Liberdade",
+            "description": "Representa o tempo que você poderia viver sem renda externa mantendo seus gastos atuais.",
+            "tip": "Terminando dívidas e economizando, este número cresce para proteger seu tempo de vida.",
+            "currentLevel": "Seu Nível Atual:",
             "safe": "Zona Segura",
             "warning": "Zona de Alerta",
             "danger": "Zona Crítica"
+        },
+        "tiers": {
+            "survival": "Sobrevivência",
+            "security": "Segurança",
+            "flexibility": "Flexibilidade",
+            "independence": "Independência",
+            "freedom": "Liberdade",
+            "walkingAlone": "Caminhando sozinho"
         }
     },
     "liquidity": {
         "available": {
             "title": "Total Disponível",
             "subtitle": "Entradas - Saídas fixas",
-            "info": "Sua renda declarada menos as despesas fixas do mês. É o valor total disponível para suas contas compartilhadas.",
-            "description": "Manter esse fundo positivo garante que seus compromissos fixos estejam cobertos."
+            "info": "Sua renda declarada menos os gastos fixos do mês. É o valor total disponível para suas contas compartilhadas.",
+            "description": "Manter este poço positivo garante que seus compromissos fixos estejam cobertos."
         },
         "disposable": {
-            "title": "Grana para Aproveitar",
+            "title": "Dinheiro para Aproveitar",
             "subtitle": "Sua margem hoje",
-            "info": "Sua margem real de hoje. É a grana que sobra livre depois de garantir suas despesas e dívidas do mês.",
+            "info": "Sua margem real de hoje. É o dinheiro que sobra livre depois de garantir seus gastos e dívidas do mês.",
             "description": "Este é o dinheiro que você pode gastar hoje sem culpa e sem comprometer seu futuro."
         }
     },
@@ -55,9 +69,11 @@
     },
     "movements": {
         "title": "Movimentos Recentes",
-        "empty": "Nenhum movimento registrado",
-        "expense": "Despesa",
-        "income": "Receita",
+        "recentActivity": "Atividades Recentes",
+        "viewAll": "Ver tudo",
+        "empty": "Não há movimentos registrados",
+        "expense": "Gasto",
+        "income": "Renda",
         "contribution": "Contribuição"
     },
     "voice": {
@@ -65,14 +81,15 @@
         "processing": "Analisando...",
         "saving": "Salvando...",
         "saved": "✅ Adicionado!",
-        "incomeSaved": "✅ Receita registrada!",
+        "incomeSaved": "✅ Renda registrada!",
         "error": "Não entendi. Tente novamente.",
         "noAudio": "Nenhum áudio detectado",
-        "audioError": "Erro de áudio"
+        "audioError": "Erro de áudio",
+        "holdToSpeak": "Mantenha pressionado para falar"
     },
     "country": {
         "selector": {
-            "title": "De onde você está nos visitando?",
+            "title": "De onde você nos visita?",
             "subtitle": "Isso nos ajuda a personalizar sua experiência",
             "search": "Buscar país...",
             "confirm": "Confirmar"
@@ -81,5 +98,54 @@
     "premium": {
         "banner": "Mude para Premium e ative o Assistente AI avançado!",
         "upgrade": "Melhorar"
+    },
+    "setup": {
+        "title": "Contas Chave",
+        "myRealNumbers": "Meus Números Reais",
+        "credits": {
+            "title": "Dívidas Parceladas",
+            "subtitle": "Créditos",
+            "add": "Adicionar",
+            "totalInstallments": "Total de Parcelas",
+            "installmentOf": "parcela {current} de {total}",
+            "remaining": "{count} restantes",
+            "month": "mês"
+        },
+        "subscriptions": {
+            "title": "Gastos Formiga",
+            "subtitle": "Assinaturas"
+        },
+        "services": {
+            "title": "Contas a Pagar",
+            "subtitle": "Serviços",
+            "autoAverage": "Média automática",
+            "autoAverageInfo": "O sistema calcula a média dos seus últimos 3 meses automaticamente"
+        },
+        "assets": {
+            "title": "Bens e Economias",
+            "subtitle": "Ativos",
+            "property": "Imóvel",
+            "vehicle": "Veículo",
+            "investment": "Investimento",
+            "other": "Outro"
+        },
+        "partner": {
+            "title": "Contribuição do Parceiro",
+            "name": "Nome",
+            "monthlyAmount": "Valor mensal"
+        },
+        "burnRate": {
+            "title": "Custo de Manutenção",
+            "subtitle": "BurnRate"
+        },
+        "goal": {
+            "title": "Meta Mensal",
+            "monthlyGoal": "Meta mensal"
+        },
+        "saveChanges": "Salvar Alterações"
+    },
+    "welcome": {
+        "title": "A Meta Mestra",
+        "description": "Descrição da meta mestra"
     }
 }
