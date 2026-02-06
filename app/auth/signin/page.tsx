@@ -44,33 +44,10 @@ export default function SignIn() {
                         Tu libertad financiera comienza con un primer comando. <br />Ingresa tu email para comenzar.
                     </p>
 
-                    <form onSubmit={handleSubmit} className="w-full space-y-4">
-                        <div className="relative group">
-                            <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none transition-colors group-focus-within:text-atsit-blue text-slate-300">
-                                <Mail className="w-5 h-5" />
-                            </div>
-                            <input
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                placeholder="tu@email.com"
-                                required
-                                className="w-full bg-slate-50 border-2 border-slate-50 focus:border-atsit-blue/20 focus:bg-white rounded-2xl py-4 pl-14 pr-6 text-sm font-bold text-slate-800 outline-none transition-all placeholder:text-slate-300"
-                            />
-                        </div>
-
-                        <button
-                            type="submit"
-                            disabled={isLoading}
-                            className={`w-full bg-atsit-blue text-white py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-blue-200 flex items-center justify-center gap-3 transition-all active:scale-[0.98] ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'}`}
-                        >
-                            {isLoading ? 'Iniciando...' : (
-                                <>
-                                    Ingresar <Sparkles className="w-4 h-4" />
-                                </>
-                            )}
-                        </button>
-                    </form>
+                    {/* Email Form Removed - Google Only Mode */}
+                    <div className="text-center mb-6">
+                        <p className="text-sm font-bold text-slate-500 mb-2">Ingresa con tu cuenta segura</p>
+                    </div>
 
                     <div className="w-full flex items-center gap-4 my-6">
                         <div className="h-[1px] flex-1 bg-slate-50"></div>
