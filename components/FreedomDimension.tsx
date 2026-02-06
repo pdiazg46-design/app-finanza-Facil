@@ -100,7 +100,7 @@ export function FreedomDimension({
                         <div className="flex items-center justify-between mb-1.5">
                             <div className="flex items-center gap-1.5 text-red-700">
                                 <TrendingDown className="w-3.5 h-3.5" />
-                                <span className="text-[11px] font-black text-slate-900 uppercase tracking-wider">Tiempo perdido en deudas</span>
+                                <span className="text-[11px] font-black text-slate-900 uppercase tracking-wider">{t('dimension.debtImpact')}</span>
                             </div>
                             <span className="text-[11px] font-black text-red-700">
                                 {isPrivate ? '---' : `-${debtImpactDays} días`}
@@ -114,7 +114,7 @@ export function FreedomDimension({
                                     new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(totalDebt)
                                 )}
                             </div>
-                            <p className="text-[11px] text-red-700 font-black italic">Todo lo pendiente</p>
+                            <p className="text-[11px] text-red-700 font-black italic">{t('dimension.allPending')}</p>
                         </div>
                     </div>
                 )}
@@ -125,11 +125,11 @@ export function FreedomDimension({
                 <div className="bg-slate-900 rounded-3xl p-6 text-white overflow-hidden relative border border-slate-800 shadow-xl mt-2">
                     <div className="flex items-center justify-between mb-8 relative z-10">
                         <div className="flex items-center gap-2">
-                            <h3 className="text-xl font-black tracking-tight text-white uppercase">Mi Riqueza Real</h3>
+                            <h3 className="text-xl font-black tracking-tight text-white uppercase">{t('netWorth.title')}</h3>
                             <InfoTooltip
-                                title="Mi Riqueza Real"
-                                content="La diferencia entre todo lo que tienes (Bienes + Ahorros) y todo lo que debes (Créditos)."
-                                description="Es el valor de tu libertad final si hoy decidieras liquidar todo."
+                                title={t('netWorth.tooltipTitle')}
+                                content={t('netWorth.tooltipContent')}
+                                description={t('netWorth.tooltipDescription')}
                                 variant="light"
                             />
                         </div>
@@ -140,7 +140,7 @@ export function FreedomDimension({
 
                     <div className="space-y-6 relative z-10">
                         <div className="flex items-center justify-between">
-                            <span className="text-[12px] font-black text-slate-400 uppercase tracking-widest">Lo que tengo (Bienes)</span>
+                            <span className="text-[12px] font-black text-slate-400 uppercase tracking-widest">{t('netWorth.whatIHave')}</span>
                             <span className="text-lg font-black text-white">
                                 {isPrivate ? (
                                     <span className="text-white/20 font-black tracking-widest">••••••</span>
@@ -151,7 +151,7 @@ export function FreedomDimension({
                         </div>
 
                         <div className="flex items-center justify-between">
-                            <span className="text-[12px] font-black text-slate-400 uppercase tracking-widest">Lo que debo (Deudas)</span>
+                            <span className="text-[12px] font-black text-slate-400 uppercase tracking-widest">{t('netWorth.whatIOwe')}</span>
                             <span className="text-lg font-black text-red-400">
                                 {isPrivate ? (
                                     <span className="text-white/20 font-black tracking-widest">••••••</span>
@@ -162,7 +162,7 @@ export function FreedomDimension({
                         </div>
 
                         <div className="pt-5 border-t border-white/10 flex items-center justify-between">
-                            <span className="text-[13px] font-black text-white uppercase tracking-widest">Riqueza Real</span>
+                            <span className="text-[13px] font-black text-white uppercase tracking-widest">{t('netWorth.realWealth')}</span>
                             <span className={`text-2xl font-black ${netWorth >= 0 ? 'text-emerald-400' : 'text-red-500'}`}>
                                 {isPrivate ? (
                                     <span className="text-white/20 select-none italic text-lg tracking-[0.2em]">PRIVATE</span>
