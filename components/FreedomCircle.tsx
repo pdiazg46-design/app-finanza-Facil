@@ -51,7 +51,7 @@ export function FreedomCircle({ freedomDays, targetDays }: FreedomCircleProps) {
                             <div className="flex items-center gap-1 mt-1 bg-white/20 px-2 py-0.5 rounded-full">
                                 <Sparkles className="w-2.5 h-2.5 text-yellow-300" />
                                 <span className="text-[11px] text-white font-black uppercase">
-                                    {tier.label}
+                                    {t(tier.labelKey)}
                                 </span>
                             </div>
                         </div>

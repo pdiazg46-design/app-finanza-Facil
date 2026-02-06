@@ -38,11 +38,11 @@ export function FreedomDimension({
                 <div className="flex items-center gap-2.5 mb-2">
                     <ShieldCheck className={`w-5 h-5 ${tier.color}`} />
                     <h3 className="text-[14px] font-black text-slate-900 uppercase tracking-widest">
-                        Estado: {tier.label}
+                        {t('freedom.status')}: {t(tier.labelKey)}
                     </h3>
                 </div>
                 <p className="text-[12px] text-slate-700 leading-relaxed italic font-medium">
-                    "{tier.description}"
+                    "{t(tier.descriptionKey)}"
                 </p>
             </div>
 

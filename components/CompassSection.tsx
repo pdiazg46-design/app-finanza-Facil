@@ -39,12 +39,12 @@ export function CompassSection({ freedomDays }: CompassSectionProps) {
                             Anatomía de tu Libertad
                         </p>
                         <p className="text-[11px] leading-relaxed text-slate-300 font-medium">
-                            Representa el tiempo que podrías vivir sin ingresos externos manteniendo tus gastos actuales.
-                            <strong> Terminando deudas y ahorrando</strong>, este número crece para proteger tu tiempo de vida.
+                            {t('freedom.compass.description')}
+                            <strong> {t('freedom.compass.tip')}</strong>
                         </p>
                         <div className="mt-5 pt-5 border-t border-white/10">
-                            <p className="text-[10px] text-slate-500 font-black uppercase mb-1 tracking-widest">Tu Nivel Actual:</p>
-                            <p className="text-xs font-bold text-blue-300">{tier.description}</p>
+                            <p className="text-[10px] text-slate-500 font-black uppercase mb-1 tracking-widest">{t('freedom.compass.currentLevel')}</p>
+                            <p className="text-xs font-bold text-blue-300">{t(tier.descriptionKey)}</p>
                         </div>
                     </div>
                 </div>
