@@ -195,10 +195,80 @@
             "title": "Meta Mensual",
             "monthlyGoal": "Meta mensual"
         },
-        "saveChanges": "Guardar Cambios"
+        "saveAll": "Guardar todo",
+        "add": "Añadir",
+        "saveChanges": "Guardar Cambios",
+        "labels": {
+            "name": "Nombre",
+            "conceptName": "Nombre del concepto...",
+            "monthlyAmount": "Monto Mensual",
+            "totalInstallments": "Total cuotas:",
+            "totalDebt": "Deuda Total:",
+            "weightOnBreathing": "Peso en mi Respiro:",
+            "remaining": "restantes",
+            "automaticAverage": "Promedio Automático",
+            "automatic": "automático",
+            "assetsNote": "* Solo \"Inversión\" suma a Días de Respiro",
+            "burnRate": "Costo de Mantención (Burn Rate)",
+            "monthlyGoal": "Meta mensual",
+            "assetPlaceholder": "Ej: Auto, Depto, Inversiones..."
+        }
+    },
+    "history": {
+        "title": "Historial",
+        "subtitle": "Analiza tus movimientos",
+        "filterByPeriod": "Filtrar por período",
+        "from": "Desde",
+        "to": "Hasta",
+        "income": "Ingresos",
+        "expenses": "Gastos",
+        "noMovements": "No hay movimientos en este período"
+    },
+    "movements": {
+        "title": "Movimientos Recientes",
+        "recentActivity": "Actividad Reciente",
+        "viewAll": "Ver todo",
+        "empty": "No hay movimientos recientes",
+        "emptyHint": "Usa el botón HABLAR para registrar algo",
+        "today": "HOY",
+        "expense": "Gasto",
+        "income": "Ingreso",
+        "contribution": "Aporte"
+    },
+    "routine": {
+        "dailyBurn": "Gasto Diario",
+        "days": "Días"
+    },
+    "common": {
+        "close": "Cerrar",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "search": "Buscar",
+        "loading": "Cargando...",
+        "private": "PRIVATE"
     },
     "welcome": {
-        "title": "La Meta Maestra",
-        "description": "Descripción de la meta maestra"
+        "title": "¡Bienvenido a Finanza Fácil!",
+        "subtitle": "Para calcular tus días de libertad correctamente:",
+        "masterYourFreedom": "Domina tu libertad",
+        "masterYourFreedomDesc": "Aprende la filosofía de los 1.000 días con nuestra rutina interactiva.",
+        "startRoutine": "Iniciar Rutina de Aprendizaje",
+        "skipAndExplore": "Saltar y explorar solo"
+    },
+    "compass": {
+        "anatomy": "Anatomía de tu Libertad"
+    },
+    "netWorth": {
+        "title": "Mi Riqueza Real",
+        "tooltipTitle": "Mi Riqueza Real",
+        "tooltipContent": "La diferencia entre todo lo que tienes (Bienes + Ahorros) y todo lo que debes (Créditos).",
+        "tooltipDescription": "Es el valor de tu libertad final si hoy decidieras liquidar todo.",
+        "whatIHave": "Lo que tengo (Bienes)",
+        "whatIOwe": "Lo que debo (Deudas)",
+        "realWealth": "Riqueza Real"
+    },
+    "installments": {
+        "installments": "cuotas",
+        "installment": "cuota"
     }
 }

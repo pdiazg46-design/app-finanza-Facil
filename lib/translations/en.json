@@ -167,10 +167,56 @@
             "title": "Monthly Goal",
             "monthlyGoal": "Monthly goal"
         },
-        "saveChanges": "Save Changes"
+        "saveAll": "Save all",
+        "add": "Add",
+        "saveChanges": "Save Changes",
+        "labels": {
+            "name": "Name",
+            "conceptName": "Concept name...",
+            "monthlyAmount": "Monthly amount",
+            "totalInstallments": "Total installments:",
+            "totalDebt": "Total Debt:",
+            "weightOnBreathing": "Weight on my Breathing:",
+            "remaining": "remaining",
+            "automaticAverage": "Automatic Average",
+            "automatic": "automatic",
+            "assetsNote": "* Only \"Investment\" adds to Breathing Days",
+            "burnRate": "Maintenance Cost (Burn Rate)",
+            "monthlyGoal": "Monthly goal",
+            "assetPlaceholder": "Ex: Car, Apt, Investments..."
+        }
     },
-    "welcome": {
-        "title": "The Master Goal",
-        "description": "Master goal description"
+    "history": {
+        "title": "History",
+        "subtitle": "Analyze your movements",
+        "filterByPeriod": "Filter by period",
+        "from": "From",
+        "to": "To",
+        "income": "Income",
+        "expenses": "Expenses",
+        "noMovements": "No movements in this period"
+    },
+    "movements": {
+        "title": "Recent Movements",
+        "recentActivity": "Recent Activities",
+        "viewAll": "View all",
+        "empty": "No recent movements",
+        "emptyHint": "Use the SPEAK button to record something",
+        "today": "TODAY",
+        "expense": "Expense",
+        "income": "Income",
+        "contribution": "Contribution"
+    },
+    "routine": {
+        "dailyBurn": "Daily Burn",
+        "days": "Days"
+    },
+    "common": {
+        "close": "Close",
+        "save": "Save",
+        "cancel": "Cancel",
+        "search": "Search",
+        "loading": "Loading...",
+        "private": "PRIVATE"
     }
 }

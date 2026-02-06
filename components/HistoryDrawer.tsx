@@ -70,8 +70,8 @@ export function HistoryDrawer({ isOpen, onClose, movements, isPrivate }: History
             {/* Header */}
             <div className="px-6 pt-10 pb-4 flex items-center justify-between border-b border-slate-50 sticky top-0 bg-white/80 backdrop-blur-md z-10">
                 <div>
-                    <h2 className="text-xl font-black text-slate-900 tracking-tight">Historial</h2>
-                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">Analiza tus movimientos</p>
+                    <h2 className="text-xl font-black text-slate-900 tracking-tight">{t('history.title')}</h2>
+                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">{t('history.subtitle')}</p>
                 </div>
                 <button
                     onClick={onClose}
@@ -84,10 +84,10 @@ export function HistoryDrawer({ isOpen, onClose, movements, isPrivate }: History
             <div className="flex-1 overflow-y-auto px-6 pt-6 pb-20">
                 {/* Advanced Date Filter */}
                 <div className="bg-slate-50 p-4 rounded-3xl mb-8 border border-slate-100">
-                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-3 px-1">Filtrar por período</p>
+                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-3 px-1">{t('history.filterByPeriod')}</p>
                     <div className="flex items-center gap-3">
                         <div className="flex-1">
-                            <label className="text-[8px] font-bold text-slate-500 uppercase ml-1 mb-1 block">Desde</label>
+                            <label className="text-[8px] font-bold text-slate-500 uppercase ml-1 mb-1 block">{t('history.from')}</label>
                             <input
                                 type="date"
                                 value={startDate}
@@ -97,7 +97,7 @@ export function HistoryDrawer({ isOpen, onClose, movements, isPrivate }: History
                         </div>
                         <div className="w-4 h-[1px] bg-slate-300 mt-5"></div>
                         <div className="flex-1">
-                            <label className="text-[8px] font-bold text-slate-500 uppercase ml-1 mb-1 block">Hasta</label>
+                            <label className="text-[8px] font-bold text-slate-500 uppercase ml-1 mb-1 block">{t('history.to')}</label>
                             <input
                                 type="date"
                                 value={endDate}
@@ -111,13 +111,13 @@ export function HistoryDrawer({ isOpen, onClose, movements, isPrivate }: History
                 {/* Totals Summary Card */}
                 <div className="grid grid-cols-2 gap-3 mb-8">
                     <div className="bg-emerald-50/50 p-4 rounded-[24px] border border-emerald-100/50">
-                        <p className="text-[9px] font-bold text-emerald-600 uppercase tracking-widest mb-1">Ingresos</p>
+                        <p className="text-[9px] font-bold text-emerald-600 uppercase tracking-widest mb-1">{t('history.income')}</p>
                         <p className="text-lg font-black text-emerald-700 tracking-tighter">
                             <CurrencyText value={totals.income} />
                         </p>
                     </div>
                     <div className="bg-red-50/50 p-4 rounded-[24px] border border-red-100/50">
-                        <p className="text-[9px] font-bold text-red-500 uppercase tracking-widest mb-1">Gastos</p>
+                        <p className="text-[9px] font-bold text-red-500 uppercase tracking-widest mb-1">{t('history.expenses')}</p>
                         <p className="text-lg font-black text-red-700 tracking-tighter">
                             <CurrencyText value={totals.expenses} />
                         </p>
@@ -128,7 +128,7 @@ export function HistoryDrawer({ isOpen, onClose, movements, isPrivate }: History
                 <div className="space-y-4">
                     {filteredMovements.length === 0 ? (
                         <div className="text-center py-20">
-                            <p className="text-slate-400 text-sm font-medium">No hay movimientos en este período</p>
+                            <p className="text-slate-400 text-sm font-medium">{t('history.noMovements')}</p>
                         </div>
                     ) : (
                         filteredMovements.map((m) => (

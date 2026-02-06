@@ -24,8 +24,8 @@ export function MovementsList({ movements }: MovementsListProps) {
         return (
             <div className="mt-8 text-center px-6">
                 <div className="bg-slate-50 rounded-2xl p-6 border border-dashed border-slate-300">
-                    <p className="text-[14px] text-slate-700 font-black">No hay movimientos recientes</p>
-                    <p className="text-[12px] text-slate-600 mt-2 font-medium">Usa el botón HABLAR para registrar algo</p>
+                    <p className="text-[14px] text-slate-700 font-black">{t('movements.empty')}</p>
+                    <p className="text-[12px] text-slate-600 mt-2 font-medium">{t('movements.emptyHint')}</p>
                 </div>
             </div>
         )
@@ -52,7 +52,7 @@ export function MovementsList({ movements }: MovementsListProps) {
     return (
         <div className="mt-3 px-1 pb-10">
             <div className="flex items-center justify-between mb-4 px-1">
-                <h3 className="text-[12px] font-black text-slate-700 uppercase tracking-widest">Actividad Reciente</h3>
+                <h3 className="text-[12px] font-black text-slate-700 uppercase tracking-widest">{t('movements.recentActivity')}</h3>
 
                 <div className="flex items-center gap-3">
                     <button
@@ -67,7 +67,7 @@ export function MovementsList({ movements }: MovementsListProps) {
             <div className="space-y-3">
                 {/* Sección Hoy (si hay movimientos) */}
                 {todayMovements.length > 0 && (
-                    <p className="text-[11px] font-black text-emerald-700 bg-emerald-100 w-fit px-3 py-0.5 rounded-full mb-3 tracking-widest">HOY</p>
+                    <p className="text-[11px] font-black text-emerald-700 bg-emerald-100 w-fit px-3 py-0.5 rounded-full mb-3 tracking-widest">{t('movements.today')}</p>
                 )}
 
                 {[...todayMovements, ...olderMovements].map((m) => (

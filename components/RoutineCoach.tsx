@@ -54,7 +54,7 @@ const steps: Step[] = [
                     <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-1.5 bg-slate-100 rounded-full blur-sm" />
                 </div>
                 <div className="text-left">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Gasto Diario</p>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t('routine.dailyBurn')}</p>
                     <p className="text-2xl font-black text-slate-800 tracking-tight">$35.000</p>
                 </div>
             </div>
@@ -122,7 +122,7 @@ const steps: Step[] = [
             <div className="h-40 w-full flex flex-col items-center justify-center">
                 <div className="flex items-baseline gap-2">
                     <span className="text-5xl font-black text-slate-800">124</span>
-                    <span className="text-xl font-bold text-slate-400 uppercase tracking-tight">Días</span>
+                    <span className="text-xl font-bold text-slate-400 uppercase tracking-tight">{t('routine.days')}</span>
                 </div>
                 <div className="w-48 h-2 bg-slate-100 rounded-full mt-4 overflow-hidden">
                     <motion.div

@@ -167,10 +167,56 @@
             "title": "Meta Mensal",
             "monthlyGoal": "Meta mensal"
         },
-        "saveChanges": "Salvar Alterações"
+        "saveAll": "Salvar tudo",
+        "add": "Adicionar",
+        "saveChanges": "Salvar Alterações",
+        "labels": {
+            "name": "Nome",
+            "conceptName": "Nome do conceito...",
+            "monthlyAmount": "Valor mensal",
+            "totalInstallments": "Total de parcelas:",
+            "totalDebt": "Dívida Total:",
+            "weightOnBreathing": "Peso no meu Respiro:",
+            "remaining": "restantes",
+            "automaticAverage": "Média Automática",
+            "automatic": "automático",
+            "assetsNote": "* Apenas \"Investimento\" soma aos Dias de Respiro",
+            "burnRate": "Custo de Manutenção (Burn Rate)",
+            "monthlyGoal": "Meta mensal",
+            "assetPlaceholder": "Ex: Carro, Apto, Investimentos..."
+        }
     },
-    "welcome": {
-        "title": "A Meta Mestra",
-        "description": "Descrição da meta mestra"
+    "history": {
+        "title": "Histórico",
+        "subtitle": "Analise seus movimentos",
+        "filterByPeriod": "Filtrar por período",
+        "from": "De",
+        "to": "Até",
+        "income": "Rendas",
+        "expenses": "Gastos",
+        "noMovements": "Não há movimentos neste período"
+    },
+    "movements": {
+        "title": "Movimentos Recentes",
+        "recentActivity": "Atividades Recentes",
+        "viewAll": "Ver tudo",
+        "empty": "Não há movimentos recentes",
+        "emptyHint": "Use o botão FALAR para registrar algo",
+        "today": "HOJE",
+        "expense": "Gasto",
+        "income": "Renda",
+        "contribution": "Contribuição"
+    },
+    "routine": {
+        "dailyBurn": "Gasto Diário",
+        "days": "Dias"
+    },
+    "common": {
+        "close": "Fechar",
+        "save": "Salvar",
+        "cancel": "Cancelar",
+        "search": "Buscar",
+        "loading": "Carregando...",
+        "private": "PRIVADO"
     }
 }
