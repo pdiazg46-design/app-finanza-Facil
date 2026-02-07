@@ -298,32 +298,6 @@
     "whatIOwe": "Lo que debo (Deudas)",
     "realWealth": "Riqueza Real"
   },
-  "installments": {
-    "installments": "cuotas",
-    "installment": "cuota"
-  },
-  "tiers": {
-    "survival": {
-      "label": "En la cuerda floja",
-      "description": "Estado Crítico. No tienes suficiente respiro para el mes. El objetivo es salir de aquí rápido."
-    },
-    "security": {
-      "label": "Piso Firme",
-      "description": "Tienes un colchón de 3 a 6 meses. Estás protegido ante imprevistos."
-    },
-    "flexibility": {
-      "label": "Caminando solo",
-      "description": "Puedes empezar a tomar decisiones sin presión inmediata."
-    },
-    "independence": {
-      "label": "Dueño de mi Tiempo",
-      "description": "¡Felicidades! Tienes más de un año de vida asegurada."
-    },
-    "abundance": {
-      "label": "Libertad Total",
-      "description": "Has alcanzado la cima. Tu tiempo hoy es 100% tuyo."
-    }
-  },
   "privacy": {
     "show": "Mostrar valores",
     "hide": "Ocultar valores"
