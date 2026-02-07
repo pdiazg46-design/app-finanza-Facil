@@ -258,7 +258,10 @@
     "cancel": "Cancelar",
     "search": "Buscar",
     "loading": "Carregando...",
-    "private": "PRIVADO"
+    "private": "PRIVADO",
+    "confirmDelete": "Tem certeza que deseja excluir \"{item}\"?",
+    "installments": "parcelas",
+    "installment": "parcela"
   },
   "welcome": {
     "title": "Bem-vindo ao Finança Fácil!",

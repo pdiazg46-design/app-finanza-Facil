@@ -253,7 +253,10 @@
     "loading": "Loading...",
     "private": "PRIVATE",
     "premium": "Premium",
-    "free": "Free"
+    "free": "Free",
+    "confirmDelete": "Are you sure you want to delete \"{item}\"?",
+    "installments": "installments",
+    "installment": "installment"
   },
   "tiers": {
     "survival": {
