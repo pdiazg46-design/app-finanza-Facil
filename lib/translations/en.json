@@ -54,10 +54,6 @@
     "emergencySavings": "Cash + Investments",
     "debtImpact": "Time lost to debt",
     "allPending": "All pending",
-    "realWealth": "My Real Wealth",
-    "whatIHave": "What I have (Assets)",
-    "whatIOwe": "What I owe (Debts)",
-    "netWorthLabel": "Real Wealth",
     "days": "days",
     "accountsPayable": "Accounts payable"
   },

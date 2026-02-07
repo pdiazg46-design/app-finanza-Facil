@@ -65,7 +65,8 @@
     "dailyCost": "Seu custo diário",
     "emergencySavings": "Dinheiro + Investimentos",
     "debtImpact": "Tempo perdido em dívidas",
-    "allPending": "Tudo pendente"
+    "allPending": "Tudo pendente",
+    "accountsPayable": "Contas a pagar"
   },
   "netWorth": {
     "title": "Minha Riqueza Real",
@@ -74,7 +75,9 @@
     "tooltipDescription": "É o valor da sua liberdade final se hoje você decidisse liquidar tudo.",
     "whatIHave": "O que tenho (Bens)",
     "whatIOwe": "O que devo (Dívidas)",
-    "realWealth": "Riqueza Real"
+    "realWealth": "Riqueza Real",
+    "positiveMessage": "Seu patrimônio líquido é positivo. Você está construindo riqueza real além do seu fluxo de caixa mensal.",
+    "negativeMessage": "Suas dívidas excedem seus ativos atuais. Cada contribuição ao fundo comum é um passo para recuperar seu patrimônio líquido."
   },
   "tooltips": {
     "freedomDays": {
