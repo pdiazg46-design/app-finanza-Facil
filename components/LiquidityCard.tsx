@@ -6,6 +6,7 @@ import { InfoTooltip } from "./InfoTooltip"
 import { TrendingDown, Wallet } from "lucide-react"
 import { CurrencyText } from "@/components/CurrencyText"
 import { MiniChart } from "@/components/MiniChart"
+import { useLocaleContext } from "@/contexts/LocaleContext"
 
 interface LiquidityCardProps {
     type: 'common' | 'disposable'
@@ -26,6 +27,8 @@ export function LiquidityCard({
     infoContent,
     infoDescription
 }: LiquidityCardProps) {
+    const { t } = useLocaleContext()
+
     if (type === 'common') {
         return (
             <Card className="shadow-lg border-0 bg-white rounded-3xl overflow-hidden hover:shadow-xl transition-shadow border border-slate-50">
@@ -47,7 +50,7 @@ export function LiquidityCard({
                     <div className="flex flex-col gap-1 pt-2 border-t border-slate-50">
                         <div className="flex items-center text-red-600 text-[11px] font-black uppercase tracking-tighter">
                             <TrendingDown className="w-3 h-3 mr-1" />
-                            <span>Cuentas por pagar</span>
+                            <span>{t('dimension.accountsPayable')}</span>
                         </div>
                         <div className="text-[14px] font-black text-slate-900 pl-4">
                             <CurrencyText value={projectedExpenses || 0} />
