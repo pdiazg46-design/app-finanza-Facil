@@ -69,7 +69,9 @@
     "realWealth": "Mi Riqueza Real",
     "whatIHave": "Lo que tengo (Bienes)",
     "whatIOwe": "Lo que debo (Deudas)",
-    "netWorthLabel": "Riqueza Real"
+    "netWorthLabel": "Riqueza Real",
+    "accountsPayable": "Cuentas por pagar",
+    "days": "días"
   },
   "tooltips": {
     "freedomDays": {
@@ -90,7 +92,11 @@
       "title": "Deuda Total",
       "content": "Suma de todas tus deudas activas (créditos, cuotas pendientes).",
       "description": "Cada peso en deuda reduce tu libertad financiera."
-    }
+    },
+    "configure": "Configurar realidad financiera",
+    "help": "Ayuda y Tutorial",
+    "viewInfo": "Ver información",
+    "impactOnFreedom": "Impacto en tu libertad:"
   },
   "movements": {
     "title": "Movimientos Recientes",
@@ -145,7 +151,20 @@
       "burnRate": "Costo de Mantención (Burn Rate)",
       "monthlyGoal": "Meta mensual",
       "assetPlaceholder": "Ej: Auto, Depto, Inversiones...",
-      "unnamedConcept": "Concepto sin nombre"
+      "unnamedConcept": "Concepto sin nombre",
+      "daysLost": "días perdidos",
+      "installment": "Cuota",
+      "investment": "INVERSIÓN",
+      "investmentNote": "* Solo \"Inversión\" suma a los Días de Respiro",
+      "other": "OTRO",
+      "partnerContributions": "Contribuciones del Socio",
+      "property": "INMUEBLE",
+      "saveChangesButton": "GUARDAR CAMBIOS",
+      "saving": "Guardando...",
+      "vehicle": "VEHÍCULO",
+      "addAsset": "Agregar Activo",
+      "assetsTitle": "Activos",
+      "autoRecalculateNote": "* El sistema recalcula automáticamente"
     },
     "categories": {
       "credits": "Deudas de Cuotas (Créditos)",
@@ -154,7 +173,13 @@
       "assets": "Bienes y Ahorros (Activos)",
       "partner": "Aportes de Pareja",
       "fixedPayments": "Pagos Fijos (Arriendos, Créditos)",
-      "variableServices": "Servicios Variables (Promediados)"
+      "variableServices": "Servicios Variables (Promediados)",
+      "FIXED_PAYMENTS": "PAGOS FIJOS",
+      "SERVICES": "SERVICIOS",
+      "SUBSCRIPTIONS": "SUSCRIPCIONES",
+      "VARIABLE_SERVICES": "SERVICIOS VARIABLES",
+      "CREDITS": "CRÉDITOS",
+      "ASSETS": "ACTIVOS"
     },
     "assetTypes": {
       "property": "Inmueble",
@@ -276,7 +301,9 @@
     "private": "PRIVATE",
     "confirmDelete": "¿Seguro que quieres borrar \"{item}\"?",
     "installments": "cuotas",
-    "installment": "cuota"
+    "installment": "cuota",
+    "free": "Gratis",
+    "premium": "Premium"
   },
   "welcome": {
     "title": "¡Bienvenido a Finanza Fácil!",
@@ -296,10 +323,42 @@
     "tooltipDescription": "Es el valor de tu libertad final si hoy decidieras liquidar todo.",
     "whatIHave": "Lo que tengo (Bienes)",
     "whatIOwe": "Lo que debo (Deudas)",
-    "realWealth": "Riqueza Real"
+    "realWealth": "Riqueza Real",
+    "positiveMessage": "Tu patrimonio neto es positivo. Estás construyendo riqueza real más allá de tu flujo de caja mensual.",
+    "negativeMessage": "Tus deudas exceden tus activos actuales. Cada contribución al fondo común es un paso hacia recuperar tu patrimonio neto."
   },
   "privacy": {
     "show": "Mostrar valores",
     "hide": "Ocultar valores"
+  },
+  "admin": {
+    "userControl": "Control de Usuarios",
+    "registered": "Registrados",
+    "searchPlaceholder": "Buscar por nombre o email...",
+    "loadingCommunity": "Cargando comunidad...",
+    "noUsersFound": "No se encontraron usuarios",
+    "since": "Desde",
+    "makePremium": "Hacer Premium",
+    "makeFree": "Hacer Gratis",
+    "noName": "Sin nombre"
+  },
+  "install": {
+    "title": "Instalar Finanza Fácil",
+    "installApp": "Instalar Aplicación",
+    "directInstallation": "Instalación Directa",
+    "chooseInstall": "Elige 'Agregar a pantalla de inicio'",
+    "installNow": "Instalar Ahora",
+    "androidInstructions": "Toca el menú (⋮) y selecciona 'Agregar a pantalla de inicio'",
+    "iosInstructions": "Toca el botón de compartir y selecciona 'Agregar a pantalla de inicio'",
+    "menuStep": "Menú",
+    "step1": "Paso 1",
+    "step2": "Paso 2"
+  },
+  "userProfile": {
+    "user": "Usuario",
+    "adminUsers": "Admin: Usuarios",
+    "clearCache": "Limpiar Caché y Sincronizar",
+    "closeSession": "Cerrar Sesión",
+    "logout": "Salir"
   }
 }
