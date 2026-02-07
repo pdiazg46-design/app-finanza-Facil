@@ -260,6 +260,14 @@
     "loading": "Carregando...",
     "private": "PRIVADO"
   },
+  "welcome": {
+    "title": "Bem-vindo ao Finança Fácil!",
+    "subtitle": "Para calcular seus dias de liberdade corretamente:",
+    "masterYourFreedom": "Domine sua liberdade",
+    "masterYourFreedomDesc": "Aprenda a filosofia dos 1.000 dias com nossa rotina interativa.",
+    "startRoutine": "Iniciar Rotina de Aprendizado",
+    "skipAndExplore": "Pular e explorar sozinho"
+  },
   "tiers": {
     "survival": {
       "label": "Na corda bamba",

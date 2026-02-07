@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react"
 import { useLocaleContext } from "./LocaleContext"
 import { getTierTranslationKey, getTierTypeFromInfo } from "@/lib/tier-translations"
 import { DevLabel } from "./DevLabel"
+import { formatCurrency } from "@/lib/currency-formatter"
 
 interface FreedomDimensionProps {
     freedomDays: number;
@@ -66,7 +67,7 @@ export function FreedomDimension({
                             {isPrivate ? (
                                 <span className="text-slate-300">••••••</span>
                             ) : (
-                                new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(dailyBurn)
+                                formatCurrency(dailyBurn)
                             )}
                         </div>
                         <p className="text-[11px] text-slate-700 font-bold mt-1 uppercase tracking-tight">{t('dimension.dailyCost')}</p>
@@ -90,7 +91,7 @@ export function FreedomDimension({
                             {isPrivate ? (
                                 <span className="text-slate-300">••••••</span>
                             ) : (
-                                new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(totalReserves)
+                                formatCurrency(totalReserves)
                             )}
                         </div>
                         <p className="text-[11px] text-slate-700 font-black mt-1 uppercase tracking-tight">{t('dimension.emergencySavings')}</p>
@@ -113,7 +114,7 @@ export function FreedomDimension({
                                 {isPrivate ? (
                                     <span className="text-red-300">••••••</span>
                                 ) : (
-                                    new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(totalDebt)
+                                    formatCurrency(totalDebt)
                                 )}
                             </div>
                             <p className="text-[11px] text-red-700 font-black italic">{t('dimension.allPending')}</p>
@@ -149,7 +150,7 @@ export function FreedomDimension({
                                 {isPrivate ? (
                                     <span className="text-white/20 font-black tracking-widest">••••••</span>
                                 ) : (
-                                    new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(totalAssets + totalReserves)
+                                    formatCurrency(totalAssets + totalReserves)
                                 )}
                             </span>
                         </div>
@@ -160,7 +161,7 @@ export function FreedomDimension({
                                 {isPrivate ? (
                                     <span className="text-white/20 font-black tracking-widest">••••••</span>
                                 ) : (
-                                    new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(totalDebt)
+                                    formatCurrency(totalDebt)
                                 )}
                             </span>
                         </div>
@@ -171,7 +172,7 @@ export function FreedomDimension({
                                 {isPrivate ? (
                                     <span className="text-white/20 select-none italic text-lg tracking-[0.2em]">PRIVATE</span>
                                 ) : (
-                                    new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(netWorth)
+                                    formatCurrency(netWorth)
                                 )}
                             </span>
                         </div>
