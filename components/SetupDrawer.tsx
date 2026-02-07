@@ -6,6 +6,7 @@ import { BudgetCategory, CategoryType } from '@/lib/db'
 import { usePrivacy } from './PrivacyContext'
 import { CurrencyText } from './CurrencyText'
 import { useLocaleContext } from './LocaleContext'
+import { formatCurrency, formatNumber } from '@/lib/currency-formatter'
 
 interface SetupDrawerProps {
     isOpen: boolean
@@ -282,13 +283,13 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                                                                 <input
                                                                     type="text"
                                                                     inputMode="numeric"
-                                                                    value={isPrivate ? '$ ••••••' : (editingId === item.id ? item.amount.toString() : new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(item.amount))}
+                                                                    value={isPrivate ? '$ ••••••' : (editingId === item.id ? item.amount.toString() : formatCurrency(item.amount))}
                                                                     onChange={(e) => handleAmountChange(item.id, e.target.value)}
                                                                     onFocus={() => !isPrivate && !item.isAutomated && setEditingId(item.id)}
                                                                     onBlur={() => setEditingId(null)}
                                                                     disabled={isPrivate || item.isAutomated}
                                                                     className={`bg-transparent border-0 p-0 text-xl font-black text-slate-900 focus:outline-none ${isPrivate || item.isAutomated ? 'cursor-not-allowed' : ''}`}
-                                                                    style={{ width: `${Math.max(4, (isPrivate ? 8 : (editingId === item.id ? item.amount.toString().length : new Intl.NumberFormat('es-CL').format(item.amount).length + 2)))}ch` }}
+                                                                    style={{ width: `${Math.max(4, (isPrivate ? 8 : (editingId === item.id ? item.amount.toString().length : formatNumber(item.amount).length + 2)))}ch` }}
                                                                 />
                                                                 <span className="text-[14px] text-slate-700 font-black uppercase tracking-tight">{t('setup.credits.perMonth')}</span>
                                                             </div>
@@ -339,7 +340,7 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                                                             <div className="flex justify-between items-center">
                                                                 <span className="text-[12px] font-bold uppercase text-red-700">{t('setup.labels.totalDebt')}</span>
                                                                 <span className="text-xl font-black text-red-700">
-                                                                    {isPrivate ? '••••••' : new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(item.amount * (installments - (currentInstallment - 1)))}
+                                                                    {isPrivate ? '••••••' : formatCurrency(item.amount * (installments - (currentInstallment - 1)))}
                                                                 </span>
                                                             </div>
                                                             <div className="flex justify-between items-center pt-1.5 border-t border-red-200/50">
@@ -429,12 +430,12 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                                             <input
                                                 type="text"
                                                 inputMode="numeric"
-                                                value={isPrivate ? '$ ••••••' : (editingAssetId === asset.id ? asset.value.toString() : new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(asset.value))}
+                                                value={isPrivate ? '$ ••••••' : (editingAssetId === asset.id ? asset.value.toString() : formatCurrency(asset.value))}
                                                 onChange={(e) => handleAssetChange(asset.id, 'value', parseInt(e.target.value.replace(/\D/g, '')) || 0)}
                                                 onFocus={() => !isPrivate && setEditingAssetId(asset.id)}
                                                 onBlur={() => setEditingAssetId(null)}
                                                 className="bg-transparent border-0 p-0 text-lg font-black text-slate-900 focus:outline-none"
-                                                style={{ width: `${Math.max(4, (isPrivate ? 8 : (editingAssetId === asset.id ? asset.value.toString().length : new Intl.NumberFormat('es-CL').format(asset.value).length + 2)))}ch` }}
+                                                style={{ width: `${Math.max(4, (isPrivate ? 8 : (editingAssetId === asset.id ? asset.value.toString().length : formatNumber(asset.value).length + 2)))}ch` }}
                                             />
                                         </div>
                                         {editingAssetId === asset.id && (
@@ -488,14 +489,14 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                             <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-3 py-1.5 focus-within:border-blue-300 transition-all">
                                 <input
                                     type="text"
-                                    value={isPrivate ? '$ ••••••' : new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(localPartner.contribution)}
+                                    value={isPrivate ? '$ ••••••' : formatCurrency(localPartner.contribution)}
                                     onChange={(e) => {
                                         const val = parseInt(e.target.value.replace(/\D/g, '')) || 0
                                         setLocalPartner(prev => ({ ...prev, contribution: val }))
                                     }}
                                     disabled={isPrivate}
                                     className={`bg-transparent border-0 p-0 text-lg font-black text-slate-900 focus:outline-none ${isPrivate ? 'cursor-not-allowed' : ''}`}
-                                    style={{ width: `${Math.max(4, (isPrivate ? 8 : new Intl.NumberFormat('es-CL').format(localPartner.contribution).length + 2))}ch` }}
+                                    style={{ width: `${Math.max(4, (isPrivate ? 8 : formatNumber(localPartner.contribution).length + 2))}ch` }}
                                 />
                                 <span className="text-[12px] text-slate-600 font-bold uppercase tracking-tighter shrink-0">{t('setup.credits.perMonth')}</span>
                             </div>
