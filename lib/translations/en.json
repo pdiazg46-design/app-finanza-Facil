@@ -27,18 +27,6 @@
       "safe": "Safe Zone",
       "warning": "Warning Zone",
       "danger": "Critical Zone"
-    },
-    "tiers": {
-      "survival": "On the edge",
-      "survivalDesc": "Critical State. You don't have enough breathing room for the month. The goal is to get out of here fast.",
-      "security": "Solid Ground",
-      "securityDesc": "You have a 3 to 6 month cushion. You're protected against unforeseen events.",
-      "flexibility": "Walking alone",
-      "flexibilityDesc": "You can start making decisions without immediate pressure.",
-      "independence": "Master of my Time",
-      "independenceDesc": "Congratulations! You have more than a year of life secured.",
-      "abundance": "Total Freedom",
-      "abundanceDesc": "You've reached the top. Your time today is 100% yours."
     }
   },
   "liquidity": {
@@ -69,28 +57,15 @@
     "realWealth": "My Real Wealth",
     "whatIHave": "What I have (Assets)",
     "whatIOwe": "What I owe (Debts)",
-    "netWorthLabel": "Real Wealth"
+    "netWorthLabel": "Real Wealth",
+    "days": "days",
+    "accountsPayable": "Accounts payable"
   },
   "tooltips": {
-    "freedomDays": {
-      "title": "Breathing Room Days",
-      "content": "Represents the time you could live without external income while maintaining your current expenses.",
-      "description": "Your days are the result of dividing your total backup (Balances + Investments) by what you spend each day."
-    },
-    "burnRate": {
-      "title": "My Daily Cost",
-      "content": "What it costs you to live each day based on your declared Real Structure."
-    },
-    "reserves": {
-      "title": "Emergency Savings",
-      "content": "Sum of your bank balances, savings and liquid investments.",
-      "description": "Only what you can convert to cash in 24-48 hours is considered real backup."
-    },
-    "debt": {
-      "title": "Total Debt",
-      "content": "Sum of all your active debts (credits, pending installments).",
-      "description": "Every peso in debt reduces your financial freedom."
-    }
+    "configure": "Configure financial reality",
+    "help": "Help and Tutorial",
+    "viewInfo": "View information",
+    "impactOnFreedom": "Impact on your freedom:"
   },
   "movements": {
     "title": "Recent Movements",
@@ -162,9 +137,17 @@
       "name": "Name",
       "monthlyAmount": "Monthly amount"
     },
-    "burnRate": {
-      "title": "Maintenance Cost",
-      "subtitle": "BurnRate"
+    "categories": {
+      "FIXED_PAYMENTS": "Fixed Payments (Rent, Credits)",
+      "VARIABLE_SERVICES": "Variable Services (Averaged)",
+      "SUBSCRIPTIONS": "Ant Expenses (Subscriptions)",
+      "CREDITS": "Installment Debts (Credits)",
+      "SERVICES": "Bills to Pay (Services)",
+      "ASSETS": "Goods and Savings (Assets)",
+      "credits": "Installment Debts (Credits)",
+      "subscriptions": "Ant Expenses (Subscriptions)",
+      "services": "Bills to Pay (Services)",
+      "assets": "Goods and Savings (Assets)"
     },
     "goal": {
       "title": "Monthly Goal",
@@ -181,17 +164,26 @@
       "totalDebt": "Total Debt:",
       "weightOnBreathing": "Weight on my Breathing:",
       "remaining": "remaining",
+      "installment": "Installment",
       "automaticAverage": "Automatic Average",
       "automatic": "automatic",
       "assetsNote": "* Only \"Investment\" adds to Breathing Days",
       "burnRate": "Maintenance Cost (Burn Rate)",
       "monthlyGoal": "Monthly goal",
       "assetPlaceholder": "Ex: Car, Apt, Investments...",
-      "unnamedConcept": "Unnamed concept"
-    },
-    "categories": {
-      "fixedPayments": "Fixed Payments (Rent, Credits)",
-      "variableServices": "Variable Services (Averaged)"
+      "unnamedConcept": "Unnamed concept",
+      "assetsTitle": "Goods and Savings (Assets)",
+      "investmentNote": "* Only \"Investment\" adds to Breathing Days",
+      "addAsset": "+ Asset",
+      "property": "PROPERTY",
+      "vehicle": "VEHICLE",
+      "investment": "INVESTMENT",
+      "other": "OTHER",
+      "partnerContributions": "Partner Contributions",
+      "saving": "Saving...",
+      "saveChangesButton": "SAVE CHANGES",
+      "autoRecalculateNote": "* Automatically recalculated based on the average of the last 90 days.",
+      "daysLost": "days lost"
     }
   },
   "history": {
@@ -234,13 +226,34 @@
       "skipTutorial": "Skip Tutorial"
     }
   },
+  "netWorth": {
+    "title": "My Real Wealth",
+    "tooltipTitle": "My Real Wealth",
+    "tooltipContent": "The difference between everything you have (Assets + Savings) and everything you owe (Credits).",
+    "tooltipDescription": "It's the value of your final freedom if you decided to liquidate everything today.",
+    "whatIHave": "What I have (Assets)",
+    "whatIOwe": "What I owe (Debts)",
+    "realWealth": "Real Wealth",
+    "positiveMessage": "Your net worth is positive. You're building real wealth beyond your monthly cash flow.",
+    "negativeMessage": "Your debts exceed your current assets. Every contribution to the common fund is a step toward recovering your net worth."
+  },
+  "welcome": {
+    "title": "Welcome to Easy Finance!",
+    "subtitle": "To calculate your freedom days correctly:",
+    "masterYourFreedom": "Master your freedom",
+    "masterYourFreedomDesc": "Learn the philosophy of the 1,000 days with our interactive routine.",
+    "startRoutine": "Start Learning Routine",
+    "skipAndExplore": "Skip and explore alone"
+  },
   "common": {
     "close": "Close",
     "save": "Save",
     "cancel": "Cancel",
     "search": "Search",
     "loading": "Loading...",
-    "private": "PRIVATE"
+    "private": "PRIVATE",
+    "premium": "Premium",
+    "free": "Free"
   },
   "tiers": {
     "survival": {
@@ -267,5 +280,35 @@
   "privacy": {
     "show": "Show values",
     "hide": "Hide values"
+  },
+  "userProfile": {
+    "user": "User",
+    "clearCache": "Clear Cache & Sync",
+    "adminUsers": "Admin: Users",
+    "closeSession": "Close Session",
+    "logout": "Logout"
+  },
+  "admin": {
+    "userControl": "User Control",
+    "registered": "Registered",
+    "searchPlaceholder": "Search by name or email...",
+    "loadingCommunity": "Loading community...",
+    "noUsersFound": "No users found",
+    "noName": "No name",
+    "since": "Since",
+    "makeFree": "Make Free",
+    "makePremium": "Make Premium"
+  },
+  "install": {
+    "installApp": "INSTALL APP",
+    "title": "Install Finanza Fácil",
+    "iosInstructions": "To install on iOS, tap 'Share' and select 'Add to Home Screen'.",
+    "androidInstructions": "Add the app to your home screen for a better offline experience.",
+    "step1": "1. Tap",
+    "step2": "2. Add to Home Screen",
+    "installNow": "Install now",
+    "directInstallation": "📲 Direct Installation:",
+    "menuStep": "Tap the 3-dot menu (⋮) above.",
+    "chooseInstall": "Choose \"Install app\"."
   }
 }

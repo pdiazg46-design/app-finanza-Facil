@@ -24,7 +24,10 @@ export function CountrySelector() {
         localStorage.setItem('at-sit-user-currency-symbol', symbol) // Used by CurrencyText
         localStorage.setItem('at-sit-user-locale', locale)
 
-        window.dispatchEvent(new Event('storage'))
+        // Dispatch custom event for same-tab synchronization
+        window.dispatchEvent(new Event('localeChange'))
+
+        // Reload to apply changes
         window.location.reload()
     }
 

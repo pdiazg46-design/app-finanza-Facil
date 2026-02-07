@@ -7,6 +7,7 @@ import { InfoTooltip } from "./InfoTooltip"
 import { useSession } from "next-auth/react"
 import { useLocaleContext } from "./LocaleContext"
 import { getTierTranslationKey, getTierTypeFromInfo } from "@/lib/tier-translations"
+import { DevLabel } from "./DevLabel"
 
 interface FreedomDimensionProps {
     freedomDays: number;
@@ -104,7 +105,7 @@ export function FreedomDimension({
                                 <span className="text-[11px] font-black text-slate-900 uppercase tracking-wider">{t('dimension.debtImpact')}</span>
                             </div>
                             <span className="text-[11px] font-black text-red-700">
-                                {isPrivate ? '---' : `-${debtImpactDays} días`}
+                                {isPrivate ? '---' : `-${debtImpactDays} ${t('dimension.days')}`}
                             </span>
                         </div>
                         <div className="flex justify-between items-baseline">
@@ -124,6 +125,7 @@ export function FreedomDimension({
             {/* Patrimonio Neto Section (Premium Only) */}
             {(totalAssets > 0 || totalDebt > 0) && session?.user?.plan === 'PREMIUM' && (
                 <div className="bg-slate-900 rounded-3xl p-6 text-white overflow-hidden relative border border-slate-800 shadow-xl mt-2">
+                    <DevLabel name="FreedomDimension - MY REAL WEALTH Card" />
                     <div className="flex items-center justify-between mb-8 relative z-10">
                         <div className="flex items-center gap-2">
                             <h3 className="text-xl font-black tracking-tight text-white uppercase">{t('netWorth.title')}</h3>
@@ -132,6 +134,7 @@ export function FreedomDimension({
                                 content={t('netWorth.tooltipContent')}
                                 description={t('netWorth.tooltipDescription')}
                                 variant="light"
+                                debugName="MY REAL WEALTH - InfoTooltip"
                             />
                         </div>
                         <div className={`p-2 rounded-xl bg-white/10 backdrop-blur-md`}>
@@ -177,8 +180,8 @@ export function FreedomDimension({
                     <div className="mt-8 p-4 bg-white/10 rounded-2xl relative z-10 border border-white/5">
                         <p className="text-[13px] text-white leading-relaxed font-black">
                             {netWorth > 0
-                                ? `Tu patrimonio neto es positivo. Estás construyendo riqueza real más allá de tu flujo mensual.`
-                                : `Tus deudas superan tus activos actuales. Cada aporte al fondo común es un paso para recuperar tu patrimonio neto.`
+                                ? t('netWorth.positiveMessage')
+                                : t('netWorth.negativeMessage')
                             }
                         </p>
                     </div>
