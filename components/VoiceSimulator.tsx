@@ -7,6 +7,7 @@ import { parseVoiceCommand, generateConfirmationMessage, ParsedCommand } from "@
 import { registerExpense, addContribution, getFundMetrics } from '../app/actions/fund-actions'
 import { FinanceEngine } from '@/lib/finance-engine'
 import { useLocaleContext } from './LocaleContext'
+import { formatCurrency } from '@/lib/currency-formatter'
 
 // Extend browser types for Speech Recognition
 declare global {
@@ -282,7 +283,7 @@ export function VoiceSimulator() {
                                 </span>
                                 <span className="text-sm font-bold text-slate-800 leading-tight mb-0.5">{lastResult.name}</span>
                                 <span className={`text-lg font-black font-[family-name:var(--font-montserrat)] ${status?.includes('Ingreso') ? 'text-emerald-600' : 'text-red-600'}`}>
-                                    {new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(lastResult.amount)}
+                                    {formatCurrency(lastResult.amount)}
                                 </span>
                                 {lastResult.impact && lastResult.impact > 0 && (
                                     <span className="text-[10px] font-bold text-orange-500 mt-1 animate-pulse">

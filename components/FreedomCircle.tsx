@@ -5,6 +5,7 @@ import { Sparkles } from "lucide-react"
 import { usePrivacy } from "./PrivacyContext"
 import { InfoTooltip } from "./InfoTooltip"
 import { useLocaleContext } from "./LocaleContext"
+import { formatNumber } from "@/lib/currency-formatter"
 
 interface FreedomCircleProps {
     freedomDays: number
@@ -43,7 +44,7 @@ export function FreedomCircle({ freedomDays, targetDays }: FreedomCircleProps) {
                                 freedomDays.toString().length > 4 ? 'text-2xl' :
                                     'text-4xl'
                                 }`}>
-                                {new Intl.NumberFormat('es-CL').format(freedomDays)}
+                                {formatNumber(freedomDays)}
                             </span>
                             <span className="text-[12px] font-black text-white uppercase tracking-wider mt-0.5 font-[family-name:var(--font-montserrat)]">
                                 DÍAS
