@@ -69,13 +69,13 @@
     "accountsPayable": "Contas a pagar"
   },
   "netWorth": {
-    "title": "Meu Patrimônio Líquido",
-    "tooltipTitle": "Meu Patrimônio Líquido",
+    "title": "Minha Riqueza Real",
+    "tooltipTitle": "Minha Riqueza Real",
     "tooltipContent": "A diferença entre tudo o que você tem (Bens + Economias) e tudo o que você deve (Créditos).",
     "tooltipDescription": "É o valor da sua liberdade final se hoje você decidisse liquidar tudo.",
     "whatIHave": "O que tenho (Bens)",
     "whatIOwe": "O que devo (Dívidas)",
-    "realWealth": "Patrimônio Líquido",
+    "realWealth": "Riqueza Real",
     "positiveMessage": "Seu patrimônio líquido é positivo. Você está construindo riqueza real além do seu fluxo de caixa mensal.",
     "negativeMessage": "Suas dívidas excedem seus ativos atuais. Cada contribuição ao fundo comum é um passo para recuperar seu patrimônio líquido."
   },
