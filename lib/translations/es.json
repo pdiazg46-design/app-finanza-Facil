@@ -245,6 +245,28 @@
       "skipTutorial": "Saltar Tutorial"
     }
   },
+  "tiers": {
+    "survival": {
+      "label": "Al Filo",
+      "description": "Estado Crítico. No tienes suficiente colchón para el mes. El objetivo es salir de aquí rápido."
+    },
+    "security": {
+      "label": "Piso Firme",
+      "description": "Tienes un colchón de 3 a 6 meses. Estás protegido ante imprevistos."
+    },
+    "flexibility": {
+      "label": "Caminando Solo",
+      "description": "Puedes empezar a tomar decisiones sin presión inmediata."
+    },
+    "independence": {
+      "label": "Dueño de mi Tiempo",
+      "description": "¡Felicitaciones! Tienes más de un año de vida asegurado."
+    },
+    "abundance": {
+      "label": "Libertad Total",
+      "description": "Llegaste a la cima. Tu tiempo hoy es 100% tuyo."
+    }
+  },
   "common": {
     "close": "Cerrar",
     "save": "Guardar",
