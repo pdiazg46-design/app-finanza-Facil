@@ -2,11 +2,11 @@
 
 import { Eye, EyeOff } from 'lucide-react'
 import { usePrivacy } from './PrivacyContext'
-import { useLocale } from './LocaleContext'
+import { useLocaleContext } from './LocaleContext'
 
 export function PrivacyToggle() {
     const { isPrivate, togglePrivacy } = usePrivacy()
-    const { t } = useLocale()
+    const { t } = useLocaleContext()
 
     return (
         <button
