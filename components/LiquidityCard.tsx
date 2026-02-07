@@ -6,7 +6,7 @@ import { InfoTooltip } from "./InfoTooltip"
 import { TrendingDown, Wallet } from "lucide-react"
 import { CurrencyText } from "@/components/CurrencyText"
 import { MiniChart } from "@/components/MiniChart"
-import { useLocaleContext } from "@/contexts/LocaleContext"
+import { useLocaleContext } from "@/components/LocaleContext"
 
 interface LiquidityCardProps {
     type: 'common' | 'disposable'
