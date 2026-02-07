@@ -136,7 +136,8 @@
       "totalInstallments": "Total Installments",
       "installmentOf": "installment {current} of {total}",
       "remaining": "{count} remaining",
-      "month": "month"
+      "month": "month",
+      "perMonth": "/ month"
     },
     "subscriptions": {
       "title": "Ant Expenses",
@@ -185,7 +186,12 @@
       "assetsNote": "* Only \"Investment\" adds to Breathing Days",
       "burnRate": "Maintenance Cost (Burn Rate)",
       "monthlyGoal": "Monthly goal",
-      "assetPlaceholder": "Ex: Car, Apt, Investments..."
+      "assetPlaceholder": "Ex: Car, Apt, Investments...",
+      "unnamedConcept": "Unnamed concept"
+    },
+    "categories": {
+      "fixedPayments": "Fixed Payments (Rent, Credits)",
+      "variableServices": "Variable Services (Averaged)"
     }
   },
   "history": {
@@ -200,7 +206,33 @@
   },
   "routine": {
     "dailyBurn": "Daily Burn",
-    "days": "Days"
+    "days": "DAYS",
+    "tutorial": {
+      "masterGoal": {
+        "title": "The Master Goal",
+        "description": "At Easy Finance, we don't accumulate money, we accumulate TIME. Our shared goal is to reach 1,000 days of freedom."
+      },
+      "burnRate": {
+        "title": "The Burn Rate",
+        "description": "Living has a cost. Your 'Burn Rate' is how much money you need each day to keep your world spinning without debt."
+      },
+      "realStructure": {
+        "title": "Real Structure",
+        "description": "To win, you must first measure. Set up your Fixed Liabilities (rent, credits) and Assets to calibrate your financial base."
+      },
+      "magicVoice": {
+        "title": "Magic Voice",
+        "description": "Don't waste time writing. Use the microphone and say: 'bought sushi for 25 bucks'. The system will understand the amount and impact automatically."
+      },
+      "freedomDays": {
+        "title": "Freedom Days",
+        "description": "The final result: how many days you can live today if you stopped working. Every dollar saved buys lifetime!"
+      },
+      "nextStep": "Next Step",
+      "readyToWin": "Ready to Win!",
+      "back": "Back",
+      "skipTutorial": "Skip Tutorial"
+    }
   },
   "common": {
     "close": "Close",
@@ -209,5 +241,31 @@
     "search": "Search",
     "loading": "Loading...",
     "private": "PRIVATE"
+  },
+  "tiers": {
+    "survival": {
+      "label": "On the Edge",
+      "description": "Critical State. You don't have enough breathing room for the month. The goal is to get out of here fast."
+    },
+    "security": {
+      "label": "Solid Ground",
+      "description": "You have a 3 to 6 month cushion. You're protected against unexpected events."
+    },
+    "flexibility": {
+      "label": "Walking Alone",
+      "description": "You can start making decisions without immediate pressure."
+    },
+    "independence": {
+      "label": "Master of my Time",
+      "description": "Congratulations! You have more than a year of life secured."
+    },
+    "abundance": {
+      "label": "Total Freedom",
+      "description": "You've reached the top. Your time today is 100% yours."
+    }
+  },
+  "privacy": {
+    "show": "Show values",
+    "hide": "Hide values"
   }
 }

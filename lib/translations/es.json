@@ -131,13 +131,6 @@
     "myRealNumbers": "Mis Números Reales",
     "saveAll": "Guardar todo",
     "add": "Añadir",
-    "categories": {
-      "credits": "Deudas de Cuotas (Créditos)",
-      "subscriptions": "Gastos Hormiga (Suscripciones)",
-      "services": "Cuentas por Pagar (Servicios)",
-      "assets": "Bienes y Ahorros (Activos)",
-      "partner": "Aportes de Pareja"
-    },
     "labels": {
       "name": "Nombre",
       "conceptName": "Nombre del concepto...",
@@ -151,7 +144,17 @@
       "assetsNote": "* Solo \"Inversión\" suma a Días de Respiro",
       "burnRate": "Costo de Mantención (Burn Rate)",
       "monthlyGoal": "Meta mensual",
-      "assetPlaceholder": "Ej: Auto, Depto, Inversiones..."
+      "assetPlaceholder": "Ej: Auto, Depto, Inversiones...",
+      "unnamedConcept": "Concepto sin nombre"
+    },
+    "categories": {
+      "credits": "Deudas de Cuotas (Créditos)",
+      "subscriptions": "Gastos Hormiga (Suscripciones)",
+      "services": "Cuentas por Pagar (Servicios)",
+      "assets": "Bienes y Ahorros (Activos)",
+      "partner": "Aportes de Pareja",
+      "fixedPayments": "Pagos Fijos (Arriendos, Créditos)",
+      "variableServices": "Servicios Variables (Promediados)"
     },
     "assetTypes": {
       "property": "Inmueble",
@@ -166,7 +169,8 @@
       "totalInstallments": "Total Cuotas",
       "installmentOf": "cuota {current} de {total}",
       "remaining": "{count} restantes",
-      "month": "mes"
+      "month": "mes",
+      "perMonth": "/ mes"
     },
     "subscriptions": {
       "title": "Gastos Hormiga",
@@ -213,7 +217,33 @@
   },
   "routine": {
     "dailyBurn": "Gasto Diario",
-    "days": "Días"
+    "days": "DÍAS",
+    "tutorial": {
+      "masterGoal": {
+        "title": "La Meta Maestra",
+        "description": "En Finanza Fácil, no acumulamos dinero, acumulamos TIEMPO. Nuestra meta compartida es alcanzar los 1.000 días de libertad."
+      },
+      "burnRate": {
+        "title": "El Burn Rate",
+        "description": "Vivir tiene un costo. Tu 'Burn Rate' es cuánto dinero necesitas cada día para que tu mundo siga girando sin deudas."
+      },
+      "realStructure": {
+        "title": "Estructura Real",
+        "description": "Para ganar, primero hay que medir. Configura tus Pasivos Fijos (arriendo, créditos) y Activos para calibrar tu base financiera."
+      },
+      "magicVoice": {
+        "title": "Voz Mágica",
+        "description": "No pierdas tiempo anotando. Usa el micrófono y di: 'compré sushi por 25 lucas'. El sistema entenderá el monto y el impacto automáticamente."
+      },
+      "freedomDays": {
+        "title": "Días de Libertad",
+        "description": "El resultado final: cuántos días puedes vivir hoy si dejaras de trabajar. ¡Cada peso ahorrado compra tiempo de vida!"
+      },
+      "nextStep": "Siguiente Pasito",
+      "readyToWin": "¡Listo para Ganar!",
+      "back": "Atrás",
+      "skipTutorial": "Saltar Tutorial"
+    }
   },
   "common": {
     "close": "Cerrar",
@@ -246,5 +276,31 @@
   "installments": {
     "installments": "cuotas",
     "installment": "cuota"
+  },
+  "tiers": {
+    "survival": {
+      "label": "En la cuerda floja",
+      "description": "Estado Crítico. No tienes suficiente respiro para el mes. El objetivo es salir de aquí rápido."
+    },
+    "security": {
+      "label": "Piso Firme",
+      "description": "Tienes un colchón de 3 a 6 meses. Estás protegido ante imprevistos."
+    },
+    "flexibility": {
+      "label": "Caminando solo",
+      "description": "Puedes empezar a tomar decisiones sin presión inmediata."
+    },
+    "independence": {
+      "label": "Dueño de mi Tiempo",
+      "description": "¡Felicidades! Tienes más de un año de vida asegurada."
+    },
+    "abundance": {
+      "label": "Libertad Total",
+      "description": "Has alcanzado la cima. Tu tiempo hoy es 100% tuyo."
+    }
+  },
+  "privacy": {
+    "show": "Mostrar valores",
+    "hide": "Ocultar valores"
   }
 }

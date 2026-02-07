@@ -6,6 +6,7 @@ import { usePrivacy } from "./PrivacyContext"
 import { InfoTooltip } from "./InfoTooltip"
 import { useSession } from "next-auth/react"
 import { useLocaleContext } from "./LocaleContext"
+import { getTierTranslationKey, getTierTypeFromInfo } from "@/lib/tier-translations"
 
 interface FreedomDimensionProps {
     freedomDays: number;
@@ -38,11 +39,11 @@ export function FreedomDimension({
                 <div className="flex items-center gap-2.5 mb-2">
                     <ShieldCheck className={`w-5 h-5 ${tier.color}`} />
                     <h3 className="text-[14px] font-black text-slate-900 uppercase tracking-widest">
-                        {t('freedom.status')}: {t(tier.labelKey)}
+                        {t('freedom.status')}: {t(getTierTranslationKey(getTierTypeFromInfo(tier)).label)}
                     </h3>
                 </div>
                 <p className="text-[12px] text-slate-700 leading-relaxed italic font-medium">
-                    "{t(tier.descriptionKey)}"
+                    "{t(getTierTranslationKey(getTierTypeFromInfo(tier)).description)}"
                 </p>
             </div>
 

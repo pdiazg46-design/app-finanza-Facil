@@ -129,6 +129,15 @@
   "setup": {
     "title": "Contas Chave",
     "myRealNumbers": "Meus Números Reais",
+    "categories": {
+      "credits": "Dívidas de Parcelas (Créditos)",
+      "subscriptions": "Gastos Formiga (Assinaturas)",
+      "services": "Contas a Pagar (Serviços)",
+      "assets": "Bens e Economias (Ativos)",
+      "partner": "Contribuições do Parceiro",
+      "fixedPayments": "Pagamentos Fixos (Aluguel, Créditos)",
+      "variableServices": "Serviços Variáveis (Média)"
+    },
     "credits": {
       "title": "Dívidas Parceladas",
       "subtitle": "Créditos",
@@ -136,7 +145,8 @@
       "totalInstallments": "Total de Parcelas",
       "installmentOf": "parcela {current} de {total}",
       "remaining": "{count} restantes",
-      "month": "mês"
+      "month": "mês",
+      "perMonth": "/ mês"
     },
     "subscriptions": {
       "title": "Gastos Formiga",
@@ -179,13 +189,27 @@
       "totalInstallments": "Total de parcelas:",
       "totalDebt": "Dívida Total:",
       "weightOnBreathing": "Peso no meu Respiro:",
+      "daysLost": "dias perdidos",
+      "installment": "Parcela",
       "remaining": "restantes",
       "automaticAverage": "Média Automática",
       "automatic": "automático",
       "assetsNote": "* Apenas \"Investimento\" soma aos Dias de Respiro",
+      "assetsTitle": "Bens e Economias (Ativos)",
+      "investmentNote": "* Apenas \"Investimento\" soma aos Dias de Respiro",
+      "addAsset": "+ Ativo",
+      "property": "IMÓVEL",
+      "vehicle": "VEÍCULO",
+      "investment": "INVESTIMENTO",
+      "other": "OUTRO",
+      "partnerContributions": "Contribuições do Parceiro",
+      "saving": "Salvando...",
+      "saveChangesButton": "SALVAR ALTERAÇÕES",
+      "autoRecalculateNote": "* Recalcula-se apenas segundo a média dos últimos 90 dias.",
       "burnRate": "Custo de Manutenção (Burn Rate)",
       "monthlyGoal": "Meta mensal",
-      "assetPlaceholder": "Ex: Carro, Apto, Investimentos..."
+      "assetPlaceholder": "Ex: Carro, Apto, Investimentos...",
+      "unnamedConcept": "Conceito sem nome"
     }
   },
   "history": {
@@ -200,7 +224,33 @@
   },
   "routine": {
     "dailyBurn": "Gasto Diário",
-    "days": "Dias"
+    "days": "DIAS",
+    "tutorial": {
+      "masterGoal": {
+        "title": "A Meta Mestra",
+        "description": "Na Finança Fácil, não acumulamos dinheiro, acumulamos TEMPO. Nossa meta compartilhada é alcançar os 1.000 dias de liberdade."
+      },
+      "burnRate": {
+        "title": "O Burn Rate",
+        "description": "Viver tem um custo. Seu 'Burn Rate' é quanto dinheiro você precisa por dia para que seu mundo continue girando sem dívidas."
+      },
+      "realStructure": {
+        "title": "Estrutura Real",
+        "description": "Para ganhar, primeiro é preciso medir. Configure seus Passivos Fixos (aluguel, créditos) e Ativos para calibrar sua base financeira."
+      },
+      "magicVoice": {
+        "title": "Voz Mágica",
+        "description": "Não perca tempo anotando. Use o microfone e diga: 'comprei sushi por 25 mil'. O sistema entenderá o valor e o impacto automaticamente."
+      },
+      "freedomDays": {
+        "title": "Dias de Liberdade",
+        "description": "O resultado final: quantos dias você pode viver hoje se parasse de trabalhar. Cada real economizado compra tempo de vida!"
+      },
+      "nextStep": "Próximo Passo",
+      "readyToWin": "Pronto para Ganhar!",
+      "back": "Voltar",
+      "skipTutorial": "Pular Tutorial"
+    }
   },
   "common": {
     "close": "Fechar",
@@ -209,5 +259,31 @@
     "search": "Buscar",
     "loading": "Carregando...",
     "private": "PRIVADO"
+  },
+  "tiers": {
+    "survival": {
+      "label": "Na corda bamba",
+      "description": "Estado Crítico. Você não tem respiro suficiente para o mês. O objetivo é sair daqui rápido."
+    },
+    "security": {
+      "label": "Chão Firme",
+      "description": "Você tem uma reserva de 3 a 6 meses. Está protegido contra imprevistos."
+    },
+    "flexibility": {
+      "label": "Caminhando sozinho",
+      "description": "Você pode começar a tomar decisões sem pressão imediata."
+    },
+    "independence": {
+      "label": "Dono do meu Tempo",
+      "description": "Parabéns! Você tem mais de um ano de vida garantida."
+    },
+    "abundance": {
+      "label": "Liberdade Total",
+      "description": "Você alcançou o topo. Seu tempo hoje é 100% seu."
+    }
+  },
+  "privacy": {
+    "show": "Mostrar valores",
+    "hide": "Ocultar valores"
   }
 }

@@ -141,7 +141,7 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
         // Sanitize payload: Ensure names exist
         const sanitizedPayload = itemsToSync.map(item => ({
             ...item,
-            name: item.name && item.name.trim() !== '' ? item.name : 'Concepto sin nombre'
+            name: item.name && item.name.trim() !== '' ? item.name : t('setup.labels.unnamedConcept')
         }))
 
         // Detectar eliminados
@@ -189,9 +189,9 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
     const totalMonthly = localBudget.reduce((sum, b) => sum + b.amount, 0)
 
     const categories: { type: CategoryType, label: string, icon: any }[] = [
-        { type: 'FIXED_PAGO', label: 'Pagos Fijos (Arriendos, Créditos)', icon: CreditCard },
-        { type: 'SUBSCRIPTION', label: 'Suscripciones', icon: Zap },
-        { type: 'VARIABLE_SERVICE', label: 'Servicios Variables (Promediados)', icon: RefreshCw }
+        { type: 'FIXED_PAGO', label: t('setup.categories.fixedPayments'), icon: CreditCard },
+        { type: 'SUBSCRIPTION', label: t('setup.categories.subscriptions'), icon: Zap },
+        { type: 'VARIABLE_SERVICE', label: t('setup.categories.variableServices'), icon: RefreshCw }
     ]
 
     const drawerContent = (
@@ -207,7 +207,7 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                         onClick={handleSave}
                         disabled={isSaving}
                         className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center hover:bg-blue-100 transition-all active:scale-95"
-                        title="Guardar todo"
+                        title={t('setup.saveAll')}
                     >
                         {isSaving ? <RefreshCw className="w-5 h-5 text-atsit-blue animate-spin" /> : <Save className="w-5 h-5 text-atsit-blue" />}
                     </button>
@@ -290,7 +290,7 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                                                                     className={`bg-transparent border-0 p-0 text-xl font-black text-slate-900 focus:outline-none ${isPrivate || item.isAutomated ? 'cursor-not-allowed' : ''}`}
                                                                     style={{ width: `${Math.max(4, (isPrivate ? 8 : (editingId === item.id ? item.amount.toString().length : new Intl.NumberFormat('es-CL').format(item.amount).length + 2)))}ch` }}
                                                                 />
-                                                                <span className="text-[14px] text-slate-700 font-black uppercase tracking-tight">/ mes</span>
+                                                                <span className="text-[14px] text-slate-700 font-black uppercase tracking-tight">{t('setup.credits.perMonth')}</span>
                                                             </div>
                                                             {editingId === item.id && (
                                                                 <button
@@ -345,7 +345,7 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                                                             <div className="flex justify-between items-center pt-1.5 border-t border-red-200/50">
                                                                 <span className="text-[11px] font-bold uppercase text-red-600">{t('setup.labels.weightOnBreathing')}</span>
                                                                 <span className="text-[12px] font-black text-red-700">
-                                                                    {isPrivate ? '---' : `${Math.round((item.amount * (installments - (currentInstallment - 1))) / Math.max(1, totalMonthly / 30))} días perdidos`}
+                                                                    {isPrivate ? '---' : `${Math.round((item.amount * (installments - (currentInstallment - 1))) / Math.max(1, totalMonthly / 30))} ${t('setup.labels.daysLost')}`}
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -355,10 +355,10 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                                                             <div>
                                                                 <div className="flex items-center justify-between mb-1.5">
                                                                     <p className="text-[12px] font-bold text-slate-700">
-                                                                        Cuota {currentInstallment} de {installments}
+                                                                        {t('setup.labels.installment')} {currentInstallment} de {installments}
                                                                     </p>
                                                                     <p className="text-[11px] text-slate-600 font-medium">
-                                                                        {Math.max(0, installments - currentInstallment + 1)} restantes
+                                                                        {Math.max(0, installments - currentInstallment + 1)} {t('setup.labels.remaining')}
                                                                     </p>
                                                                 </div>
                                                                 <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
@@ -382,7 +382,7 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
 
                                             {item.type === 'VARIABLE_SERVICE' && (
                                                 <p className="text-[8px] text-slate-400 font-medium mt-2 italic px-1">
-                                                    * Se recalcula solo según el promedio de los últimos 90 días.
+                                                    {t('setup.labels.autoRecalculateNote')}
                                                 </p>
                                             )}
                                         </div>
@@ -397,14 +397,14 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                 <div className="mb-10">
                     <div className="flex items-center justify-between mb-4 px-1">
                         <h3 className="text-[13px] font-black text-slate-700 uppercase tracking-widest flex items-center gap-2">
-                            <DollarSign className="w-3.5 h-3.5" /> Bienes y Ahorros (Activos)
+                            <DollarSign className="w-3.5 h-3.5" /> {t('setup.labels.assetsTitle')}
                         </h3>
-                        <p className="text-[11px] text-blue-600 font-black uppercase italic">* Solo "Inversión" suma a Días de Respiro</p>
+                        <p className="text-[11px] text-blue-600 font-black uppercase italic">{t('setup.labels.investmentNote')}</p>
                         <button
                             onClick={handleAddAsset}
                             className="p-1 px-3 bg-slate-50 text-slate-600 rounded-full text-[12px] font-black uppercase hover:bg-green-50 hover:text-green-600 transition-colors border border-slate-200"
                         >
-                            + Activo
+                            {t('setup.labels.addAsset')}
                         </button>
                     </div>
                     <div className="space-y-3">
@@ -456,7 +456,7 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                                                 onClick={() => handleAssetChange(asset.id, 'type', type)}
                                                 className={`text-[11px] font-black px-3 py-1.5 rounded-md transition-all flex-1 min-w-[80px] text-center ${asset.type === type ? 'bg-blue-600 text-white' : 'bg-white text-slate-600 border border-slate-200'}`}
                                             >
-                                                {type === 'PROPERTY' ? 'INMUEBLE' : type === 'VEHICLE' ? 'VEHÍCULO' : type === 'INVESTMENT' ? 'INVERSIÓN' : 'OTRO'}
+                                                {type === 'PROPERTY' ? t('setup.assets.property') : type === 'VEHICLE' ? t('setup.assets.vehicle') : type === 'INVESTMENT' ? t('setup.assets.investment') : t('setup.assets.other')}
                                             </button>
                                         ))}
                                     </div>
@@ -470,7 +470,7 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                 <div className="mb-10 pt-4 border-t border-slate-50">
                     <div className="flex items-center justify-between mb-4 px-1">
                         <h3 className="text-[13px] font-black text-slate-700 uppercase tracking-widest flex items-center gap-2">
-                            <Users className="w-3.5 h-3.5" /> Aportes de Pareja
+                            <Users className="w-3.5 h-3.5" /> {t('setup.labels.partnerContributions')}
                         </h3>
                     </div>
                     <div className="bg-[#F8FAFC] rounded-2xl p-4 border border-slate-200/50 flex gap-4">
@@ -497,7 +497,7 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                                     className={`bg-transparent border-0 p-0 text-lg font-black text-slate-900 focus:outline-none ${isPrivate ? 'cursor-not-allowed' : ''}`}
                                     style={{ width: `${Math.max(4, (isPrivate ? 8 : new Intl.NumberFormat('es-CL').format(localPartner.contribution).length + 2))}ch` }}
                                 />
-                                <span className="text-[12px] text-slate-600 font-bold uppercase tracking-tighter shrink-0">/ mes</span>
+                                <span className="text-[12px] text-slate-600 font-bold uppercase tracking-tighter shrink-0">{t('setup.credits.perMonth')}</span>
                             </div>
                         </div>
                     </div>
@@ -525,7 +525,7 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                     disabled={isSaving}
                     className="w-full bg-[#003870] text-white py-4 rounded-2xl font-black text-base uppercase tracking-widest shadow-lg shadow-blue-900/20 flex items-center justify-center gap-2 active:scale-95 transition-all"
                 >
-                    {isSaving ? 'Guardando...' : <><Save className="w-5 h-5" /> GUARDAR CAMBIOS</>}
+                    {isSaving ? t('setup.labels.saving') : <><Save className="w-5 h-5" /> {t('setup.labels.saveChangesButton')}</>}
                 </button>
             </div>
         </div>
