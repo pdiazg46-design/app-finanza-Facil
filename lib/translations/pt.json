@@ -98,7 +98,11 @@
       "title": "Dívida Total",
       "content": "Soma de todas as suas dívidas ativas (créditos, parcelas pendentes).",
       "description": "Cada peso em dívida reduz sua liberdade financeira."
-    }
+    },
+    "configure": "Configurar realidade financeira",
+    "help": "Ajuda e Tutorial",
+    "viewInfo": "Ver informações",
+    "impactOnFreedom": "Impacto na sua liberdade:"
   },
   "movements": {
     "title": "Movimentos Recentes",
@@ -144,7 +148,13 @@
       "assets": "Bens e Economias (Ativos)",
       "partner": "Contribuições do Parceiro",
       "fixedPayments": "Pagamentos Fixos (Aluguel, Créditos)",
-      "variableServices": "Serviços Variáveis (Média)"
+      "variableServices": "Serviços Variáveis (Média)",
+      "FIXED_PAYMENTS": "PAGAMENTOS FIXOS",
+      "SERVICES": "SERVIÇOS",
+      "SUBSCRIPTIONS": "ASSINATURAS",
+      "VARIABLE_SERVICES": "SERVIÇOS VARIÁVEIS",
+      "CREDITS": "CRÉDITOS",
+      "ASSETS": "ATIVOS"
     },
     "credits": {
       "title": "Dívidas Parceladas",
@@ -203,9 +213,9 @@
       "automaticAverage": "Média Automática",
       "automatic": "automático",
       "assetsNote": "* Apenas \"Investimento\" soma aos Dias de Respiro",
-      "assetsTitle": "Bens e Economias (Ativos)",
+      "assetsTitle": "Ativos",
       "investmentNote": "* Apenas \"Investimento\" soma aos Dias de Respiro",
-      "addAsset": "+ Ativo",
+      "addAsset": "Adicionar Ativo",
       "property": "IMÓVEL",
       "vehicle": "VEÍCULO",
       "investment": "INVESTIMENTO",
@@ -213,7 +223,7 @@
       "partnerContributions": "Contribuições do Parceiro",
       "saving": "Salvando...",
       "saveChangesButton": "SALVAR ALTERAÇÕES",
-      "autoRecalculateNote": "* Recalcula-se apenas segundo a média dos últimos 90 dias.",
+      "autoRecalculateNote": "* O sistema recalcula automaticamente",
       "burnRate": "Custo de Manutenção (Burn Rate)",
       "monthlyGoal": "Meta mensal",
       "assetPlaceholder": "Ex: Carro, Apto, Investimentos...",
@@ -269,7 +279,9 @@
     "private": "PRIVADO",
     "confirmDelete": "Tem certeza que deseja excluir \"{item}\"?",
     "installments": "parcelas",
-    "installment": "parcela"
+    "installment": "parcela",
+    "free": "Grátis",
+    "premium": "Premium"
   },
   "welcome": {
     "title": "Bem-vindo ao Finança Fácil!",
@@ -304,5 +316,35 @@
   "privacy": {
     "show": "Mostrar valores",
     "hide": "Ocultar valores"
+  },
+  "admin": {
+    "userControl": "Controle de Usuários",
+    "registered": "Registrados",
+    "searchPlaceholder": "Buscar por nome ou email...",
+    "loadingCommunity": "Carregando comunidade...",
+    "noUsersFound": "Não foram encontrados usuários",
+    "since": "Desde",
+    "makePremium": "Fazer Premium",
+    "makeFree": "Fazer Grátis",
+    "noName": "Sem nome"
+  },
+  "install": {
+    "title": "Instalar Finança Fácil",
+    "installApp": "Instalar Aplicativo",
+    "directInstallation": "Instalação Direta",
+    "chooseInstall": "Escolha 'Adicionar à tela inicial'",
+    "installNow": "Instalar Agora",
+    "androidInstructions": "Toque no menu (⋮) e selecione 'Adicionar à tela inicial'",
+    "iosInstructions": "Toque no botão de compartilhar e selecione 'Adicionar à tela inicial'",
+    "menuStep": "Menu",
+    "step1": "Passo 1",
+    "step2": "Passo 2"
+  },
+  "userProfile": {
+    "user": "Usuário",
+    "adminUsers": "Admin: Usuários",
+    "clearCache": "Limpar Cache e Sincronizar",
+    "closeSession": "Fechar Sessão",
+    "logout": "Sair"
   }
 }
