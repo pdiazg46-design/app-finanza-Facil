@@ -6,8 +6,8 @@ const montserrat = Montserrat({ subsets: ["latin"], weight: ["400", "600", "700"
 const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
 
 export const metadata: Metadata = {
-  title: "Finanza Fácil | Libertad",
-  description: "Simplifica tus finanzas y gana libertad.",
+  title: "Finança Fácil | Liberdade",
+  description: "Simplifique suas finanças e ganhe liberdade.",
   /* 
   DISABLED PWA FEATURES BY USER REQUEST
   manifest: "/manifest.json",

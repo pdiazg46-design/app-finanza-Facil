@@ -163,7 +163,7 @@ export default async function Home() {
                 {/* Scrollable Content - Padding for fixed header */}
                 <div className="flex-1 overflow-y-auto px-4 pt-[70px] pb-36 overscroll-behavior-none">
                   <h2 className="text-center text-[14px] font-black uppercase tracking-[0.15em] mb-1 mt-2 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 bg-clip-text text-transparent drop-shadow-sm">
-                    Finanza Fácil
+                    {t('app.title')}
                   </h2>
 
                   <FreedomCircle freedomDays={freedomDays || 0} targetDays={targetDays} />
