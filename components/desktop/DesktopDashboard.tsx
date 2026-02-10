@@ -75,9 +75,6 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                             <h1 className="font-black text-atsit-blue leading-tight text-xl uppercase tracking-[0.2em] drop-shadow-[0_2px_4px_rgba(0,56,112,0.15)]">
                                 {t('app.title')}
                             </h1>
-                            <p className="text-xs font-bold text-slate-400 mt-1 tracking-widest uppercase">
-                                {t('app.desktopEdition')}
-                            </p>
                         </div>
                         <div className="absolute top-6 right-6">
                             <PrivacyToggle />
