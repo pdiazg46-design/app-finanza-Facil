@@ -81,7 +81,7 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                         </div>
                     </div>
 
-                    <nav className="flex-1 p-4 space-y-2">
+                    <nav className="p-4 space-y-2">
                         <button className="w-full flex items-center gap-3 px-4 py-3 bg-blue-50 text-blue-700 rounded-xl font-semibold">
                             <LayoutDashboard className="w-5 h-5" />
                             Dashboard
@@ -101,6 +101,13 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                         </button>
                     </nav>
 
+                    {/* Freedom Circle in the middle space */}
+                    <div className="flex-1 flex items-center justify-center p-4">
+                        <div className="transform scale-90">
+                            <FreedomCircle freedomDays={freedomDays || 0} targetDays={targetDays || 365} />
+                        </div>
+                    </div>
+
                     <div className="p-4 border-t border-slate-100">
                         <DesktopUserProfile user={{ name: user.name, email: user.email, image: user.image }} />
                     </div>
@@ -110,24 +117,17 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                 <main className="flex-1 ml-64 p-8 overflow-y-auto h-screen">
 
                     {/* Header */}
-                    <header className="grid grid-cols-3 items-center mb-8">
+                    <header className="flex justify-between items-center mb-8">
                         {/* Left: Greeting */}
-                        <div className="justify-self-start">
+                        <div>
                             <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
                                 Hola, {user.name} <span className="text-2xl">👋</span>
                             </h2>
                             <p className="text-slate-500 text-sm mt-1">Aquí está tu resumen financiero.</p>
                         </div>
 
-                        {/* Center: Freedom Circle (Mobile Style) */}
-                        <div className="justify-self-center -mb-8 relative z-20">
-                            <div className="transform scale-75 origin-top">
-                                <FreedomCircle freedomDays={freedomDays || 0} targetDays={targetDays || 365} />
-                            </div>
-                        </div>
-
                         {/* Right: Actions */}
-                        <div className="justify-self-end flex items-center justify-end gap-3">
+                        <div className="flex items-center gap-3">
                             {/* User Status Badge */}
                             {isPremium ? (
                                 <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 rounded-full shadow-lg shadow-amber-500/20 border border-amber-300">
