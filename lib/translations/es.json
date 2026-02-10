@@ -1,7 +1,8 @@
 {
   "app": {
     "title": "Finanza Fácil",
-    "subtitle": "Control Total"
+    "subtitle": "Control Total",
+    "desktopEdition": "Edición de Escritorio"
   },
   "auth": {
     "signin": {

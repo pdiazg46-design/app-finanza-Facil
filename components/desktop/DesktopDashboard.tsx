@@ -6,7 +6,7 @@ import { ShieldCheck, Sparkles, LayoutDashboard, Wallet, TrendingUp, Settings, L
 import { MovementsList } from "@/components/MovementsList"
 import { SetupDrawerTrigger } from "@/components/SetupDrawerTrigger"
 import { PrivacyProvider } from "@/components/PrivacyContext"
-import { LocaleProvider } from "@/components/LocaleContext"
+import { LocaleProvider, useLocaleContext } from "@/components/LocaleContext"
 import { DesktopUserProfile } from "@/components/desktop/DesktopUserProfile"
 import { AdminHeaderToggle } from "@/components/AdminHeaderToggle"
 import { HelpButton } from "@/components/HelpButton"
@@ -43,6 +43,7 @@ interface DesktopDashboardProps {
 }
 
 export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDashboardProps) {
+    const { t } = useLocaleContext()
     const [isSetupOpen, setIsSetupOpen] = useState(false)
     const {
         freedomDays,
@@ -72,8 +73,12 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                                 />
                             </div>
                             <div>
-                                <h1 className="font-extrabold text-atsit-blue leading-tight text-xl tracking-tight">Finanza Fácil</h1>
-                                <p className="text-sm font-bold text-slate-600 mt-1">Desktop Edition</p>
+                                <h1 className="font-black text-atsit-blue leading-tight text-xl uppercase tracking-[0.2em] drop-shadow-[0_2px_4px_rgba(0,56,112,0.15)]">
+                                    {t('app.title')}
+                                </h1>
+                                <p className="text-xs font-bold text-slate-400 mt-1 tracking-widest uppercase">
+                                    {t('app.desktopEdition')}
+                                </p>
                             </div>
                             <div className="absolute top-6 right-6">
                                 <PrivacyToggle />

@@ -4,7 +4,7 @@ import { ShieldCheck, Sparkles } from "lucide-react"
 import { MovementsList } from "@/components/MovementsList"
 import { SetupDrawerTrigger } from "@/components/SetupDrawerTrigger"
 import { PrivacyProvider } from "@/components/PrivacyContext"
-import { LocaleProvider } from "@/components/LocaleContext"
+import { LocaleProvider, useLocaleContext } from "@/components/LocaleContext"
 import { UserProfile } from "@/components/UserProfile"
 import { AdminHeaderToggle } from "@/components/AdminHeaderToggle"
 import { HelpButton } from "@/components/HelpButton"
@@ -35,6 +35,7 @@ interface MobileLayoutProps {
 }
 
 export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutProps) {
+    const { t } = useLocaleContext()
     const {
         freedomDays,
         targetDays,
@@ -104,8 +105,8 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
 
                         {/* Scrollable Content - Padding for fixed header */}
                         <div className="flex-1 overflow-y-auto px-4 pt-[70px] pb-36 overscroll-behavior-none">
-                            <h2 className="text-center text-[16px] font-black uppercase tracking-[0.2em] mb-2 mt-4 text-[#4379F2] drop-shadow-[0_2px_4px_rgba(67,121,242,0.15)]">
-                                Finanza Fácil
+                            <h2 className="text-center text-[16px] font-black uppercase tracking-[0.2em] mb-2 mt-4 text-atsit-blue drop-shadow-[0_2px_4px_rgba(0,56,112,0.15)]">
+                                {t('app.title')}
                             </h2>
 
                             <FreedomCircle freedomDays={freedomDays || 0} targetDays={targetDays} />
