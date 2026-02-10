@@ -72,7 +72,7 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                             />
                         </div>
                         <div>
-                            <h1 className="font-black text-atsit-blue leading-tight text-xl uppercase tracking-[0.2em] drop-shadow-[0_2px_4px_rgba(0,56,112,0.15)]">
+                            <h1 className="font-black text-[#4379F2] leading-tight text-xl uppercase tracking-[0.2em] drop-shadow-[0_2px_4px_rgba(0,56,112,0.15)]">
                                 {t('app.title')}
                             </h1>
                         </div>

@@ -108,7 +108,7 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
 
                         {/* Scrollable Content - Padding for fixed header */}
                         <div className="flex-1 overflow-y-auto px-4 pt-[70px] pb-36 overscroll-behavior-none">
-                            <h2 className="text-center text-[16px] font-black uppercase tracking-[0.2em] mb-2 mt-4 text-atsit-blue drop-shadow-[0_2px_4px_rgba(0,56,112,0.15)]">
+                            <h2 className="text-center text-[16px] font-black uppercase tracking-[0.2em] mb-2 mt-4 text-[#4379F2] drop-shadow-[0_2px_4px_rgba(0,56,112,0.15)]">
                                 {t('app.title')}
                             </h2>
 
