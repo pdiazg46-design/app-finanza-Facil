@@ -209,7 +209,7 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                                     <p className="text-[10px] text-center text-slate-400 mb-3 font-bold uppercase tracking-widest">
                                         Presiona <kbd className="bg-slate-100 border border-slate-200 rounded px-1 text-slate-600 mx-1">ESPACIO</kbd> para hablar
                                     </p>
-                                    <VoiceSimulator />
+                                    <VoiceSimulator enableKeyboardShortcut={true} />
                                 </div>
                             </div>
 

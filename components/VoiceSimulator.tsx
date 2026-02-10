@@ -17,7 +17,11 @@ declare global {
     }
 }
 
-export function VoiceSimulator() {
+interface VoiceSimulatorProps {
+    enableKeyboardShortcut?: boolean
+}
+
+export function VoiceSimulator({ enableKeyboardShortcut = false }: VoiceSimulatorProps) {
     const { t } = useLocaleContext()
     const router = useRouter()
     const [isProcessing, setIsProcessing] = useState(false)
@@ -268,6 +272,33 @@ export function VoiceSimulator() {
         setStatus("Cancelado")
         setTimeout(() => setStatus(null), 2000)
     }
+
+    // Keyboard Shortcut Logic
+    useEffect(() => {
+        if (!enableKeyboardShortcut) return
+
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.code === 'Space' && !e.repeat && !isRecording && !isProcessing && !pendingCommand) {
+                e.preventDefault() // Prevent scrolling
+                startRecording()
+            }
+        }
+
+        const handleKeyUp = (e: KeyboardEvent) => {
+            if (e.code === 'Space' && isRecording) {
+                e.preventDefault()
+                stopRecording()
+            }
+        }
+
+        window.addEventListener('keydown', handleKeyDown)
+        window.addEventListener('keyup', handleKeyUp)
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown)
+            window.removeEventListener('keyup', handleKeyUp)
+        }
+    }, [enableKeyboardShortcut, isRecording, isProcessing, pendingCommand])
 
     return (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-full max-w-md px-4 flex flex-col items-center justify-center z-50 gap-3 pointer-events-none [.coach-active_&]:hidden">
