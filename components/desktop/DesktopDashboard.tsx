@@ -119,13 +119,15 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                             <p className="text-slate-500 text-sm mt-1">Aquí está tu resumen financiero.</p>
                         </div>
 
-                        {/* Center: Freedom Badge (Hero) */}
-                        <div className="justify-self-center transform scale-125">
-                            <FreedomBadge days={freedomDays || 0} />
+                        {/* Center: Freedom Circle (Mobile Style) */}
+                        <div className="justify-self-center -mb-8 relative z-20">
+                            <div className="transform scale-75 origin-top">
+                                <FreedomCircle freedomDays={freedomDays || 0} targetDays={targetDays || 365} />
+                            </div>
                         </div>
 
                         {/* Right: Actions */}
-                        <div className="flex items-center justify-end gap-3 justify-self-end">
+                        <div className="justify-self-end flex items-center justify-end gap-3">
                             {/* User Status Badge */}
                             {isPremium ? (
                                 <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 rounded-full shadow-lg shadow-amber-500/20 border border-amber-300">
