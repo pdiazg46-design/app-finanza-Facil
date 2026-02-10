@@ -15,11 +15,12 @@ interface HistoryDrawerProps {
     movements: Movement[]
     isPrivate: boolean
     isPremium: boolean
+    isMobile?: boolean
 }
 
 type Period = 'today' | 'week' | 'month' | 'all'
 
-export function HistoryDrawer({ isOpen, onClose, movements, isPrivate, isPremium }: HistoryDrawerProps) {
+export function HistoryDrawer({ isOpen, onClose, movements, isPrivate, isPremium, isMobile = false }: HistoryDrawerProps) {
     const { t } = useLocaleContext()
     const now = new Date()
     const [startDate, setStartDate] = useState(format(startOfMonth(now), 'yyyy-MM-dd'))
@@ -70,8 +71,9 @@ export function HistoryDrawer({ isOpen, onClose, movements, isPrivate, isPremium
 
     if (!isOpen) return null
 
-    // Determine layout based on Premium status
-    const content = isPremium ? (
+    // Determine layout based on Premium status AND Mobile status
+    // Force "Free View" (List) on Mobile even if Premium
+    const content = (isPremium && !isMobile) ? (
         // PREMIUM TABLE LAYOUT
         <div className="relative w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
             {/* Header */}

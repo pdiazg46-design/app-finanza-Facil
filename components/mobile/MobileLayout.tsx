@@ -128,7 +128,7 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
                                 netWorth={netWorth}
                             />
 
-                            <MovementsList movements={fund.movements as any} isPremium={isPremium} />
+                            <MovementsList movements={fund.movements as any} isPremium={isPremium} isMobile={true} />
                         </div>
 
                         {/* Voice Simulator */}
