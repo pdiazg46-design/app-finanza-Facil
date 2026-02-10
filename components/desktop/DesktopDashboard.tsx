@@ -23,6 +23,9 @@ import { DesktopSetupDrawer } from "@/components/desktop/DesktopSetupDrawer"
 import { WelcomeBanner } from "@/components/WelcomeBanner"
 import { useState } from "react"
 
+import { FreedomBadge } from "@/components/FreedomBadge"
+import { QuickStatsCards } from "@/components/QuickStatsCards"
+
 interface DesktopDashboardProps {
     user: any;
     isPremium: boolean;
@@ -69,7 +72,7 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                                 />
                             </div>
                             <div>
-                                <h1 className="font-extrabold text-slate-900 leading-tight text-xl tracking-tight">Finanza Fácil</h1>
+                                <h1 className="font-extrabold text-atsit-blue leading-tight text-xl tracking-tight">Finanza Fácil</h1>
                                 <p className="text-sm font-bold text-slate-600 mt-1">Desktop Edition</p>
                             </div>
                             <div className="absolute top-6 right-6">
@@ -108,7 +111,10 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                         {/* Header */}
                         <header className="flex justify-between items-center mb-8">
                             <div>
-                                <h2 className="text-2xl font-bold text-slate-800">Hola, {user.name} 👋</h2>
+                                <div className="flex items-center gap-3 mb-1">
+                                    <h2 className="text-2xl font-bold text-slate-800">Hola, {user.name} 👋</h2>
+                                    <FreedomBadge days={freedomDays || 0} />
+                                </div>
                                 <p className="text-slate-500">Aquí está tu resumen financiero de hoy.</p>
                             </div>
                             <div className="flex items-center gap-3">
@@ -135,76 +141,77 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                             </div>
                         </header>
 
-                        {/* Dashboard Grid */}
-                        <div className="space-y-8">
+                        {/* Dashboard Grid (3 Columns) */}
+                        <div className="grid grid-cols-12 gap-6 items-start">
 
-                            {/* TOP HEADER GRID (4 Cols) */}
-                            {/* Col 1: Libertad, Col 2: Salud, Col 3-4: Liquidez (2 Cards) */}
-                            <div className="grid grid-cols-4 gap-6">
-                                {/* 1. Truth Circle */}
-                                <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center justify-center min-h-[200px] hover:shadow-md transition-shadow">
-                                    <h3 className="text-slate-400 font-bold mb-4 uppercase tracking-widest text-xs">Tu Libertad</h3>
-                                    <div className="scale-110 transform">
-                                        <FreedomCircle freedomDays={freedomDays || 0} targetDays={targetDays} />
-                                    </div>
-                                </div>
-
-                                {/* 2. Financial Health */}
-                                <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 min-h-[200px] hover:shadow-md transition-shadow">
-                                    <h3 className="text-slate-400 font-bold mb-4 uppercase tracking-widest text-xs text-center">Salud Financiera</h3>
+                            {/* Column 1: Analysis (4 cols) */}
+                            <div className="col-span-4 space-y-6">
+                                {/* Compass */}
+                                <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                                    <h3 className="text-slate-400 font-black mb-4 uppercase tracking-widest text-xs text-center">Salud Financiera</h3>
                                     <DesktopCompass freedomDays={freedomDays || 0} />
                                 </div>
 
-                                {/* 3 & 4. Liquidity Cards (Takes 2 cols internal) */}
-                                <div className="col-span-2">
+                                {/* Wealth & Tier */}
+                                <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                                    <FreedomDimension
+                                        freedomDays={freedomDays || 0}
+                                        monthlyBurnRate={fund.monthlyBurnRate}
+                                        totalReserves={totalLiquidReserves}
+                                        totalDebt={totalDebt}
+                                        totalAssets={totalAssets}
+                                        netWorth={netWorth}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Column 2: Cash Flow (4 cols) */}
+                            <div className="col-span-4 space-y-6">
+                                {/* Liquidity */}
+                                <div>
+                                    <h3 className="text-slate-800 font-bold mb-3 text-sm uppercase tracking-wide">Liquidez Inmediata</h3>
                                     <TranslatedLiquidityCards
                                         commonBalance={(fund as any).balance}
                                         disposableIncome={disposableIncome}
                                         projectedExpenses={projectedExpenses}
                                     />
                                 </div>
+
+                                {/* Quick Stats Stack */}
+                                <div>
+                                    <h3 className="text-slate-800 font-bold mb-3 text-sm uppercase tracking-wide">Métricas Clave</h3>
+                                    <QuickStatsCards
+                                        monthlyBurnRate={fund.monthlyBurnRate}
+                                        totalReserves={totalLiquidReserves}
+                                        totalDebt={totalDebt}
+                                    />
+                                </div>
                             </div>
 
-                            {/* MAIN CONTENT GRID (12 Cols) */}
-                            <div className="grid grid-cols-12 gap-6">
-                                {/* Left: Deep Analysis (8 Cols) */}
-                                <div className="col-span-8">
-                                    <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 h-full">
-                                        <FreedomDimension
-                                            freedomDays={freedomDays || 0}
-                                            monthlyBurnRate={fund.monthlyBurnRate}
-                                            totalReserves={totalLiquidReserves}
-                                            totalDebt={totalDebt}
-                                            totalAssets={totalAssets}
-                                            netWorth={netWorth}
-                                        />
-                                    </div>
-                                </div>
-
-                                {/* Right: Feed & Voice (4 Cols) */}
-                                <div className="col-span-4 flex flex-col gap-6">
-                                    {/* Movements Feed */}
-                                    <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex-1 min-h-[400px] flex flex-col">
-                                        <h3 className="text-slate-700 font-black mb-6 flex items-center justify-between tracking-tight text-lg">
-                                            Movimientos Recientes
-                                            <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full uppercase tracking-wide">En vivo</span>
-                                        </h3>
-                                        <div className="flex-1 overflow-hidden relative">
-                                            <div className="absolute inset-0 overflow-y-auto pr-2">
-                                                <MovementsList movements={fund.movements as any} isPremium={isPremium} />
-                                            </div>
+                            {/* Column 3: Feed & Action (4 cols) */}
+                            <div className="col-span-4 space-y-6">
+                                {/* Feed */}
+                                <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 min-h-[500px] flex flex-col">
+                                    <h3 className="text-slate-700 font-black mb-6 flex items-center justify-between tracking-tight text-lg">
+                                        Movimientos Recientes
+                                        <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full uppercase tracking-wide">En vivo</span>
+                                    </h3>
+                                    <div className="flex-1 overflow-hidden relative">
+                                        <div className="absolute inset-0 overflow-y-auto pr-2">
+                                            <MovementsList movements={fund.movements as any} isPremium={isPremium} />
                                         </div>
                                     </div>
+                                </div>
 
-                                    {/* Voice Simulator */}
-                                    <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                                        <p className="text-[10px] text-center text-slate-400 mb-3 font-bold uppercase tracking-widest">
-                                            Presiona <kbd className="bg-slate-100 border border-slate-200 rounded px-1 text-slate-600 mx-1">ESPACIO</kbd> para hablar
-                                        </p>
-                                        <VoiceSimulator />
-                                    </div>
+                                {/* Voice */}
+                                <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                                    <p className="text-[10px] text-center text-slate-400 mb-3 font-bold uppercase tracking-widest">
+                                        Presiona <kbd className="bg-slate-100 border border-slate-200 rounded px-1 text-slate-600 mx-1">ESPACIO</kbd> para hablar
+                                    </p>
+                                    <VoiceSimulator />
                                 </div>
                             </div>
+
                         </div>
                     </main>
 
