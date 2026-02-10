@@ -7,7 +7,7 @@ import { MovementsList } from "@/components/MovementsList"
 import { SetupDrawerTrigger } from "@/components/SetupDrawerTrigger"
 import { PrivacyProvider } from "@/components/PrivacyContext"
 import { LocaleProvider } from "@/components/LocaleContext"
-import { UserProfile } from "@/components/UserProfile"
+import { DesktopUserProfile } from "@/components/desktop/DesktopUserProfile"
 import { AdminHeaderToggle } from "@/components/AdminHeaderToggle"
 import { HelpButton } from "@/components/HelpButton"
 import { PrivacyToggle } from "@/components/PrivacyToggle"
@@ -98,7 +98,7 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                         </nav>
 
                         <div className="p-4 border-t border-slate-100">
-                            <UserProfile user={{ name: user.name, email: user.email, image: user.image }} />
+                            <DesktopUserProfile user={{ name: user.name, email: user.email, image: user.image }} />
                         </div>
                     </aside>
 
