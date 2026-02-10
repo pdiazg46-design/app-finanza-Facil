@@ -14,11 +14,12 @@ interface HistoryDrawerProps {
     onClose: () => void
     movements: Movement[]
     isPrivate: boolean
+    isPremium: boolean
 }
 
 type Period = 'today' | 'week' | 'month' | 'all'
 
-export function HistoryDrawer({ isOpen, onClose, movements, isPrivate }: HistoryDrawerProps) {
+export function HistoryDrawer({ isOpen, onClose, movements, isPrivate, isPremium }: HistoryDrawerProps) {
     const { t } = useLocaleContext()
     const now = new Date()
     const [startDate, setStartDate] = useState(format(startOfMonth(now), 'yyyy-MM-dd'))
@@ -67,10 +68,138 @@ export function HistoryDrawer({ isOpen, onClose, movements, isPrivate }: History
         }
     }
 
-    return (
-        <div className="absolute inset-0 z-[100] bg-white flex flex-col animate-in slide-in-from-bottom duration-300 rounded-[32px] overflow-hidden">
+    if (!isOpen) return null
+
+    // Determine layout based on Premium status
+    const content = isPremium ? (
+        // PREMIUM TABLE LAYOUT
+        <div className="relative w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
             {/* Header */}
-            <div className="px-6 pt-10 pb-4 flex items-center justify-between border-b border-slate-50 sticky top-0 bg-white/80 backdrop-blur-md z-10">
+            <div className="px-8 py-6 border-b border-slate-100 flex items-center justify-between bg-white sticky top-0 z-10">
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+                        <ShoppingBag className="w-6 h-6" />
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-black text-slate-900 leading-tight tracking-tight">{t('history.title')}</h2>
+                        <div className="flex items-center gap-2 mt-1">
+                            <span className="bg-amber-100 text-amber-700 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest border border-amber-200">
+                                Premium View
+                            </span>
+                            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{filteredMovements.length} Movimientos</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex items-center gap-4">
+                    {/* Date Filter integrated in header for Premium */}
+                    <div className="flex items-center gap-2 bg-slate-50 p-1.5 rounded-xl border border-slate-100">
+                        <input
+                            type="date"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                            className="bg-transparent text-xs font-bold text-slate-600 focus:outline-none px-2 uppercase"
+                        />
+                        <span className="text-slate-300">-</span>
+                        <input
+                            type="date"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                            className="bg-transparent text-xs font-bold text-slate-600 focus:outline-none px-2 uppercase"
+                        />
+                    </div>
+                    <button onClick={onClose} className="w-10 h-10 rounded-xl hover:bg-slate-100 flex items-center justify-center transition-colors">
+                        <X className="w-6 h-6 text-slate-400" />
+                    </button>
+                </div>
+            </div>
+
+            {/* Premium Table */}
+            <div className="flex-1 overflow-auto bg-slate-50/50">
+                <table className="w-full text-left border-collapse">
+                    <thead className="bg-slate-50 sticky top-0 z-10 shadow-sm">
+                        <tr>
+                            <th className="px-8 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Concepto</th>
+                            <th className="px-8 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Fecha</th>
+                            <th className="px-8 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">Monto</th>
+                            <th className="px-8 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 bg-white">
+                        {filteredMovements.length === 0 ? (
+                            <tr>
+                                <td colSpan={4} className="py-20 text-center text-slate-400">
+                                    <p className="text-sm font-medium">{t('history.noMovements')}</p>
+                                </td>
+                            </tr>
+                        ) : (
+                            filteredMovements.map((m) => (
+                                <tr key={m.id} className="hover:bg-blue-50/30 transition-colors group">
+                                    <td className="px-8 py-5">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-10 h-10 rounded-2xl bg-slate-50 flex items-center justify-center flex-shrink-0 group-hover:bg-white group-hover:shadow-sm transition-all">
+                                                {getIcon(m.type, m.description)}
+                                            </div>
+                                            <span className="text-sm font-black text-slate-900 truncate max-w-[200px]">{m.description}</span>
+                                        </div>
+                                    </td>
+                                    <td className="px-8 py-5">
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-bold text-slate-700 capitalize">
+                                                {format(new Date(m.date), "d 'de' MMMM", { locale: es })}
+                                            </span>
+                                            <span className="text-[10px] font-bold text-slate-400 uppercase">
+                                                {format(new Date(m.date), "yyyy", { locale: es })}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td className="px-8 py-5 text-right">
+                                        <div className="flex flex-col items-end">
+                                            <div className={`text-base font-black tracking-tight flex items-center justify-end gap-1 ${m.type === 'EXPENSE' ? 'text-red-600' : 'text-emerald-600'}`}>
+                                                {isPrivate ? (
+                                                    <span className="text-slate-300">••••••</span>
+                                                ) : (
+                                                    <>
+                                                        {m.type === 'EXPENSE' ? '-' : '+'}
+                                                        <CurrencyText value={m.amount} />
+                                                    </>
+                                                )}
+                                                {m.type === 'EXPENSE' ? <ArrowDownRight className="w-4 h-4 ml-1 opacity-50" /> : <ArrowUpRight className="w-4 h-4 ml-1 opacity-50" />}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className="px-8 py-5 text-right">
+                                        <button
+                                            onClick={() => handleDelete(m.id, m.description)}
+                                            className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
+                                        >
+                                            <Trash2 className="w-5 h-5" />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        )}
+                    </tbody>
+                </table>
+            </div>
+
+            {/* Totals Footer for Premium */}
+            <div className="px-8 py-4 bg-slate-50 border-t border-slate-200 flex justify-between items-center text-xs font-bold uppercase tracking-widest text-slate-500">
+                <span>Resumen del Período</span>
+                <div className="flex gap-6">
+                    <span className="flex items-center gap-2">
+                        Ingresos: <span className="text-emerald-600 font-black"><CurrencyText value={totals.income} /></span>
+                    </span>
+                    <span className="flex items-center gap-2">
+                        Gastos: <span className="text-red-600 font-black"><CurrencyText value={totals.expenses} /></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    ) : (
+        // FREE LIST LAYOUT (Mobile Styled)
+        <div className="relative w-full max-w-md bg-white flex flex-col h-[85vh] rounded-t-[32px] md:rounded-[32px] overflow-hidden animate-in slide-in-from-bottom duration-300 shadow-2xl">
+            {/* Header */}
+            <div className="px-6 pt-6 pb-4 flex items-center justify-between border-b border-slate-50 sticky top-0 bg-white/80 backdrop-blur-md z-10">
                 <div>
                     <h2 className="text-xl font-black text-slate-900 tracking-tight">{t('history.title')}</h2>
                     <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">{t('history.subtitle')}</p>
@@ -172,6 +301,14 @@ export function HistoryDrawer({ isOpen, onClose, movements, isPrivate }: History
                     )}
                 </div>
             </div>
+        </div>
+    )
+
+    // Using createPortal for global modal behavior
+    return (
+        <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center p-0 md:p-4">
+            <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={onClose} />
+            {content}
         </div>
     )
 }

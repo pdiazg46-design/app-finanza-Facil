@@ -7,9 +7,10 @@ import { useState, useEffect } from 'react'
 interface CurrencyTextProps {
     value: number
     className?: string
+    prefix?: string
 }
 
-export function CurrencyText({ value, className = "" }: CurrencyTextProps) {
+export function CurrencyText({ value, className = "", prefix = "" }: CurrencyTextProps) {
     const { isPrivate } = usePrivacy()
     const { locale } = useLocaleContext()
     const [symbol, setSymbol] = useState('$')
@@ -30,8 +31,8 @@ export function CurrencyText({ value, className = "" }: CurrencyTextProps) {
     }).format(value)
 
     if (isPrivate) {
-        return <span className={`${className} select-none`}>{symbol} ••••••</span>
+        return <span className={`${className} select-none`}>{prefix} {symbol} ••••••</span>
     }
 
-    return <span className={className}>{symbol} {formatted}</span>
+    return <span className={className}>{prefix} {symbol} {formatted}</span>
 }

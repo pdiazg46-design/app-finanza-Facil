@@ -180,7 +180,7 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                                     <div className="flex-1 overflow-hidden relative">
                                         {/* We recycle the mobile MovementsList but wrap it to fit well */}
                                         <div className="absolute inset-0 overflow-y-auto pr-2">
-                                            <MovementsList movements={fund.movements as any} />
+                                            <MovementsList movements={fund.movements as any} isPremium={isPremium} />
                                         </div>
                                     </div>
 

@@ -13,9 +13,10 @@ import { useLocaleContext } from './LocaleContext'
 
 interface MovementsListProps {
     movements: Movement[]
+    isPremium: boolean
 }
 
-export function MovementsList({ movements }: MovementsListProps) {
+export function MovementsList({ movements, isPremium }: MovementsListProps) {
     const { t } = useLocaleContext()
     const { isPrivate, togglePrivacy } = usePrivacy()
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
@@ -124,6 +125,7 @@ export function MovementsList({ movements }: MovementsListProps) {
                 onClose={() => setIsDrawerOpen(false)}
                 movements={movements}
                 isPrivate={isPrivate}
+                isPremium={isPremium}
             />
         </div>
     )
