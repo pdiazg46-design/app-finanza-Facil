@@ -10,6 +10,8 @@ import { getTierTranslationKey, getTierTypeFromInfo } from "@/lib/tier-translati
 import { DevLabel } from "./DevLabel"
 import { formatCurrency } from "@/lib/currency-formatter"
 
+import { QuickStatsCards } from "./QuickStatsCards"
+
 interface FreedomDimensionProps {
     freedomDays: number;
     monthlyBurnRate: number;
@@ -17,6 +19,7 @@ interface FreedomDimensionProps {
     totalDebt?: number;
     totalAssets?: number;
     netWorth?: number;
+    showStats?: boolean;
 }
 
 export function FreedomDimension({
@@ -25,7 +28,8 @@ export function FreedomDimension({
     totalReserves,
     totalDebt = 0,
     totalAssets = 0,
-    netWorth = 0
+    netWorth = 0,
+    showStats = true
 }: FreedomDimensionProps) {
     const { t } = useLocaleContext()
     const { isPrivate } = usePrivacy();
@@ -115,6 +119,17 @@ export function FreedomDimension({
 
                     {/* Decoración */}
                     <div className="absolute top-[-20%] right-[-10%] w-48 h-48 bg-atsit-blue/10 rounded-full blur-3xl"></div>
+                </div>
+            )}
+
+            {/* Quick Stats (Mobile / Default) */}
+            {showStats && (
+                <div className="mt-2">
+                    <QuickStatsCards
+                        monthlyBurnRate={monthlyBurnRate}
+                        totalReserves={totalReserves}
+                        totalDebt={totalDebt}
+                    />
                 </div>
             )}
         </div>

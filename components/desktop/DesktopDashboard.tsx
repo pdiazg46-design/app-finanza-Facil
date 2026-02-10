@@ -161,6 +161,7 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                                         totalDebt={totalDebt}
                                         totalAssets={totalAssets}
                                         netWorth={netWorth}
+                                        showStats={false}
                                     />
                                 </div>
                             </div>
