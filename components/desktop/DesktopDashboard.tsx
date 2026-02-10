@@ -19,7 +19,7 @@ import { FreedomDimension } from "@/components/FreedomDimension"
 import Image from "next/image"
 import logo from "../../public/logo.png"
 
-import { SetupDrawer } from "@/components/SetupDrawer"
+import { DesktopSetupDrawer } from "@/components/desktop/DesktopSetupDrawer"
 import { useState } from "react"
 
 interface DesktopDashboardProps {
@@ -183,7 +183,7 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                     </main>
 
                 </div>
-                <SetupDrawer
+                <DesktopSetupDrawer
                     isOpen={isSetupOpen}
                     onClose={() => setIsSetupOpen(false)}
                     budget={fund.budget as any}
@@ -194,7 +194,6 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                     }}
                     freedomDays={freedomDays || 0}
                 />
-                <div id="mobile-drawer-root" className="fixed inset-0 z-[100] pointer-events-none"></div>
             </PrivacyProvider>
         </LocaleProvider>
     )
