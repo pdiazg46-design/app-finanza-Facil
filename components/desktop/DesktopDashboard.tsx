@@ -142,75 +142,85 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                         </div>
                     </header>
 
-                    {/* Dashboard Grid (3 Columns) */}
-                    <div className="grid grid-cols-12 gap-6 items-start">
+                    {/* BENTO BOX LAYOUT (Fintech Architect Mode) */}
+                    <div className="flex flex-col gap-8">
 
-                        {/* Column 1: Analysis (4 cols) */}
-                        <div className="col-span-4 space-y-6">
-                            {/* Compass */}
-                            <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                                <h3 className="text-slate-400 font-black mb-4 uppercase tracking-widest text-xs text-center">Salud Financiera</h3>
-                                <DesktopCompass freedomDays={freedomDays || 0} />
-                            </div>
+                        {/* ZONA SUPERIOR (80% Focus) */}
+                        <div className="space-y-6">
 
-                            {/* Wealth & Tier */}
-                            <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                                <FreedomDimension
-                                    freedomDays={freedomDays || 0}
-                                    monthlyBurnRate={fund.monthlyBurnRate}
-                                    totalReserves={totalLiquidReserves}
-                                    totalDebt={totalDebt}
-                                    totalAssets={totalAssets}
-                                    netWorth={netWorth}
-                                    showStats={false}
-                                />
-                            </div>
-                        </div>
+                            {/* KPI STRIP: Liquidity & Velocity */}
+                            <div className="grid grid-cols-12 gap-6">
+                                {/* Liquidity (4 cols) */}
+                                <div className="col-span-5">
+                                    <div className="bg-white p-5 rounded-[2rem] shadow-sm border border-slate-200 h-full flex flex-col justify-center">
+                                        <h3 className="text-black font-black text-xs uppercase tracking-widest mb-4 opacity-50">Liquidez Inmediata</h3>
+                                        <TranslatedLiquidityCards
+                                            commonBalance={(fund as any).balance}
+                                            disposableIncome={disposableIncome}
+                                            projectedExpenses={projectedExpenses}
+                                        />
+                                    </div>
+                                </div>
 
-                        {/* Column 2: Cash Flow (4 cols) */}
-                        <div className="col-span-4 space-y-6">
-                            {/* Liquidity */}
-                            <div>
-                                <h3 className="text-slate-800 font-bold mb-3 text-sm uppercase tracking-wide">Liquidez Inmediata</h3>
-                                <TranslatedLiquidityCards
-                                    commonBalance={(fund as any).balance}
-                                    disposableIncome={disposableIncome}
-                                    projectedExpenses={projectedExpenses}
-                                />
-                            </div>
-
-                            {/* Quick Stats Stack */}
-                            <div>
-                                <h3 className="text-slate-800 font-bold mb-3 text-sm uppercase tracking-wide">Métricas Clave</h3>
-                                <QuickStatsCards
-                                    monthlyBurnRate={fund.monthlyBurnRate}
-                                    totalReserves={totalLiquidReserves}
-                                    totalDebt={totalDebt}
-                                />
-                            </div>
-                        </div>
-
-                        {/* Column 3: Feed & Action (4 cols) */}
-                        <div className="col-span-4 space-y-6">
-                            {/* Feed */}
-                            <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 min-h-[500px] flex flex-col">
-                                <h3 className="text-slate-700 font-black mb-6 flex items-center justify-between tracking-tight text-lg">
-                                    Movimientos Recientes
-                                    <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full uppercase tracking-wide">En vivo</span>
-                                </h3>
-                                <div className="flex-1 overflow-hidden relative">
-                                    <div className="absolute inset-0 overflow-y-auto pr-2">
-                                        <MovementsList movements={fund.movements as any} isPremium={isPremium} />
+                                {/* Velocity Metrics (8 cols) */}
+                                <div className="col-span-7">
+                                    <div className="bg-white p-5 rounded-[2rem] shadow-sm border border-slate-200 h-full flex flex-col justify-center">
+                                        <h3 className="text-black font-black text-xs uppercase tracking-widest mb-4 opacity-50">Métricas de Velocidad</h3>
+                                        <QuickStatsCards
+                                            monthlyBurnRate={fund.monthlyBurnRate}
+                                            totalReserves={totalLiquidReserves}
+                                            totalDebt={totalDebt}
+                                            orientation="horizontal"
+                                        />
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Voice */}
-                            <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                                <p className="text-[10px] text-center text-slate-400 mb-3 font-bold uppercase tracking-widest">
-                                    Presiona <kbd className="bg-slate-100 border border-slate-200 rounded px-1 text-slate-600 mx-1">ESPACIO</kbd> para hablar
-                                </p>
-                                <VoiceSimulator enableKeyboardShortcut={true} />
+                            {/* DEEP ANALYSIS ROW */}
+                            <div className="grid grid-cols-12 gap-6">
+                                {/* Wealth Structure (8 cols) */}
+                                <div className="col-span-8">
+                                    <div className="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-200 h-full">
+                                        <FreedomDimension
+                                            freedomDays={freedomDays || 0}
+                                            monthlyBurnRate={fund.monthlyBurnRate}
+                                            totalReserves={totalLiquidReserves}
+                                            totalDebt={totalDebt}
+                                            totalAssets={totalAssets}
+                                            netWorth={netWorth}
+                                            showStats={false}
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Health Compass (4 cols) */}
+                                <div className="col-span-4">
+                                    <div className="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-200 h-full flex flex-col items-center justify-center relative overflow-hidden">
+                                        <div className="absolute top-4 left-0 w-full text-center z-10">
+                                            <h3 className="text-black font-black text-xs uppercase tracking-widest opacity-50">Salud Financiera</h3>
+                                        </div>
+                                        <div className="scale-110 mt-4">
+                                            <DesktopCompass freedomDays={freedomDays || 0} />
+                                        </div>
+
+                                        {/* Voice Control integrated into Compass Card */}
+                                        <div className="w-full mt-4 pt-4 border-t border-slate-100">
+                                            <VoiceSimulator enableKeyboardShortcut={true} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        {/* ZONA INFERIOR (20% - Reference) */}
+                        <div className="mt-8 border-t-2 border-slate-100 pt-8 opacity-60 hover:opacity-100 transition-opacity duration-500">
+                            <h3 className="text-black font-black text-xl mb-6 flex items-center gap-3">
+                                MOVIMIENTOS RECIENTES
+                                <span className="px-2 py-1 bg-slate-100 text-slate-500 text-[10px] rounded-md uppercase tracking-widest font-bold">Historial</span>
+                            </h3>
+                            <div className="grid grid-cols-1">
+                                <MovementsList movements={fund.movements as any} isPremium={isPremium} />
                             </div>
                         </div>
 
