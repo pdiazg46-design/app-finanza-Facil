@@ -303,7 +303,8 @@
     "installments": "cuotas",
     "installment": "cuota",
     "free": "Gratis",
-    "premium": "Premium"
+    "premium": "Premium",
+    "understood": "Entendido"
   },
   "welcome": {
     "title": "¡Bienvenido a Finanza Fácil!",
