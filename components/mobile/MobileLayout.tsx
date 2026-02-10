@@ -1,3 +1,5 @@
+"use client";
+
 import { FreedomCircle } from "@/components/FreedomCircle"
 import { VoiceSimulator } from "@/components/VoiceSimulator"
 import { ShieldCheck, Sparkles } from "lucide-react"
