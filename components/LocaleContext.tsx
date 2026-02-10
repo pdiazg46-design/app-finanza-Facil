@@ -12,33 +12,37 @@ interface LocaleContextType {
 const LocaleContext = createContext<LocaleContextType | undefined>(undefined)
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
-    // Read saved country synchronously during initialization to avoid flash
-    const getInitialLocale = (): Locale => {
-        if (typeof window !== 'undefined') {
-            let savedCountry = localStorage.getItem('selectedCountry')
+    // Initialize with default locale to match server-side rendering
+    const [locale, setLocaleState] = useState<Locale>('es-CL')
 
-            // MIGRATION: If selectedCountry doesn't exist but at-sit-user-country does, migrate it
-            if (!savedCountry) {
-                const legacyCountry = localStorage.getItem('at-sit-user-country')
-                if (legacyCountry) {
-                    console.log('[LocaleContext] Migrating legacy country:', legacyCountry)
-                    localStorage.setItem('selectedCountry', legacyCountry)
-                    savedCountry = legacyCountry
+    useEffect(() => {
+        // Hydrate from localStorage immediately on mount
+        const getInitialClientLocale = (): Locale => {
+            // ... logic from getInitialLocale but safe here
+            if (typeof window !== 'undefined') {
+                let savedCountry = localStorage.getItem('selectedCountry')
+
+                // MIGRATION legacy
+                if (!savedCountry) {
+                    const legacyCountry = localStorage.getItem('at-sit-user-country')
+                    if (legacyCountry) {
+                        localStorage.setItem('selectedCountry', legacyCountry)
+                        savedCountry = legacyCountry
+                    }
+                }
+
+                if (savedCountry) {
+                    return getLocaleFromCountry(savedCountry)
                 }
             }
-
-            console.log('[LocaleContext] Initial savedCountry:', savedCountry)
-            if (savedCountry) {
-                const locale = getLocaleFromCountry(savedCountry)
-                console.log('[LocaleContext] Initial locale from country:', locale)
-                return locale
-            }
+            return 'es-CL'
         }
-        console.log('[LocaleContext] Using default locale: es-CL')
-        return 'es-CL' // Default fallback
-    }
 
-    const [locale, setLocaleState] = useState<Locale>(getInitialLocale())
+        const clientLocale = getInitialClientLocale()
+        if (clientLocale !== 'es-CL') {
+            setLocaleState(clientLocale)
+        }
+    }, [])
 
     useEffect(() => {
         // Read saved country from localStorage with migration

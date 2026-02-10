@@ -6,7 +6,7 @@ import { ShieldCheck, Sparkles, LayoutDashboard, Wallet, TrendingUp, Settings, L
 import { MovementsList } from "@/components/MovementsList"
 import { SetupDrawerTrigger } from "@/components/SetupDrawerTrigger"
 import { PrivacyProvider } from "@/components/PrivacyContext"
-import { LocaleProvider, useLocaleContext } from "@/components/LocaleContext"
+import { useLocaleContext } from "@/components/LocaleContext"
 import { DesktopUserProfile } from "@/components/desktop/DesktopUserProfile"
 import { AdminHeaderToggle } from "@/components/AdminHeaderToggle"
 import { HelpButton } from "@/components/HelpButton"
