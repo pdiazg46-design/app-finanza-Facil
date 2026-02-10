@@ -50,7 +50,6 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
         <LocaleProvider>
             <PrivacyProvider>
                 {/* <ClientSyncTrigger /> */}
-                <CountrySelector />
                 <div className="min-h-screen bg-slate-50 flex flex-col items-center">
                     <main className="w-full max-w-md h-screen h-[100dvh] bg-white flex flex-col relative overflow-hidden shadow-2xl">
                         {/* Header - FIXED */}
@@ -75,6 +74,7 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
                                 )}
                             </div>
                             <div className="flex items-center gap-2.5">
+                                <CountrySelector />
                                 <AdminHeaderToggle />
                                 <div className="w-px h-4 bg-slate-100 mx-1" /> {/* Divider */}
                                 <HelpButton />
