@@ -102,8 +102,6 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                     {/* Main Content Area */}
                     <main className="flex-1 ml-64 p-8 overflow-y-auto h-screen">
 
-// Imports will be added at the top in a separate step or I can try to do it all here if the range allows.
-                        // Let's focus on the Header section first.
                         {/* Header */}
                         <header className="flex justify-between items-center mb-8">
                             <div>
@@ -113,13 +111,13 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                             <div className="flex items-center gap-3">
                                 {/* User Status Badge */}
                                 {isPremium ? (
-                                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 rounded-full shadow-lg shadow-amber-500/20 border border-amber-300 animate-pulse">
-                                        <Sparkles className="w-3.5 h-3.5 text-amber-900" />
-                                        <span className="text-[10px] font-black text-amber-900 uppercase tracking-widest">Premium</span>
+                                    <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 rounded-full shadow-lg shadow-amber-500/20 border border-amber-300 animate-pulse">
+                                        <Sparkles className="w-4 h-4 text-amber-900" />
+                                        <span className="text-xs font-black text-amber-900 uppercase tracking-widest">Premium</span>
                                     </div>
                                 ) : (
-                                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 rounded-full border border-slate-200">
-                                        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Plan Gratis</span>
+                                    <div className="flex items-center gap-2 px-4 py-2 bg-slate-100 rounded-full border border-slate-200">
+                                        <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Plan Gratis</span>
                                     </div>
                                 )}
 

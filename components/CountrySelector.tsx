@@ -32,41 +32,43 @@ export function CountrySelector() {
     }
 
     const COUNTRIES = [
-        { code: 'CL', flag: '🇨🇱', name: 'Chile', currency: 'CLP', symbol: '$', locale: 'es-CL' },
-        { code: 'BR', flag: '🇧🇷', name: 'Brasil', currency: 'BRL', symbol: 'R$', locale: 'pt-BR' },
-        { code: 'AR', flag: '🇦🇷', name: 'Argentina', currency: 'ARS', symbol: '$', locale: 'es-AR' },
-        { code: 'MX', flag: '🇲🇽', name: 'México', currency: 'MXN', symbol: '$', locale: 'es-MX' },
-        { code: 'CO', flag: '🇨🇴', name: 'Colombia', currency: 'COP', symbol: '$', locale: 'es-CO' },
-        { code: 'PE', flag: '🇵🇪', name: 'Perú', currency: 'PEN', symbol: 'S/', locale: 'es-PE' },
-        { code: 'US', flag: '🇺🇸', name: 'USA / Intl', currency: 'USD', symbol: '$', locale: 'en-US' },
-        { code: 'UY', flag: '🇺🇾', name: 'Uruguay', currency: 'UYU', symbol: '$', locale: 'es-UY' },
-        { code: 'CA', flag: '🇨🇦', name: 'Canadá', currency: 'CAD', symbol: '$', locale: 'en-CA' },
-        { code: 'PY', flag: '🇵🇾', name: 'Paraguay', currency: 'PYG', symbol: '₲', locale: 'es-PY' },
-        { code: 'BO', flag: '🇧🇴', name: 'Bolivia', currency: 'BOB', symbol: 'Bs', locale: 'es-BO' },
-        { code: 'EC', flag: '🇪🇨', name: 'Ecuador', currency: 'USD', symbol: '$', locale: 'es-EC' },
-        { code: 'VE', flag: '🇻🇪', name: 'Venezuela', currency: 'VES', symbol: 'Bs', locale: 'es-VE' },
-        { code: 'GT', flag: '🇬🇹', name: 'Guatemala', currency: 'GTQ', symbol: 'Q', locale: 'es-GT' },
-        { code: 'CR', flag: '🇨🇷', name: 'Costa Rica', currency: 'CRC', symbol: '₡', locale: 'es-CR' },
-        { code: 'DO', flag: '🇩🇴', name: 'Rep. Dominicana', currency: 'DOP', symbol: 'RD$', locale: 'es-DO' },
-        { code: 'PA', flag: '🇵🇦', name: 'Panamá', currency: 'USD', symbol: '$', locale: 'es-PA' }, // Usa USD oficial
+        { code: 'CL', name: 'Chile', currency: 'CLP', symbol: '$', locale: 'es-CL' },
+        { code: 'BR', name: 'Brasil', currency: 'BRL', symbol: 'R$', locale: 'pt-BR' },
+        { code: 'AR', name: 'Argentina', currency: 'ARS', symbol: '$', locale: 'es-AR' },
+        { code: 'MX', name: 'México', currency: 'MXN', symbol: '$', locale: 'es-MX' },
+        { code: 'CO', name: 'Colombia', currency: 'COP', symbol: '$', locale: 'es-CO' },
+        { code: 'PE', name: 'Perú', currency: 'PEN', symbol: 'S/', locale: 'es-PE' },
+        { code: 'US', name: 'USA / Intl', currency: 'USD', symbol: '$', locale: 'en-US' },
+        { code: 'UY', name: 'Uruguay', currency: 'UYU', symbol: '$', locale: 'es-UY' },
+        { code: 'CA', name: 'Canadá', currency: 'CAD', symbol: '$', locale: 'en-CA' },
+        { code: 'PY', name: 'Paraguay', currency: 'PYG', symbol: '₲', locale: 'es-PY' },
+        { code: 'BO', name: 'Bolivia', currency: 'BOB', symbol: 'Bs', locale: 'es-BO' },
+        { code: 'EC', name: 'Ecuador', currency: 'USD', symbol: '$', locale: 'es-EC' },
+        { code: 'VE', name: 'Venezuela', currency: 'VES', symbol: 'Bs', locale: 'es-VE' },
+        { code: 'GT', name: 'Guatemala', currency: 'GTQ', symbol: 'Q', locale: 'es-GT' },
+        { code: 'CR', name: 'Costa Rica', currency: 'CRC', symbol: '₡', locale: 'es-CR' },
+        { code: 'DO', name: 'Rep. Dominicana', currency: 'DOP', symbol: 'RD$', locale: 'es-DO' },
+        { code: 'PA', name: 'Panamá', currency: 'USD', symbol: '$', locale: 'es-PA' },
     ]
 
     if (!mounted) return null
 
     // If not visible (modal closed), show the Trigger Button
     if (!isVisible) {
-        const currentCountryCode = localStorage.getItem('at-sit-user-country')
-        const currentCountry = COUNTRIES.find(c => c.code === currentCountryCode)
-        const flag = currentCountry ? currentCountry.flag : <Globe className="w-5 h-5 text-slate-500" />
+        const currentCountryCode = localStorage.getItem('at-sit-user-country') || 'CL'
 
         return (
             <button
                 onClick={() => setIsVisible(true)}
-                className="flex items-center gap-2 px-3 h-10 rounded-full bg-white border border-slate-200 shadow-sm hover:bg-slate-50 transition-all hover:scale-105 active:scale-95"
+                className="flex items-center gap-3 px-4 h-12 rounded-full bg-white border border-slate-200 shadow-sm hover:bg-slate-50 transition-all hover:scale-105 active:scale-95"
                 title={t('country.selector.title')}
             >
-                <span className="text-lg leading-none">{flag}</span>
-                <span className="text-sm font-bold text-slate-700">{currentCountry ? currentCountry.code : ''}</span>
+                <img
+                    src={`https://flagcdn.com/w40/${currentCountryCode.toLowerCase()}.png`}
+                    alt={currentCountryCode}
+                    className="w-6 h-auto shadow-sm rounded-sm"
+                />
+                <span className="text-base font-bold text-slate-700">{currentCountryCode}</span>
             </button>
         )
     }
@@ -99,7 +101,11 @@ export function CountrySelector() {
                             onClick={() => handleSelect(country.code, country.currency, country.locale, country.symbol)}
                             className="w-full group relative flex items-center gap-4 p-3 rounded-2xl border-2 border-slate-100 hover:border-blue-500 hover:bg-blue-50 transition-all active:scale-95"
                         >
-                            <span className="text-3xl shadow-sm rounded-full overflow-hidden">{country.flag}</span>
+                            <img
+                                src={`https://flagcdn.com/w40/${country.code.toLowerCase()}.png`}
+                                alt={country.name}
+                                className="w-8 h-auto shadow-sm"
+                            />
                             <div className="text-left">
                                 <p className="font-bold text-slate-900 text-base group-hover:text-blue-700">{country.name}</p>
                                 <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wide">{country.currency} ({country.symbol})</p>
