@@ -9,7 +9,6 @@ import { PrivacyProvider } from "@/components/PrivacyContext"
 import { useLocaleContext } from "@/components/LocaleContext"
 import { UserProfile } from "@/components/UserProfile"
 
-import { HelpButton } from "@/components/HelpButton"
 import { PrivacyToggle } from "@/components/PrivacyToggle"
 import { PremiumUpgradeButton } from "@/components/PremiumUpgradeButton"
 import { WelcomeBanner } from "@/components/WelcomeBanner"
@@ -79,7 +78,7 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
                             <div className="flex items-center gap-0.5">
                                 <div className="scale-90"><CountrySelector /></div>
 
-                                <div className="scale-90"><HelpButton /></div>
+
                                 <div className="scale-90"><PrivacyToggle /></div>
                                 <div className="scale-90">
                                     <SetupDrawerTrigger

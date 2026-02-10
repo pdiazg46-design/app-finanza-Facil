@@ -7,6 +7,7 @@ import { useState } from "react"
 import { AdminUsersModal } from "./AdminUsersModal"
 import { InstallButton } from "./InstallButton"
 import { PremiumUpgradeButton } from "./PremiumUpgradeButton"
+import { HelpButton } from "./HelpButton"
 
 interface UserProfileProps {
     user: {
@@ -95,8 +96,8 @@ export function UserProfile({ user }: UserProfileProps) {
                                     onClick={togglePlan}
                                     disabled={isLoading}
                                     className={`w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl transition-all text-[9px] font-bold uppercase tracking-widest text-center mb-1 active:scale-95 border ${currentPlan === "PREMIUM"
-                                            ? "bg-amber-100 text-amber-700 border-amber-200 hover:bg-amber-200"
-                                            : "bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200"
+                                        ? "bg-amber-100 text-amber-700 border-amber-200 hover:bg-amber-200"
+                                        : "bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200"
                                         }`}
                                 >
                                     <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
@@ -114,6 +115,10 @@ export function UserProfile({ user }: UserProfileProps) {
                                 </button>
                             </>
                         )}
+
+                        <div className="mb-px">
+                            <HelpButton variant="menu-item" />
+                        </div>
 
                         <div className="p-4 pt-2 text-center">
                             <button
