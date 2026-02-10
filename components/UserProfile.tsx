@@ -1,4 +1,5 @@
-'use client'
+import { switchUserPlan } from "@/app/actions/user-actions"
+import { useRouter } from "next/navigation"
 
 import { signOut, useSession } from "next-auth/react"
 import { LogOut, Users, RefreshCw } from "lucide-react"
@@ -18,9 +19,28 @@ interface UserProfileProps {
 export function UserProfile({ user }: UserProfileProps) {
     const [isOpen, setIsOpen] = useState(false)
     const [isAdminOpen, setIsAdminOpen] = useState(false)
-    const { data: session } = useSession()
+    const [isLoading, setIsLoading] = useState(false)
+    const router = useRouter()
+    const { data: session, update } = useSession()
 
     const isAdmin = user.email === "pdiazg46@gmail.com"
+    const currentPlan = (session?.user as any)?.plan || "FREE"
+
+    const togglePlan = async () => {
+        setIsLoading(true)
+        const newPlan = currentPlan === "FREE" ? "PREMIUM" : "FREE"
+        try {
+            if (session?.user?.email) {
+                await switchUserPlan(session.user.email, newPlan)
+                await update({ plan: newPlan })
+                router.refresh()
+            }
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setIsLoading(false)
+        }
+    }
 
     return (
         <div className="relative">
@@ -70,15 +90,29 @@ export function UserProfile({ user }: UserProfileProps) {
                         </div>
 
                         {isAdmin && (
-                            <button
-                                onClick={() => {
-                                    setIsAdminOpen(true)
-                                    setIsOpen(false)
-                                }}
-                                className="w-full flex items-center justify-center gap-2 px-3 py-2.5 text-slate-600 hover:bg-slate-50 rounded-xl transition-all text-[9px] font-bold uppercase tracking-widest text-center mb-1 active:scale-95 border border-slate-100 bg-slate-50/50"
-                            >
-                                <Users className="w-3.5 h-3.5" /> Admin: Usuarios
-                            </button>
+                            <>
+                                <button
+                                    onClick={togglePlan}
+                                    disabled={isLoading}
+                                    className={`w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl transition-all text-[9px] font-bold uppercase tracking-widest text-center mb-1 active:scale-95 border ${currentPlan === "PREMIUM"
+                                            ? "bg-amber-100 text-amber-700 border-amber-200 hover:bg-amber-200"
+                                            : "bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200"
+                                        }`}
+                                >
+                                    <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
+                                    {currentPlan === "PREMIUM" ? "Cambiar a Gratis" : "Cambiar a Premium"}
+                                </button>
+
+                                <button
+                                    onClick={() => {
+                                        setIsAdminOpen(true)
+                                        setIsOpen(false)
+                                    }}
+                                    className="w-full flex items-center justify-center gap-2 px-3 py-2.5 text-slate-600 hover:bg-slate-50 rounded-xl transition-all text-[9px] font-bold uppercase tracking-widest text-center mb-1 active:scale-95 border border-slate-100 bg-slate-50/50"
+                                >
+                                    <Users className="w-3.5 h-3.5" /> Admin: Usuarios
+                                </button>
+                            </>
                         )}
 
                         <div className="p-4 pt-2 text-center">
