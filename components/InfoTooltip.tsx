@@ -71,29 +71,29 @@ export function InfoTooltip({ title, content, description, variant = 'dark', deb
                                 <div className="w-12 h-12 bg-atsit-blue/10 rounded-2xl flex items-center justify-center mb-4">
                                     <Info className="w-6 h-6 text-atsit-blue" />
                                 </div>
-                                <h3 className="text-lg font-black text-slate-900 uppercase tracking-widest mb-2">
+                                <h3 className="text-2xl font-black text-slate-900 uppercase tracking-widest mb-3">
                                     {title}
                                 </h3>
-                                <p className="text-sm leading-relaxed text-slate-700 font-medium">
+                                <p className="text-lg leading-relaxed text-slate-700 font-medium">
                                     {content}
                                 </p>
                             </div>
 
                             {description && (
-                                <div className="mt-4 pt-4 border-t border-slate-100">
-                                    <p className="text-xs text-slate-900 font-black uppercase mb-1 tracking-widest">
+                                <div className="mt-6 pt-6 border-t border-slate-100">
+                                    <p className="text-sm text-slate-900 font-black uppercase mb-1 tracking-widest">
                                         {t('tooltips.impactOnFreedom')}
                                     </p>
-                                    <p className="text-xs text-slate-700 italic font-bold">
+                                    <p className="text-sm text-slate-700 italic font-bold">
                                         {description}
                                     </p>
                                 </div>
                             )}
 
-                            <div className="mt-6">
+                            <div className="mt-8">
                                 <button
                                     onClick={() => setIsOpen(false)}
-                                    className="w-full py-3 bg-slate-900 text-white rounded-xl text-sm font-bold uppercase tracking-widest active:scale-95 transition-transform"
+                                    className="w-full py-4 bg-slate-900 text-white rounded-xl text-base font-bold uppercase tracking-widest active:scale-95 transition-transform"
                                 >
                                     {t('common.understood')}
                                 </button>
