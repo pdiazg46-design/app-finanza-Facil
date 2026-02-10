@@ -57,9 +57,9 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
                     {/* ... content ... */}
                     <main className="w-full max-w-md h-screen h-[100dvh] bg-white flex flex-col relative overflow-hidden shadow-2xl">
                         {/* Header - FIXED */}
-                        <header className="fixed top-0 left-0 right-0 max-w-md mx-auto bg-white shrink-0 px-5 pt-4 pb-2 flex justify-between items-center z-30 border-b border-slate-50 shadow-sm">
-                            <div className="flex items-center gap-3">
-                                <div className="relative" style={{ height: '42px', width: 'auto' }}>
+                        <header className="fixed top-0 left-0 right-0 max-w-md mx-auto bg-white shrink-0 px-3 pt-3 pb-2 flex justify-between items-center z-30 border-b border-slate-50 shadow-sm transition-all duration-300">
+                            <div className="flex items-center gap-1.5">
+                                <div className="relative" style={{ height: '36px', width: 'auto' }}>
                                     <Image
                                         src={logo}
                                         alt="AT-SIT"
@@ -69,30 +69,30 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
                                     />
                                 </div>
                                 {isPremium ? (
-                                    <span className="relative bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 text-[8px] font-black text-slate-900 px-2 py-0.5 rounded-full uppercase tracking-tighter shadow-lg shadow-amber-500/50 border-2 border-amber-300 animate-pulse">
+                                    <span className="scale-75 origin-left relative bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 text-[8px] font-black text-slate-900 px-2 py-0.5 rounded-full uppercase tracking-tighter shadow-lg shadow-amber-500/50 border-2 border-amber-300">
                                         <span className="relative z-10">Premium</span>
-                                        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-full"></span>
                                     </span>
                                 ) : (
-                                    <span className="bg-slate-100 text-[8px] font-bold text-slate-400 px-2 py-0.5 rounded-full uppercase tracking-tighter">Gratis</span>
+                                    <span className="scale-75 origin-left bg-slate-100 text-[8px] font-bold text-slate-400 px-2 py-0.5 rounded-full uppercase tracking-tighter">Gratis</span>
                                 )}
                             </div>
-                            <div className="flex items-center gap-2.5">
-                                <CountrySelector />
-                                <AdminHeaderToggle />
-                                <div className="w-px h-4 bg-slate-100 mx-1" /> {/* Divider */}
-                                <HelpButton />
-                                <PrivacyToggle />
-                                <SetupDrawerTrigger
-                                    budget={fund.budget as any}
-                                    assets={(fund as any).assets as any}
-                                    partnerInfo={{
-                                        name: (fund as any).partnerName,
-                                        contribution: (fund as any).partnerContribution
-                                    }}
-                                    freedomDays={freedomDays || 0}
-                                />
-                                <UserProfile user={{ name: user.name, email: user.email, image: user.image }} />
+                            <div className="flex items-center gap-0.5">
+                                <div className="scale-90"><CountrySelector /></div>
+                                <div className="scale-90"><AdminHeaderToggle /></div>
+                                <div className="scale-90"><HelpButton /></div>
+                                <div className="scale-90"><PrivacyToggle /></div>
+                                <div className="scale-90">
+                                    <SetupDrawerTrigger
+                                        budget={fund.budget as any}
+                                        assets={(fund as any).assets as any}
+                                        partnerInfo={{
+                                            name: (fund as any).partnerName,
+                                            contribution: (fund as any).partnerContribution
+                                        }}
+                                        freedomDays={freedomDays || 0}
+                                    />
+                                </div>
+                                <div className="pl-1"><UserProfile user={{ name: user.name, email: user.email, image: user.image }} /></div>
                             </div>
                         </header>
 
