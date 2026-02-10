@@ -62,10 +62,11 @@ export function CountrySelector() {
         return (
             <button
                 onClick={() => setIsVisible(true)}
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-slate-200 shadow-sm hover:bg-slate-50 transition-all hover:scale-105 active:scale-95"
+                className="flex items-center gap-2 px-3 h-10 rounded-full bg-white border border-slate-200 shadow-sm hover:bg-slate-50 transition-all hover:scale-105 active:scale-95"
                 title={t('country.selector.title')}
             >
-                <span className="text-xl leading-none">{flag}</span>
+                <span className="text-lg leading-none">{flag}</span>
+                <span className="text-sm font-bold text-slate-700">{currentCountry ? currentCountry.code : ''}</span>
             </button>
         )
     }
