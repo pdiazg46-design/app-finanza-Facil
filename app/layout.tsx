@@ -34,6 +34,7 @@ export const viewport = {
 import { Providers } from "@/components/Providers";
 import { PWARegistration } from "@/components/PWARegistration";
 import { InstallPrompt } from "@/components/InstallPrompt";
+import { InAppBrowserGuard } from "@/components/InAppBrowserGuard";
 
 export default function RootLayout({
   children,
@@ -48,6 +49,7 @@ export default function RootLayout({
       >
         <PWARegistration />
         <InstallPrompt />
+        <InAppBrowserGuard />
         <Providers>
           {children}
         </Providers>

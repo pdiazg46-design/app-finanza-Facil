@@ -317,34 +317,48 @@
     "show": "Mostrar valores",
     "hide": "Ocultar valores"
   },
-  "admin": {
-    "userControl": "Controle de Usuários",
-    "registered": "Registrados",
-    "searchPlaceholder": "Buscar por nome ou email...",
-    "loadingCommunity": "Carregando comunidade...",
-    "noUsersFound": "Não foram encontrados usuários",
-    "since": "Desde",
-    "makePremium": "Fazer Premium",
-    "makeFree": "Fazer Grátis",
-    "noName": "Sem nome"
-  },
-  "install": {
-    "title": "Instalar Finança Fácil",
-    "installApp": "Instalar Aplicativo",
-    "directInstallation": "Instalação Direta",
-    "chooseInstall": "Escolha 'Adicionar à tela inicial'",
-    "installNow": "Instalar Agora",
-    "androidInstructions": "Toque no menu (⋮) e selecione 'Adicionar à tela inicial'",
-    "iosInstructions": "Toque no botão de compartilhar e selecione 'Adicionar à tela inicial'",
-    "menuStep": "Menu",
-    "step1": "Passo 1",
-    "step2": "Passo 2"
-  },
-  "userProfile": {
-    "user": "Usuário",
-    "adminUsers": "Admin: Usuários",
-    "clearCache": "Limpar Cache e Sincronizar",
-    "closeSession": "Fechar Sessão",
-    "logout": "Sair"
-  }
+},
+"admin": {
+  "userControl": "Controle de Usuários",
+  "registered": "Registrados",
+  "searchPlaceholder": "Buscar por nome ou email...",
+  "loadingCommunity": "Carregando comunidade...",
+  "noUsersFound": "Não foram encontrados usuários",
+  "since": "Desde",
+  "makePremium": "Fazer Premium",
+  "makeFree": "Fazer Grátis",
+  "noName": "Sem nome"
+},
+"install": {
+  "title": "Instalar Finança Fácil",
+  "installApp": "Instalar Aplicativo",
+  "directInstallation": "Instalação Direta",
+  "chooseInstall": "Escolha 'Adicionar à tela inicial'",
+  "installNow": "Instalar Agora",
+  "androidInstructions": "Toque no menu (⋮) e selecione 'Adicionar à tela inicial'",
+  "iosInstructions": "Toque no botão de compartilhar e selecione 'Adicionar à tela inicial'",
+  "menuStep": "Menu",
+  "step1": "Passo 1",
+  "step2": "Passo 2"
+},
+"userProfile": {
+  "user": "Usuário",
+  "adminUsers": "Admin: Usuários",
+  "clearCache": "Limpar Cache e Sincronizar",
+  "closeSession": "Fechar Sessão",
+  "logout": "Sair"
+},
+"common": {
+  "free": "Grátis",
+  "premium": "Premium",
+  "close": "Fechar",
+  "save": "Salvar",
+  "cancel": "Cancelar",
+  "search": "Buscar",
+  "loading": "Carregando...",
+  "private": "PRIVADO",
+  "confirmDelete": "Tem certeza que deseja excluir \"{item}\"?",
+  "installments": "parcelas",
+  "installment": "parcela"
+}
 }

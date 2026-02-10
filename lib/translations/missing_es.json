@@ -1,0 +1,75 @@
+{
+    "admin": {
+        "userControl": "Control de Usuarios",
+        "registered": "Registrados",
+        "searchPlaceholder": "Buscar por nombre o email...",
+        "loadingCommunity": "Cargando comunidad...",
+        "noUsersFound": "No se encontraron usuarios",
+        "since": "Desde",
+        "makePremium": "Hacer Premium",
+        "makeFree": "Hacer Gratis",
+        "noName": "Sin nombre"
+    },
+    "common": {
+        "free": "Gratis",
+        "premium": "Premium"
+    },
+    "dimension": {
+        "accountsPayable": "Cuentas por pagar",
+        "days": "días"
+    },
+    "install": {
+        "title": "Instalar Finanza Fácil",
+        "installApp": "Instalar Aplicación",
+        "directInstallation": "Instalación Directa",
+        "chooseInstall": "Elige 'Agregar a pantalla de inicio'",
+        "installNow": "Instalar Ahora",
+        "androidInstructions": "Toca el menú (⋮) y selecciona 'Agregar a pantalla de inicio'",
+        "iosInstructions": "Toca el botón de compartir y selecciona 'Agregar a pantalla de inicio'",
+        "menuStep": "Menú",
+        "step1": "Paso 1",
+        "step2": "Paso 2"
+    },
+    "netWorth": {
+        "positiveMessage": "Tu patrimonio neto es positivo. Estás construyendo riqueza real más allá de tu flujo de caja mensual.",
+        "negativeMessage": "Tus deudas exceden tus activos actuales. Cada contribución al fondo común es un paso hacia recuperar tu patrimonio neto."
+    },
+    "setup": {
+        "categories": {
+            "FIXED_PAYMENTS": "PAGOS FIJOS",
+            "SERVICES": "SERVICIOS",
+            "SUBSCRIPTIONS": "SUSCRIPCIONES",
+            "VARIABLE_SERVICES": "SERVICIOS VARIABLES",
+            "CREDITS": "CRÉDITOS",
+            "ASSETS": "ACTIVOS"
+        },
+        "labels": {
+            "daysLost": "días perdidos",
+            "installment": "Cuota",
+            "investment": "INVERSIÓN",
+            "investmentNote": "* Solo \"Inversión\" suma a los Días de Respiro",
+            "other": "OTRO",
+            "partnerContributions": "Contribuciones del Socio",
+            "property": "INMUEBLE",
+            "saveChangesButton": "GUARDAR CAMBIOS",
+            "saving": "Guardando...",
+            "vehicle": "VEHÍCULO",
+            "addAsset": "Agregar Activo",
+            "assetsTitle": "Activos",
+            "autoRecalculateNote": "* El sistema recalcula automáticamente"
+        }
+    },
+    "tooltips": {
+        "configure": "Configurar realidad financiera",
+        "help": "Ayuda y Tutorial",
+        "viewInfo": "Ver información",
+        "impactOnFreedom": "Impacto en tu libertad:"
+    },
+    "userProfile": {
+        "user": "Usuario",
+        "adminUsers": "Admin: Usuarios",
+        "clearCache": "Limpiar Caché y Sincronizar",
+        "closeSession": "Cerrar Sesión",
+        "logout": "Salir"
+    }
+}

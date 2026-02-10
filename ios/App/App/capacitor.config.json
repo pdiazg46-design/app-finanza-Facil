@@ -1,0 +1,15 @@
+{
+	"appId": "com.atsit.finanzafacil",
+	"appName": "Finanza Fácil Móvil",
+	"webDir": "out",
+	"server": {
+		"url": "https://at-sit-final.vercel.app",
+		"cleartext": true
+	},
+	"packageClassList": [
+		"AppPlugin",
+		"KeyboardPlugin",
+		"SplashScreenPlugin",
+		"StatusBarPlugin"
+	]
+}
