@@ -40,18 +40,18 @@ export function FreedomCircle({ freedomDays, targetDays }: FreedomCircleProps) {
                     </div>
                     <div className={`w-32 h-32 rounded-full ${circleColor} shadow-2xl flex items-center justify-center transition-colors duration-700`}>
                         <div className="flex flex-col items-center justify-center text-center px-1">
-                            <span className={`font-black text-white tracking-tighter leading-none font-[family-name:var(--font-montserrat)] ${freedomDays.toString().length > 6 ? 'text-xl' :
-                                freedomDays.toString().length > 4 ? 'text-2xl' :
-                                    'text-4xl'
+                            <span className={`font-black text-white tracking-tighter leading-none font-[family-name:var(--font-montserrat)] ${freedomDays.toString().length > 6 ? 'text-2xl' :
+                                freedomDays.toString().length > 4 ? 'text-4xl' :
+                                    'text-5xl'
                                 }`}>
                                 {formatNumber(freedomDays)}
                             </span>
-                            <span className="text-[12px] font-black text-white uppercase tracking-wider mt-0.5 font-[family-name:var(--font-montserrat)]">
+                            <span className="text-sm font-black text-white uppercase tracking-wider mt-1 font-[family-name:var(--font-montserrat)]">
                                 DÍAS
                             </span>
-                            <div className="flex items-center gap-1 mt-1 bg-white/20 px-2 py-0.5 rounded-full">
-                                <Sparkles className="w-2.5 h-2.5 text-yellow-300" />
-                                <span className="text-[11px] text-white font-black uppercase">
+                            <div className="flex items-center gap-1 mt-2 bg-white/20 px-3 py-1 rounded-full">
+                                <Sparkles className="w-3 h-3 text-yellow-300" />
+                                <span className="text-xs text-white font-black uppercase">
                                     {t(tier.labelKey)}
                                 </span>
                             </div>

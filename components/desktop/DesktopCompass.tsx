@@ -41,9 +41,9 @@ export function DesktopCompass({ freedomDays }: DesktopCompassProps) {
             {/* Header Section */}
             <div className="flex items-start justify-between mb-4">
                 <div>
-                    <h4 className="text-xs font-black uppercase tracking-widest text-slate-500 mb-1">Status Actual</h4>
+                    <h4 className="text-sm font-black uppercase tracking-widest text-slate-600 mb-1">Status Actual</h4>
                     <div className="flex items-center gap-2">
-                        <span className="text-2xl font-bold text-slate-800">{t(tier.descriptionKey)}</span>
+                        <span className="text-3xl font-bold text-slate-800">{t(tier.descriptionKey)}</span>
                     </div>
                 </div>
                 <div className={`p-3 rounded-full bg-white shadow-sm ring-1 ring-black/5`}>
@@ -53,7 +53,7 @@ export function DesktopCompass({ freedomDays }: DesktopCompassProps) {
 
             {/* Description Section */}
             <div className="flex-1">
-                <p className="text-sm text-slate-600 leading-relaxed">
+                <p className="text-base text-slate-700 leading-relaxed font-medium">
                     {t('freedom.compass.description')}
                 </p>
             </div>
@@ -61,8 +61,8 @@ export function DesktopCompass({ freedomDays }: DesktopCompassProps) {
             {/* Tip / Footer Section */}
             <div className="mt-4 pt-4 border-t border-black/5">
                 <div className="flex items-start gap-2">
-                    <Sparkles className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                    <p className="text-xs font-medium text-slate-700 italic">
+                    <Sparkles className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                    <p className="text-sm font-bold text-slate-700 italic">
                         "{t('freedom.compass.tip')}"
                     </p>
                 </div>

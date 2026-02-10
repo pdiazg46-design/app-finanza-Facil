@@ -60,17 +60,17 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                     {/* Sidebar */}
                     <aside className="w-64 bg-white border-r border-slate-200 flex flex-col h-screen fixed left-0 top-0 z-40">
                         <div className="p-6 border-b border-slate-100 flex flex-col items-center gap-4 text-center">
-                            <div className="relative h-20 w-auto aspect-square">
+                            <div className="relative h-28 w-auto aspect-square mb-2 mx-auto">
                                 <Image
                                     src={logo}
                                     alt="AT-SIT"
-                                    className="h-full w-full object-contain"
+                                    className="h-full w-full object-contain scale-125"
                                     priority
                                 />
                             </div>
                             <div>
-                                <h1 className="font-bold text-slate-800 leading-tight text-lg">Finanza Fácil</h1>
-                                <p className="text-xs text-slate-500">Desktop Edition</p>
+                                <h1 className="font-extrabold text-slate-900 leading-tight text-xl tracking-tight">Finanza Fácil</h1>
+                                <p className="text-sm font-bold text-slate-600 mt-1">Desktop Edition</p>
                             </div>
                             <div className="absolute top-6 right-6">
                                 <PrivacyToggle />
@@ -156,17 +156,8 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                                     </div>
                                 </div>
 
-                                {/* Liquidity Row */}
-                                <div className="grid grid-cols-2 gap-6">
-                                    <TranslatedLiquidityCards
-                                        commonBalance={(fund as any).balance}
-                                        disposableIncome={disposableIncome}
-                                        projectedExpenses={projectedExpenses}
-                                    />
-                                </div>
-
-                                {/* Analyze Dimension */}
-                                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                                {/* Analyze Dimension - Now taking more space */}
+                                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex-1">
                                     <FreedomDimension
                                         freedomDays={freedomDays || 0}
                                         monthlyBurnRate={fund.monthlyBurnRate}
@@ -194,8 +185,18 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                                     </div>
 
                                     {/* Desktop Voice Trigger */}
-                                    <div className="mt-6 pt-6 border-t border-slate-100">
-                                        <p className="text-xs text-center text-slate-400 mb-2">Presiona la barra <kbd className="bg-slate-100 border border-slate-200 rounded px-1">ESPACIO</kbd> para hablar</p>
+                                    <div className="mt-4 pt-4 border-t border-slate-100">
+                                        {/* Moved Liquidity here to fill space */}
+                                        <div className="mb-6">
+                                            <h3 className="text-slate-800 font-bold mb-3 text-sm uppercase tracking-wide">Liquidez Inmediata</h3>
+                                            <TranslatedLiquidityCards
+                                                commonBalance={(fund as any).balance}
+                                                disposableIncome={disposableIncome}
+                                                projectedExpenses={projectedExpenses}
+                                            />
+                                        </div>
+
+                                        <p className="text-xs text-center text-slate-400 mb-2 font-medium">Presiona la barra <kbd className="bg-slate-100 border border-slate-200 rounded px-1">ESPACIO</kbd> para hablar</p>
                                         <VoiceSimulator />
                                     </div>
                                 </div>

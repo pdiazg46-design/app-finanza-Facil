@@ -39,12 +39,12 @@ export function FreedomDimension({
             {/* Tier Indicator Card */}
             <div className={`p-5 rounded-3xl border-l-[6px] ${tier.color.replace('text-', 'border-')} bg-white shadow-lg`}>
                 <div className="flex items-center gap-2.5 mb-2">
-                    <ShieldCheck className={`w-5 h-5 ${tier.color}`} />
-                    <h3 className="text-[14px] font-black text-slate-900 uppercase tracking-widest">
+                    <ShieldCheck className={`w-6 h-6 ${tier.color}`} />
+                    <h3 className="text-base font-black text-slate-900 uppercase tracking-widest">
                         {t('freedom.status')}: {t(getTierTranslationKey(getTierTypeFromInfo(tier)).label)}
                     </h3>
                 </div>
-                <p className="text-[12px] text-slate-700 leading-relaxed italic font-medium">
+                <p className="text-sm text-slate-800 leading-relaxed italic font-medium">
                     "{t(getTierTranslationKey(getTierTypeFromInfo(tier)).description)}"
                 </p>
             </div>
@@ -54,8 +54,8 @@ export function FreedomDimension({
                 <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex flex-col justify-between min-h-[100px]">
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-1.5 text-slate-900">
-                            <TrendingDown className="w-3.5 h-3.5" />
-                            <span className="text-[11px] font-black uppercase tracking-wider">{t('dimension.burnRate')}</span>
+                            <TrendingDown className="w-4 h-4" />
+                            <span className="text-xs font-black uppercase tracking-wider">{t('dimension.burnRate')}</span>
                         </div>
                         <InfoTooltip
                             title={t('tooltips.burnRate.title')}
@@ -63,22 +63,22 @@ export function FreedomDimension({
                         />
                     </div>
                     <div>
-                        <div className="text-[16px] font-black text-slate-900">
+                        <div className="text-xl font-black text-slate-900">
                             {isPrivate ? (
                                 <span className="text-slate-300">••••••</span>
                             ) : (
                                 formatCurrency(dailyBurn)
                             )}
                         </div>
-                        <p className="text-[11px] text-slate-700 font-bold mt-1 uppercase tracking-tight">{t('dimension.dailyCost')}</p>
+                        <p className="text-xs text-slate-700 font-bold mt-1 uppercase tracking-tight">{t('dimension.dailyCost')}</p>
                     </div>
                 </div>
 
                 <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex flex-col justify-between min-h-[100px]">
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-1.5 text-slate-900">
-                            <Wallet className="w-3.5 h-3.5" />
-                            <span className="text-[11px] font-black uppercase tracking-wider">{t('dimension.reserves')}</span>
+                            <Wallet className="w-4 h-4" />
+                            <span className="text-xs font-black uppercase tracking-wider">{t('dimension.reserves')}</span>
                         </div>
                         <InfoTooltip
                             title={t('tooltips.reserves.title')}
@@ -87,14 +87,14 @@ export function FreedomDimension({
                         />
                     </div>
                     <div>
-                        <div className="text-[16px] font-black text-slate-900">
+                        <div className="text-xl font-black text-slate-900">
                             {isPrivate ? (
                                 <span className="text-slate-300">••••••</span>
                             ) : (
                                 formatCurrency(totalReserves)
                             )}
                         </div>
-                        <p className="text-[11px] text-slate-700 font-black mt-1 uppercase tracking-tight">{t('dimension.emergencySavings')}</p>
+                        <p className="text-xs text-slate-700 font-black mt-1 uppercase tracking-tight">{t('dimension.emergencySavings')}</p>
                     </div>
                 </div>
 
@@ -129,7 +129,7 @@ export function FreedomDimension({
                     <DevLabel name="FreedomDimension - MY REAL WEALTH Card" />
                     <div className="flex items-center justify-between mb-8 relative z-10">
                         <div className="flex items-center gap-2">
-                            <h3 className="text-xl font-black tracking-tight text-white uppercase">{t('netWorth.title')}</h3>
+                            <h3 className="text-2xl font-black tracking-tight text-white uppercase">{t('netWorth.title')}</h3>
                             <InfoTooltip
                                 title={t('netWorth.tooltipTitle')}
                                 content={t('netWorth.tooltipContent')}
@@ -139,13 +139,13 @@ export function FreedomDimension({
                             />
                         </div>
                         <div className={`p-2 rounded-xl bg-white/10 backdrop-blur-md`}>
-                            <TrendingUp className="w-5 h-5 text-atsit-blue" />
+                            <TrendingUp className="w-6 h-6 text-atsit-blue" />
                         </div>
                     </div>
 
                     <div className="space-y-6 relative z-10">
                         <div className="flex items-center justify-between">
-                            <span className="text-[12px] font-black text-slate-400 uppercase tracking-widest">{t('netWorth.whatIHave')}</span>
+                            <span className="text-xs font-black text-slate-400 uppercase tracking-widest">{t('netWorth.whatIHave')}</span>
                             <span className="text-lg font-black text-white">
                                 {isPrivate ? (
                                     <span className="text-white/20 font-black tracking-widest">••••••</span>
@@ -156,7 +156,7 @@ export function FreedomDimension({
                         </div>
 
                         <div className="flex items-center justify-between">
-                            <span className="text-[12px] font-black text-slate-400 uppercase tracking-widest">{t('netWorth.whatIOwe')}</span>
+                            <span className="text-xs font-black text-slate-400 uppercase tracking-widest">{t('netWorth.whatIOwe')}</span>
                             <span className="text-lg font-black text-red-400">
                                 {isPrivate ? (
                                     <span className="text-white/20 font-black tracking-widest">••••••</span>
@@ -167,10 +167,10 @@ export function FreedomDimension({
                         </div>
 
                         <div className="pt-5 border-t border-white/10 flex items-center justify-between">
-                            <span className="text-[13px] font-black text-white uppercase tracking-widest">{t('netWorth.realWealth')}</span>
-                            <span className={`text-2xl font-black ${netWorth >= 0 ? 'text-emerald-400' : 'text-red-500'}`}>
+                            <span className="text-sm font-black text-white uppercase tracking-widest">{t('netWorth.realWealth')}</span>
+                            <span className={`text-3xl font-black ${netWorth >= 0 ? 'text-emerald-400' : 'text-red-500'}`}>
                                 {isPrivate ? (
-                                    <span className="text-white/20 select-none italic text-lg tracking-[0.2em]">PRIVATE</span>
+                                    <span className="text-white/20 select-none italic text-xl tracking-[0.2em]">PRIVATE</span>
                                 ) : (
                                     formatCurrency(netWorth)
                                 )}
@@ -179,7 +179,7 @@ export function FreedomDimension({
                     </div>
 
                     <div className="mt-8 p-4 bg-white/10 rounded-2xl relative z-10 border border-white/5">
-                        <p className="text-[13px] text-white leading-relaxed font-black">
+                        <p className="text-sm text-white leading-relaxed font-black">
                             {netWorth > 0
                                 ? t('netWorth.positiveMessage')
                                 : t('netWorth.negativeMessage')
