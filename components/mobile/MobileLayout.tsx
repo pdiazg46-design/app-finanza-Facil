@@ -76,7 +76,7 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
                                 )}
                             </div>
                             <div className="flex items-center gap-0.5">
-                                <div className="scale-90"><CountrySelector /></div>
+                                <div><CountrySelector /></div>
 
 
                                 <div className="scale-90"><PrivacyToggle /></div>
