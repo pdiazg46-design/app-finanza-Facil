@@ -9,6 +9,8 @@ import { DesktopDashboard } from "@/components/desktop/DesktopDashboard"
 export const dynamic = 'force-dynamic'
 
 
+import { LocaleProvider } from "@/components/LocaleContext"
+
 export default async function Home() {
   let session;
   try {
@@ -99,14 +101,14 @@ export default async function Home() {
   }
 
   return (
-    <>
+    <LocaleProvider>
       <div className="md:hidden">
         <MobileLayout {...props} />
       </div>
       <div className="hidden md:block">
         <DesktopDashboard {...props} />
       </div>
-    </>
+    </LocaleProvider>
   )
 }
 

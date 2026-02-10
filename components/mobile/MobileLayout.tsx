@@ -48,10 +48,11 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
     } = metrics;
 
     return (
-        <LocaleProvider>
+        <>
             <PrivacyProvider>
                 {/* <ClientSyncTrigger /> */}
                 <div className="min-h-screen bg-slate-50 flex flex-col items-center">
+                    {/* ... content ... */}
                     <main className="w-full max-w-md h-screen h-[100dvh] bg-white flex flex-col relative overflow-hidden shadow-2xl">
                         {/* Header - FIXED */}
                         <header className="fixed top-0 left-0 right-0 max-w-md mx-auto bg-white shrink-0 px-5 pt-4 pb-2 flex justify-between items-center z-30 border-b border-slate-50 shadow-sm">
@@ -142,6 +143,6 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
 
             {/* Welcome Banner (first-time users) */}
             <WelcomeBanner />
-        </LocaleProvider>
+        </>
     )
 }
