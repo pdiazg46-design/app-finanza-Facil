@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { X, Save, TrendingDown, Users, DollarSign, Plus, Trash2, Zap, CreditCard, RefreshCw } from 'lucide-react'
+import { PrivacyToggle } from '@/components/PrivacyToggle'
 import { syncFullBudget } from '@/app/actions/fund-actions'
 import { BudgetCategory, CategoryType } from '@/lib/db'
 import { usePrivacy } from '@/components/PrivacyContext'
@@ -208,6 +209,7 @@ export function DesktopSetupDrawer({ isOpen, onClose, budget, assets, partnerInf
                         <p className="text-[12px] text-slate-600 font-bold uppercase tracking-widest mt-0.5">{t('setup.myRealNumbers')}</p>
                     </div>
                     <div className="flex items-center gap-2">
+                        <PrivacyToggle />
                         <button
                             onClick={handleSave}
                             disabled={isSaving}

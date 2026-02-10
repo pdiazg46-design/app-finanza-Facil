@@ -72,6 +72,9 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                                 <h1 className="font-bold text-slate-800 leading-tight text-lg">Finanza Fácil</h1>
                                 <p className="text-xs text-slate-500">Desktop Edition</p>
                             </div>
+                            <div className="absolute top-6 right-6">
+                                <PrivacyToggle />
+                            </div>
                         </div>
 
                         <nav className="flex-1 p-4 space-y-2">
