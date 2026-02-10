@@ -20,6 +20,7 @@ import Image from "next/image"
 import logo from "../../public/logo.png"
 
 import { DesktopSetupDrawer } from "@/components/desktop/DesktopSetupDrawer"
+import { WelcomeBanner } from "@/components/WelcomeBanner"
 import { useState } from "react"
 
 interface DesktopDashboardProps {
@@ -101,14 +102,20 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                     {/* Main Content Area */}
                     <main className="flex-1 ml-64 p-8 overflow-y-auto h-screen">
 
+// Imports will be added at the top in a separate step or I can try to do it all here if the range allows.
+                        // Let's focus on the Header section first.
                         {/* Header */}
                         <header className="flex justify-between items-center mb-8">
                             <div>
                                 <h2 className="text-2xl font-bold text-slate-800">Hola, {user.name} 👋</h2>
                                 <p className="text-slate-500">Aquí está tu resumen financiero de hoy.</p>
                             </div>
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-3">
                                 <CountrySelector />
+                                <div className="h-8 w-px bg-slate-200 mx-2"></div>
+                                <AdminHeaderToggle />
+                                <HelpButton />
+                                <PrivacyToggle />
                                 {!isPremium && <PremiumUpgradeButton />}
                             </div>
                         </header>
@@ -194,6 +201,7 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                     }}
                     freedomDays={freedomDays || 0}
                 />
+                <WelcomeBanner />
             </PrivacyProvider>
         </LocaleProvider>
     )
