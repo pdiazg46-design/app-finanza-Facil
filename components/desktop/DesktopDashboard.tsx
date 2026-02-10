@@ -19,6 +19,9 @@ import { FreedomDimension } from "@/components/FreedomDimension"
 import Image from "next/image"
 import logo from "../../public/logo.png"
 
+import { SetupDrawer } from "@/components/SetupDrawer"
+import { useState } from "react"
+
 interface DesktopDashboardProps {
     user: any;
     isPremium: boolean;
@@ -36,6 +39,7 @@ interface DesktopDashboardProps {
 }
 
 export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDashboardProps) {
+    const [isSetupOpen, setIsSetupOpen] = useState(false)
     const {
         freedomDays,
         targetDays,
@@ -74,11 +78,15 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                                 <LayoutDashboard className="w-5 h-5" />
                                 Dashboard
                             </button>
-                            {/* Placeholders for future desktop features */}
-                            <button className="w-full flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-xl font-medium transition-colors">
-                                <Wallet className="w-5 h-5" />
-                                Billetera
+
+                            <button
+                                onClick={() => setIsSetupOpen(true)}
+                                className="w-full flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-xl font-medium transition-colors"
+                            >
+                                <Settings className="w-5 h-5" />
+                                Cuentas Claves
                             </button>
+
                             <button className="w-full flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-xl font-medium transition-colors">
                                 <TrendingUp className="w-5 h-5" />
                                 Inversiones
@@ -101,20 +109,6 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                             </div>
                             <div className="flex items-center gap-4">
                                 <CountrySelector />
-                                <AdminHeaderToggle />
-                                <PrivacyToggle />
-                                {/* <SetupDrawerTrigger ... /> uses mobile-drawer-root, might need adaptation for desktop modal */}
-                                <div className="hidden">
-                                    <SetupDrawerTrigger
-                                        budget={fund.budget as any}
-                                        assets={(fund as any).assets as any}
-                                        partnerInfo={{
-                                            name: (fund as any).partnerName,
-                                            contribution: (fund as any).partnerContribution
-                                        }}
-                                        freedomDays={freedomDays || 0}
-                                    />
-                                </div>
                                 {!isPremium && <PremiumUpgradeButton />}
                             </div>
                         </header>
@@ -189,6 +183,18 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                     </main>
 
                 </div>
+                <SetupDrawer
+                    isOpen={isSetupOpen}
+                    onClose={() => setIsSetupOpen(false)}
+                    budget={fund.budget as any}
+                    assets={(fund as any).assets as any}
+                    partnerInfo={{
+                        name: (fund as any).partnerName,
+                        contribution: (fund as any).partnerContribution
+                    }}
+                    freedomDays={freedomDays || 0}
+                />
+                <div id="mobile-drawer-root" className="relative z-[100]"></div>
             </PrivacyProvider>
         </LocaleProvider>
     )
