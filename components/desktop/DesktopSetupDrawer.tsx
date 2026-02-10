@@ -291,7 +291,8 @@ export function DesktopSetupDrawer({ isOpen, onClose, budget, assets, partnerInf
                                                                         onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
                                                                             if (!isPrivate && !item.isAutomated) {
                                                                                 setEditingId(item.id);
-                                                                                e.target.select();
+                                                                                // Wait for re-render with new formatted value before selecting
+                                                                                setTimeout(() => e.target.select(), 10);
                                                                             }
                                                                         }}
                                                                         onBlur={() => setEditingId(null)}
@@ -337,7 +338,7 @@ export function DesktopSetupDrawer({ isOpen, onClose, budget, assets, partnerInf
                                                                                 return b
                                                                             }))
                                                                         }}
-                                                                        onFocus={(e) => e.target.select()}
+                                                                        onFocus={(e) => setTimeout(() => e.target.select(), 10)}
                                                                         className="w-12 bg-transparent border-0 p-0 text-center text-[15px] font-black text-slate-800 focus:outline-none"
                                                                     />
                                                                 </div>
@@ -443,7 +444,7 @@ export function DesktopSetupDrawer({ isOpen, onClose, budget, assets, partnerInf
                                                     onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
                                                         if (!isPrivate) {
                                                             setEditingAssetId(asset.id);
-                                                            e.target.select();
+                                                            setTimeout(() => e.target.select(), 10);
                                                         }
                                                     }}
                                                     onBlur={() => setEditingAssetId(null)}
@@ -507,7 +508,11 @@ export function DesktopSetupDrawer({ isOpen, onClose, budget, assets, partnerInf
                                             const val = parseInt(e.target.value.replace(/\D/g, '')) || 0
                                             setLocalPartner(prev => ({ ...prev, contribution: val }))
                                         }}
-                                        onFocus={(e: React.FocusEvent<HTMLInputElement>) => !isPrivate && e.target.select()}
+                                        onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
+                                            if (!isPrivate) {
+                                                setTimeout(() => e.target.select(), 10);
+                                            }
+                                        }}
                                         disabled={isPrivate}
                                         className={`bg-transparent border-0 p-0 text-lg font-black text-slate-900 focus:outline-none ${isPrivate ? 'cursor-not-allowed' : ''}`}
                                         style={{ width: `${Math.max(4, (isPrivate ? 8 : formatNumber(localPartner.contribution).length))}ch` }}
