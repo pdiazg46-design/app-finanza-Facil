@@ -194,7 +194,7 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                     }}
                     freedomDays={freedomDays || 0}
                 />
-                <div id="mobile-drawer-root" className="relative z-[100]"></div>
+                <div id="mobile-drawer-root" className="fixed inset-0 z-[100] pointer-events-none"></div>
             </PrivacyProvider>
         </LocaleProvider>
     )
