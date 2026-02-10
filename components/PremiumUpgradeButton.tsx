@@ -19,7 +19,7 @@ export function PremiumUpgradeButton() {
         setIsLoading(false)
     }
 
-    return (
+
     const isPremium = session?.user?.plan === "PREMIUM"
 
     if (isPremium) return null
