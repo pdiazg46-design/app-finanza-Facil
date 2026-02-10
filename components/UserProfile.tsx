@@ -5,6 +5,7 @@ import { LogOut, Users, RefreshCw } from "lucide-react"
 import { useState } from "react"
 import { AdminUsersModal } from "./AdminUsersModal"
 import { InstallButton } from "./InstallButton"
+import { PremiumUpgradeButton } from "./PremiumUpgradeButton"
 
 interface UserProfileProps {
     user: {
@@ -49,6 +50,10 @@ export function UserProfile({ user }: UserProfileProps) {
 
                         <div className="px-1 mt-1">
                             <InstallButton />
+
+                            <div className="mb-1">
+                                <PremiumUpgradeButton />
+                            </div>
 
                             <button
                                 onClick={() => {

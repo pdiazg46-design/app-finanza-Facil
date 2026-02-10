@@ -20,12 +20,17 @@ export function PremiumUpgradeButton() {
     }
 
     return (
+    const isPremium = session?.user?.plan === "PREMIUM"
+
+    if (isPremium) return null
+
+    return (
         <button
             onClick={handleUpgrade}
             disabled={isLoading}
-            className="bg-white text-blue-600 px-3 py-1 rounded-lg font-black uppercase text-[8px] hover:bg-blue-50 transition-colors disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-amber-300 to-amber-500 text-amber-950 rounded-xl text-[9px] font-black uppercase tracking-widest hover:brightness-110 transition-all shadow-sm mb-1 active:scale-95"
         >
-            {isLoading ? '...' : 'Upgrade'}
+            {isLoading ? '...' : '✨ Upgrade a Premium'}
         </button>
     )
 }

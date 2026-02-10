@@ -60,15 +60,15 @@ export function CountrySelector() {
         return (
             <button
                 onClick={() => setIsVisible(true)}
-                className="flex items-center gap-3 px-4 h-12 rounded-full bg-white border border-slate-200 shadow-sm hover:bg-slate-50 transition-all hover:scale-105 active:scale-95"
+                className="flex items-center gap-1.5 px-2 h-8 rounded-full bg-slate-50 border border-slate-200 hover:bg-slate-100 transition-all active:scale-95"
                 title={t('country.selector.title')}
             >
                 <img
                     src={`https://flagcdn.com/w40/${currentCountryCode.toLowerCase()}.png`}
                     alt={currentCountryCode}
-                    className="w-6 h-auto shadow-sm rounded-sm"
+                    className="w-5 h-auto rounded-sm object-cover"
                 />
-                <span className="text-base font-bold text-slate-700">{currentCountryCode}</span>
+                <span className="text-xs font-bold text-slate-600">{currentCountryCode}</span>
             </button>
         )
     }

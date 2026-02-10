@@ -96,15 +96,7 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
                             </div>
                         </header>
 
-                        {/* Premium Banner for Free Users */}
-                        {!isPremium && (
-                            <div className="bg-blue-600 text-white px-4 py-2 text-[10px] flex justify-between items-center animate-in fade-in slide-in-from-top-4 duration-500">
-                                <p className="font-bold flex items-center gap-2">
-                                    <Sparkles className="w-3 h-3" /> ¡Pásate a Premium y activa el Asistente AI avanzado!
-                                </p>
-                                <PremiumUpgradeButton />
-                            </div>
-                        )}
+
 
                         {/* Scrollable Content - Padding for fixed header */}
                         <div className="flex-1 overflow-y-auto px-4 pt-[70px] pb-36 overscroll-behavior-none">
