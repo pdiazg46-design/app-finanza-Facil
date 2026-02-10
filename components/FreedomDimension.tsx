@@ -57,9 +57,13 @@ export function FreedomDimension({
             {(totalAssets > 0 || totalDebt > 0) && session?.user?.plan === 'PREMIUM' && (
                 <div className="bg-slate-900 rounded-3xl p-6 text-white overflow-hidden relative border border-slate-800 shadow-xl mt-2">
                     <DevLabel name="FreedomDimension - MY REAL WEALTH Card" />
-                    <div className="flex items-center justify-between mb-8 relative z-10">
+
+                    {/* Header */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 relative z-10 gap-4">
                         <div className="flex items-center gap-2">
-                            <h3 className="text-2xl font-black tracking-tight text-white uppercase">{t('netWorth.title')}</h3>
+                            <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white uppercase leading-none">
+                                {t('netWorth.title')}
+                            </h3>
                             <InfoTooltip
                                 title={t('netWorth.tooltipTitle')}
                                 content={t('netWorth.tooltipContent')}
@@ -68,15 +72,16 @@ export function FreedomDimension({
                                 debugName="MY REAL WEALTH - InfoTooltip"
                             />
                         </div>
-                        <div className={`p-2 rounded-xl bg-white/10 backdrop-blur-md`}>
+                        <div className={`self-start sm:self-auto p-2 rounded-xl bg-white/10 backdrop-blur-md`}>
                             <TrendingUp className="w-6 h-6 text-atsit-blue" />
                         </div>
                     </div>
 
                     <div className="space-y-6 relative z-10">
-                        <div className="flex items-center justify-between">
-                            <span className="text-xs font-black text-slate-400 uppercase tracking-widest">{t('netWorth.whatIHave')}</span>
-                            <span className="text-lg font-black text-white">
+                        {/* Assets */}
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                            <span className="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-widest">{t('netWorth.whatIHave')}</span>
+                            <span className="text-xl sm:text-2xl font-black text-white truncate">
                                 {isPrivate ? (
                                     <span className="text-white/20 font-black tracking-widest">••••••</span>
                                 ) : (
@@ -85,9 +90,10 @@ export function FreedomDimension({
                             </span>
                         </div>
 
-                        <div className="flex items-center justify-between">
-                            <span className="text-xs font-black text-slate-400 uppercase tracking-widest">{t('netWorth.whatIOwe')}</span>
-                            <span className="text-lg font-black text-red-400">
+                        {/* Debts */}
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                            <span className="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-widest">{t('netWorth.whatIOwe')}</span>
+                            <span className="text-xl sm:text-2xl font-black text-red-400 truncate">
                                 {isPrivate ? (
                                     <span className="text-white/20 font-black tracking-widest">••••••</span>
                                 ) : (
@@ -96,9 +102,10 @@ export function FreedomDimension({
                             </span>
                         </div>
 
-                        <div className="pt-5 border-t border-white/10 flex items-center justify-between">
-                            <span className="text-sm font-black text-white uppercase tracking-widest">{t('netWorth.realWealth')}</span>
-                            <span className={`text-3xl font-black ${netWorth >= 0 ? 'text-emerald-400' : 'text-red-500'}`}>
+                        {/* Net Worth */}
+                        <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <span className="text-xs sm:text-sm font-black text-white uppercase tracking-widest">{t('netWorth.realWealth')}</span>
+                            <span className={`text-2xl sm:text-3xl font-black truncate ${netWorth >= 0 ? 'text-emerald-400' : 'text-red-500'}`}>
                                 {isPrivate ? (
                                     <span className="text-white/20 select-none italic text-xl tracking-[0.2em]">PRIVATE</span>
                                 ) : (
@@ -108,8 +115,8 @@ export function FreedomDimension({
                         </div>
                     </div>
 
-                    <div className="mt-8 p-4 bg-white/10 rounded-2xl relative z-10 border border-white/5">
-                        <p className="text-sm text-white leading-relaxed font-black">
+                    <div className="mt-6 p-4 bg-white/10 rounded-2xl relative z-10 border border-white/5">
+                        <p className="text-xs sm:text-sm text-white leading-relaxed font-bold">
                             {netWorth > 0
                                 ? t('netWorth.positiveMessage')
                                 : t('netWorth.negativeMessage')
