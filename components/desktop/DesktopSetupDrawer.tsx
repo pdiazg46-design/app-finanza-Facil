@@ -286,13 +286,18 @@ export function DesktopSetupDrawer({ isOpen, onClose, budget, assets, partnerInf
                                                                     <input
                                                                         type="text"
                                                                         inputMode="numeric"
-                                                                        value={isPrivate ? '$ ••••••' : (editingId === item.id ? item.amount.toString() : formatCurrency(item.amount))}
-                                                                        onChange={(e) => handleAmountChange(item.id, e.target.value)}
-                                                                        onFocus={() => !isPrivate && !item.isAutomated && setEditingId(item.id)}
+                                                                        value={isPrivate ? '$ ••••••' : (editingId === item.id ? formatNumber(item.amount) : formatCurrency(item.amount))}
+                                                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleAmountChange(item.id, e.target.value)}
+                                                                        onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
+                                                                            if (!isPrivate && !item.isAutomated) {
+                                                                                setEditingId(item.id);
+                                                                                e.target.select();
+                                                                            }
+                                                                        }}
                                                                         onBlur={() => setEditingId(null)}
                                                                         disabled={isPrivate || item.isAutomated}
                                                                         className={`bg-transparent border-0 p-0 text-lg font-black text-slate-900 focus:outline-none ${isPrivate || item.isAutomated ? 'cursor-not-allowed' : ''}`}
-                                                                        style={{ width: `${Math.max(4, (isPrivate ? 8 : (editingId === item.id ? item.amount.toString().length : formatNumber(item.amount).length + 2)))}ch` }}
+                                                                        style={{ width: `${Math.max(4, (isPrivate ? 8 : (editingId === item.id ? formatNumber(item.amount).length : formatNumber(item.amount).length + 2)))}ch` }}
                                                                     />
                                                                     <span className="text-[12px] text-slate-500 font-bold uppercase tracking-tight">{t('setup.credits.perMonth')}</span>
                                                                 </div>
@@ -433,12 +438,17 @@ export function DesktopSetupDrawer({ isOpen, onClose, budget, assets, partnerInf
                                                 <input
                                                     type="text"
                                                     inputMode="numeric"
-                                                    value={isPrivate ? '$ ••••••' : (editingAssetId === asset.id ? asset.value.toString() : formatCurrency(asset.value))}
-                                                    onChange={(e) => handleAssetChange(asset.id, 'value', parseInt(e.target.value.replace(/\D/g, '')) || 0)}
-                                                    onFocus={() => !isPrivate && setEditingAssetId(asset.id)}
+                                                    value={isPrivate ? '$ ••••••' : (editingAssetId === asset.id ? formatNumber(asset.value) : formatCurrency(asset.value))}
+                                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleAssetChange(asset.id, 'value', parseInt(e.target.value.replace(/\D/g, '')) || 0)}
+                                                    onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
+                                                        if (!isPrivate) {
+                                                            setEditingAssetId(asset.id);
+                                                            e.target.select();
+                                                        }
+                                                    }}
                                                     onBlur={() => setEditingAssetId(null)}
                                                     className="bg-transparent border-0 p-0 text-lg font-black text-slate-900 focus:outline-none"
-                                                    style={{ width: `${Math.max(4, (isPrivate ? 8 : (editingAssetId === asset.id ? asset.value.toString().length : formatNumber(asset.value).length + 2)))}ch` }}
+                                                    style={{ width: `${Math.max(4, (isPrivate ? 8 : (editingAssetId === asset.id ? formatNumber(asset.value).length : formatNumber(asset.value).length + 2)))}ch` }}
                                                 />
                                             </div>
                                             {editingAssetId === asset.id && (
@@ -492,14 +502,15 @@ export function DesktopSetupDrawer({ isOpen, onClose, budget, assets, partnerInf
                                 <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-3 py-1.5 focus-within:border-blue-300 transition-all">
                                     <input
                                         type="text"
-                                        value={isPrivate ? '$ ••••••' : formatCurrency(localPartner.contribution)}
-                                        onChange={(e) => {
+                                        value={isPrivate ? '$ ••••••' : formatNumber(localPartner.contribution)}
+                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                             const val = parseInt(e.target.value.replace(/\D/g, '')) || 0
                                             setLocalPartner(prev => ({ ...prev, contribution: val }))
                                         }}
+                                        onFocus={(e: React.FocusEvent<HTMLInputElement>) => !isPrivate && e.target.select()}
                                         disabled={isPrivate}
                                         className={`bg-transparent border-0 p-0 text-lg font-black text-slate-900 focus:outline-none ${isPrivate ? 'cursor-not-allowed' : ''}`}
-                                        style={{ width: `${Math.max(4, (isPrivate ? 8 : formatNumber(localPartner.contribution).length + 2))}ch` }}
+                                        style={{ width: `${Math.max(4, (isPrivate ? 8 : formatNumber(localPartner.contribution).length))}ch` }}
                                     />
                                     <span className="text-[12px] text-slate-600 font-bold uppercase tracking-tighter shrink-0">{t('setup.credits.perMonth')}</span>
                                 </div>
