@@ -11,7 +11,7 @@ const config: Config = {
         extend: {
             colors: {
                 // Paleta AT-SIT
-                'atsit-blue': '#003870', // Primario
+                'atsit-blue': '#4379F2', // Brand Blue (Logo)
                 'atsit-accent': '#0056B3', // Acento
                 'freedom-yellow': '#FFB800', // Libertad
                 'alert-red': '#E63946',
