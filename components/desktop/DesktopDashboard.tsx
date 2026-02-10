@@ -110,18 +110,25 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                 <main className="flex-1 ml-64 p-8 overflow-y-auto h-screen">
 
                     {/* Header */}
-                    <header className="flex justify-between items-center mb-8">
-                        <div>
-                            <div className="flex items-center gap-3 mb-1">
-                                <h2 className="text-2xl font-bold text-slate-800">Hola, {user.name} 👋</h2>
-                                <FreedomBadge days={freedomDays || 0} />
-                            </div>
-                            <p className="text-slate-500">Aquí está tu resumen financiero de hoy.</p>
+                    <header className="grid grid-cols-3 items-center mb-8">
+                        {/* Left: Greeting */}
+                        <div className="justify-self-start">
+                            <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                                Hola, {user.name} <span className="text-2xl">👋</span>
+                            </h2>
+                            <p className="text-slate-500 text-sm mt-1">Aquí está tu resumen financiero.</p>
                         </div>
-                        <div className="flex items-center gap-3">
+
+                        {/* Center: Freedom Badge (Hero) */}
+                        <div className="justify-self-center transform scale-125">
+                            <FreedomBadge days={freedomDays || 0} />
+                        </div>
+
+                        {/* Right: Actions */}
+                        <div className="flex items-center justify-end gap-3 justify-self-end">
                             {/* User Status Badge */}
                             {isPremium ? (
-                                <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 rounded-full shadow-lg shadow-amber-500/20 border border-amber-300 animate-pulse">
+                                <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 rounded-full shadow-lg shadow-amber-500/20 border border-amber-300">
                                     <Sparkles className="w-4 h-4 text-amber-900" />
                                     <span className="text-xs font-black text-amber-900 uppercase tracking-widest">Premium</span>
                                 </div>
