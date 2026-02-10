@@ -48,7 +48,7 @@ export function MovementsList({ movements, isPremium }: MovementsListProps) {
 
     // Filtrar para asegurar que los de hoy estén arriba y visibles
     const todayMovements = movements.filter(m => isToday(new Date(m.date)))
-    const olderMovements = movements.filter(m => !isToday(new Date(m.date)))
+
 
     return (
         <div className="mt-3 px-1 pb-10">
@@ -67,57 +67,64 @@ export function MovementsList({ movements, isPremium }: MovementsListProps) {
 
             <div className="space-y-3">
                 {/* Sección Hoy (si hay movimientos) */}
-                {todayMovements.length > 0 && (
-                    <p className="text-[11px] font-black text-emerald-700 bg-emerald-100 w-fit px-3 py-0.5 rounded-full mb-3 tracking-widest">{t('movements.today')}</p>
-                )}
-
-                {[...todayMovements, ...olderMovements].map((m) => (
-                    <div key={m.id} className="group bg-white rounded-2xl p-3 shadow-sm border border-slate-50 flex items-center gap-3 transition-all active:scale-[0.98] relative overflow-hidden">
-                        {/* Icon Container */}
-                        <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center flex-shrink-0">
-                            {getIcon(m.type, m.description)}
-                        </div>
-
-                        {/* Info */}
-                        <div className="flex-1 min-w-0">
-                            <p className="text-[14px] font-black text-slate-900 truncate tracking-tight">
-                                {m.description}
-                            </p>
-                            <p className="text-[11px] text-slate-700 font-bold mt-1">
-                                {format(new Date(m.date), "d 'de' MMMM, HH:mm", { locale: es })}
-                                {m.installments > 1 && ` • ${m.installments} cuotas`}
-                            </p>
-                        </div>
-
-                        {/* Amount & Actions */}
-                        <div className="text-right flex items-center gap-1.5">
-                            <div className="min-w-[80px]">
-                                <div className={`text-[15px] font-black tracking-tight font-[family-name:var(--font-montserrat)] ${m.type === 'EXPENSE' ? 'text-red-700' : 'text-emerald-700'}`}>
-                                    <CurrencyText
-                                        value={m.amount}
-                                        prefix={m.type === 'EXPENSE' ? '-' : '+'}
-                                    />
+                {todayMovements.length > 0 ? (
+                    <>
+                        <p className="text-[11px] font-black text-emerald-700 bg-emerald-100 w-fit px-3 py-0.5 rounded-full mb-3 tracking-widest">{t('movements.today')}</p>
+                        {todayMovements.map((m) => (
+                            <div key={m.id} className="group bg-white rounded-2xl p-3 shadow-sm border border-slate-50 flex items-center gap-3 transition-all active:scale-[0.98] relative overflow-hidden">
+                                {/* Icon Container */}
+                                <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center flex-shrink-0">
+                                    {getIcon(m.type, m.description)}
                                 </div>
-                                <div className="flex items-center justify-end mt-0.5">
-                                    {m.type === 'EXPENSE' ? (
-                                        <ArrowDownRight className="w-2.5 h-2.5 text-[#D32F2F]/60" />
-                                    ) : (
-                                        <ArrowUpRight className="w-2.5 h-2.5 text-[#2E7D32]/60" />
-                                    )}
+
+                                {/* Info */}
+                                <div className="flex-1 min-w-0">
+                                    <p className="text-[14px] font-black text-slate-900 truncate tracking-tight">
+                                        {m.description}
+                                    </p>
+                                    <p className="text-[11px] text-slate-700 font-bold mt-1">
+                                        {format(new Date(m.date), "HH:mm", { locale: es })}
+                                        {m.installments > 1 && ` • ${m.installments} cuotas`}
+                                    </p>
+                                </div>
+
+                                {/* Amount & Actions */}
+                                <div className="text-right flex items-center gap-1.5">
+                                    <div className="min-w-[80px]">
+                                        <div className={`text-[15px] font-black tracking-tight font-[family-name:var(--font-montserrat)] ${m.type === 'EXPENSE' ? 'text-red-700' : 'text-emerald-700'}`}>
+                                            <CurrencyText
+                                                value={m.amount}
+                                                prefix={m.type === 'EXPENSE' ? '-' : '+'}
+                                            />
+                                        </div>
+                                        <div className="flex items-center justify-end mt-0.5">
+                                            {m.type === 'EXPENSE' ? (
+                                                <ArrowDownRight className="w-2.5 h-2.5 text-[#D32F2F]/60" />
+                                            ) : (
+                                                <ArrowUpRight className="w-2.5 h-2.5 text-[#2E7D32]/60" />
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center">
+                                        <button
+                                            onClick={() => handleDelete(m.id, m.description)}
+                                            className="p-1.5 text-slate-500 hover:text-red-400 transition-colors"
+                                        >
+                                            <Trash2 className="w-3.5 h-3.5" />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div className="flex items-center">
-                                <button
-                                    onClick={() => handleDelete(m.id, m.description)}
-                                    className="p-1.5 text-slate-500 hover:text-red-400 transition-colors"
-                                >
-                                    <Trash2 className="w-3.5 h-3.5" />
-                                </button>
-                            </div>
-                        </div>
+                        ))}
+                    </>
+                ) : (
+                    <div className="text-center py-8">
+                        <p className="text-sm text-slate-400 font-bold italic">
+                            No hay movimientos hoy
+                        </p>
                     </div>
-                ))}
+                )}
             </div>
 
             <HistoryDrawer
