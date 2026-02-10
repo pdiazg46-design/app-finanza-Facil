@@ -17,7 +17,7 @@ export function TranslatedLiquidityCards({
     const { t } = useLocaleContext()
 
     return (
-        <div className="grid grid-cols-2 gap-3 mt-4 mb-3">
+        <div className="grid grid-cols-2 gap-6">
             <LiquidityCard
                 type="common"
                 title={t('liquidity.available.title')}
