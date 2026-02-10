@@ -104,7 +104,7 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
 
                         {/* Scrollable Content - Padding for fixed header */}
                         <div className="flex-1 overflow-y-auto px-4 pt-[70px] pb-36 overscroll-behavior-none">
-                            <h2 className="text-center text-[14px] font-black uppercase tracking-[0.15em] mb-1 mt-2 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 bg-clip-text text-transparent drop-shadow-sm">
+                            <h2 className="text-center text-[16px] font-black uppercase tracking-[0.2em] mb-2 mt-4 text-[#4379F2] drop-shadow-[0_2px_4px_rgba(67,121,242,0.15)]">
                                 Finanza Fácil
                             </h2>
 
