@@ -14,7 +14,7 @@ import { PrivacyToggle } from "@/components/PrivacyToggle"
 import { PremiumUpgradeButton } from "@/components/PremiumUpgradeButton"
 import { CountrySelector } from "@/components/CountrySelector"
 import { TranslatedLiquidityCards } from "@/components/TranslatedLiquidityCards"
-import { CompassSection } from "@/components/CompassSection"
+import { DesktopCompass } from "@/components/desktop/DesktopCompass"
 import { FreedomDimension } from "@/components/FreedomDimension"
 import Image from "next/image"
 import logo from "../../public/logo.png"
@@ -54,8 +54,8 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
 
                     {/* Sidebar */}
                     <aside className="w-64 bg-white border-r border-slate-200 flex flex-col h-screen fixed left-0 top-0 z-40">
-                        <div className="p-6 border-b border-slate-100 flex items-center gap-3">
-                            <div className="relative h-10 w-10">
+                        <div className="p-6 border-b border-slate-100 flex flex-col items-center gap-4 text-center">
+                            <div className="relative h-20 w-auto aspect-square">
                                 <Image
                                     src={logo}
                                     alt="AT-SIT"
@@ -64,7 +64,7 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                                 />
                             </div>
                             <div>
-                                <h1 className="font-bold text-slate-800 leading-tight">Finanza Fácil</h1>
+                                <h1 className="font-bold text-slate-800 leading-tight text-lg">Finanza Fácil</h1>
                                 <p className="text-xs text-slate-500">Desktop Edition</p>
                             </div>
                         </div>
@@ -136,7 +136,7 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
 
                                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
                                         <h3 className="text-slate-500 font-medium mb-4 uppercase tracking-wider text-sm">Salud Financiera</h3>
-                                        <CompassSection freedomDays={freedomDays || 0} />
+                                        <DesktopCompass freedomDays={freedomDays || 0} />
                                     </div>
                                 </div>
 
