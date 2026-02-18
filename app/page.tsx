@@ -66,7 +66,7 @@ export default async function Home() {
     fund = {
       balance: 0,
       monthlyBurnRate: 0,
-      budget: {},
+      budget: [],
       assets: [],
       partnerName: "Pareja",
       partnerContribution: 0,

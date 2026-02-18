@@ -23,6 +23,7 @@ export function DesktopSetupDrawer({ isOpen, onClose, budget, assets, partnerInf
     const { t } = useLocaleContext()
     const { isPrivate } = usePrivacy()
     const [localBudget, setLocalBudget] = useState<any[]>(() => {
+        if (!Array.isArray(budget)) return [];
         return budget.map(item => {
             const hasInstallmentsInName = item.name.match(/\((\d+) cuotas\)/);
             return {
@@ -43,6 +44,7 @@ export function DesktopSetupDrawer({ isOpen, onClose, budget, assets, partnerInf
 
     // Sync state when props change (Voice updates)
     useEffect(() => {
+        if (!Array.isArray(budget)) return;
         const enhancedBudget = budget.map(item => {
             const hasInstallmentsInName = item.name.match(/\((\d+) cuotas\)/);
             return {
