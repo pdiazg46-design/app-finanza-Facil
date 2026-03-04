@@ -49,11 +49,10 @@ export default async function Home() {
 
   // Fetch real data from database
   let fund, freedomDays, totalLiquidReserves, targetDays, metrics, projectedExpenses, disposableIncome, totalDebt, totalAssets, netWorth;
-  let syncStatus: any = null;
 
   try {
     // 🏦 PULL ARCHITECTURE: Absorber retiros silenciosamente ANTES de calcular métricas de libertad financiera
-    syncStatus = await syncEmprendeWithdrawals()
+    await syncEmprendeWithdrawals()
 
     metrics = await getFundMetrics()
     fund = metrics.fund
@@ -102,18 +101,12 @@ export default async function Home() {
       totalDebt: metrics.totalDebt || 0,
       totalAssets: metrics.totalAssets || 0,
       netWorth: metrics.netWorth || 0
-    },
-    syncStatus
+    }
   }
 
   return (
     <LocaleProvider>
-      {/* DEV DEBUG FLYOUT */}
-      <div className="fixed top-0 left-0 right-0 bg-yellow-400 text-slate-900 font-mono text-[10px] p-1 z-[999] text-center uppercase tracking-widest font-bold">
-        SYNC EMPRENDE: {JSON.stringify(syncStatus)}
-      </div>
-
-      <div className="md:hidden mt-6">
+      <div className="md:hidden">
         <MobileLayout {...props} />
       </div>
       <div className="hidden md:block">

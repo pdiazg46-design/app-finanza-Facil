@@ -75,10 +75,6 @@ export async function syncEmprendeWithdrawals() {
             }
         }
 
-        if (syncedCount > 0) {
-            revalidatePath('/')
-        }
-
         return { success: true, count: syncedCount }
 
     } catch (e: any) {
