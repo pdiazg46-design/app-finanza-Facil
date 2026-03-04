@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && prisma generate --schema=prisma-emprende/schema.prisma && next build",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate && prisma generate --schema=prisma-emprende/schema.prisma",
     "mobile:sync": "npx cap sync",
     "mobile:open:ios": "npx cap open ios",
     "mobile:open:android": "npx cap open android"

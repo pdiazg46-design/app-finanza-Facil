@@ -1,4 +1,5 @@
 import { getFundMetrics } from "./actions/fund-actions"
+import { syncEmprendeWithdrawals } from "./actions/emprende-sync"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { ShieldCheck } from "lucide-react"
@@ -50,6 +51,9 @@ export default async function Home() {
   let fund, freedomDays, totalLiquidReserves, targetDays, metrics, projectedExpenses, disposableIncome, totalDebt, totalAssets, netWorth;
 
   try {
+    // 🏦 PULL ARCHITECTURE: Absorber retiros silenciosamente ANTES de calcular métricas de libertad financiera
+    await syncEmprendeWithdrawals()
+
     metrics = await getFundMetrics()
     fund = metrics.fund
     freedomDays = metrics.freedomDays
