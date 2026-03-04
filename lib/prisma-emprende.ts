@@ -4,7 +4,7 @@ const prismaEmprendeClientSingleton = () => {
     return new PrismaClient({
         datasources: {
             db: {
-                url: process.env.EMPRENDE_DATABASE_URL || "postgresql://dummy",
+                url: process.env.EMPRENDE_DATABASE_URL,
             },
         },
     })
