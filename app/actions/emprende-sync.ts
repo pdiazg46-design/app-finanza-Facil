@@ -66,7 +66,7 @@ export async function syncEmprendeWithdrawals() {
                         type: 'INCOME',
                         amount: withdrawal.amount,
                         category: 'Ingreso Empresarial',
-                        description: `Retiro desde Emprende (${withdrawal.paymentMethod || 'CASH'}) [EMP-${withdrawal.id}]`,
+                        description: `Ingreso desde Emprende (${withdrawal.paymentMethod || 'CASH'}) [EMP-${withdrawal.id}]`,
                         date: withdrawal.createdAt,
                         installments: 1
                     }
