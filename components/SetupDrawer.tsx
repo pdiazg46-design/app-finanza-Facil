@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { X, Save, TrendingDown, Users, DollarSign, Plus, Trash2, Zap, CreditCard, RefreshCw } from 'lucide-react'
+import { X, Save, TrendingDown, Users, DollarSign, Plus, Trash2, Zap, CreditCard, RefreshCw, Receipt } from 'lucide-react'
 import { syncFullBudget } from '../app/actions/fund-actions'
 import { Transaction } from '@prisma/client'
 import { usePrivacy } from './PrivacyContext'
@@ -193,6 +193,26 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
         }
     }
 
+    const handleManualPayment = async (id: string, name: string) => {
+        if (!confirm(`¿Confirmas el pago de "${name}"?\nEl monto se sumará a los movimientos de este mes reduciendo tu saldo libre.`)) return;
+
+        setIsSaving(true)
+        try {
+            const { registerManualPayment } = await import('../app/actions/fund-actions')
+            const result = await registerManualPayment(id)
+            if (result.success) {
+                onClose()
+            } else {
+                alert("Error al procesar el pago: " + result.error)
+            }
+        } catch (error) {
+            console.error(error)
+            alert("Error de red al procesar el pago.")
+        } finally {
+            setIsSaving(false)
+        }
+    }
+
     const totalMonthly = localBudget.reduce((sum, b) => sum + b.amount, 0)
 
     const categories: { type: string, label: string, icon: any }[] = [
@@ -264,18 +284,36 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                                     return (
                                         <div key={item.id} className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm relative group">
                                             {!item.isAutomated && (
-                                                <button
-                                                    onClick={() => handleRemoveItem(item.id)}
-                                                    className="absolute top-4 right-4 p-1 text-slate-500 hover:text-red-400 transition-all"
-                                                >
-                                                    <Trash2 className="w-3.5 h-3.5" />
-                                                </button>
+                                                <div className="absolute top-4 right-4 flex items-center bg-slate-50 rounded-lg p-0.5 border border-slate-100 z-10 shadow-sm">
+                                                    {(item.type === 'FIXED_EXPENSE' || item.type === 'INSTALLMENT_DEBT') && !item.id.startsWith('temp-') && (
+                                                        <>
+                                                            <button
+                                                                onClick={() => handleManualPayment(item.id, item.name)}
+                                                                disabled={isSaving}
+                                                                className="flex items-center gap-1 pl-2 pr-1.5 py-1 text-slate-500 hover:text-emerald-700 hover:bg-emerald-100 rounded-md transition-all active:scale-95"
+                                                                title="Ingresar Pago / Pagar Cuota"
+                                                            >
+                                                                <span className="text-[10px] font-black uppercase tracking-widest leading-none mt-[1px]">Pagar</span>
+                                                                <Receipt className="w-3.5 h-3.5" />
+                                                            </button>
+                                                            <div className="w-px h-3 bg-slate-300 mx-1" />
+                                                        </>
+                                                    )}
+                                                    <button
+                                                        onClick={() => handleRemoveItem(item.id)}
+                                                        disabled={isSaving}
+                                                        className="p-1 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-md transition-all active:scale-95"
+                                                        title="Eliminar concepto"
+                                                    >
+                                                        <Trash2 className="w-4 h-4" />
+                                                    </button>
+                                                </div>
                                             )}
 
-                                            <div className="space-y-3">
+                                            <div className="space-y-3 relative z-0">
                                                 {/* Header with name and monthly payment */}
                                                 <div className="flex items-start justify-between">
-                                                    <div className="flex-1">
+                                                    <div className="flex-1 pr-24">
                                                         <input
                                                             type="text"
                                                             placeholder={t('setup.labels.conceptName')}

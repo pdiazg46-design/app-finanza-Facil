@@ -84,7 +84,9 @@ export async function getSharedFund() {
             // No bloqueamos el inicio por esto
         }
 
-        // 🎯 ACTUALIZAR CUOTAS AUTOMÁTICAMENTE
+        // 🎯 [DESACTIVADO - Requerimiento Patricio] ACTUALIZAR CUOTAS AUTOMÁTICAMENTE
+        // El avance por fecha se elimina. Las cuotas ahora solo avanzarán si el usuario reporta el pago de forma manual.
+        /*
         const now = new Date()
         const budgetUpdates: Promise<any>[] = []
 
@@ -109,6 +111,7 @@ export async function getSharedFund() {
             await Promise.all(budgetUpdates)
             return getSharedFund()
         }
+        */
 
         return {
             ...fund,
@@ -700,4 +703,80 @@ export async function updateAsset(id: string, name: string, value: number, type:
     })
     revalidatePath('/')
     return { success: true }
+}
+
+/**
+ * Registra el pago manual de una cuota o suscripción, extrayéndolo a la actividad reciente
+ */
+export async function registerManualPayment(transactionId: string) {
+    try {
+        const session = await auth()
+        if (!session?.user?.email) throw new Error("No autenticado")
+
+        const user = await (prisma as any).user.findUnique({
+            where: { email: session.user.email },
+            include: { fund: true }
+        })
+
+        if (!user?.fund) throw new Error("No fund available")
+
+        // 1. Encontrar la transacción base (la deuda o gasto fijo)
+        const item = await (prisma as any).transaction.findUnique({
+            where: { id: transactionId }
+        })
+
+        if (!item) throw new Error("Concepto no encontrado")
+
+        // 2. Crear una transacción VARIABLE_EXPENSE inyectada a la actividad reciente
+        // Esto materializa el descuento monetario de forma transparente para el usuario
+        const currentInst = item.currentInstallment || 1;
+        const totalInst = item.installments || 1;
+
+        const movementName = item.type === 'INSTALLMENT_DEBT'
+            ? `Pago Cuota ${Math.min(currentInst, totalInst)} de ${totalInst}: ${item.name}`
+            : `Pago Mensual: ${item.name}`;
+
+        await (prisma as any).transaction.create({
+            data: {
+                name: movementName,
+                amount: item.amount,
+                type: 'VARIABLE_EXPENSE',
+                isAutomated: false,
+                installments: 1,
+                currentInstallment: 1,
+                date: new Date(),
+                category: item.category || 'Pagos',
+                fundId: item.fundId
+            }
+        })
+
+        // 3. Actualizar la Deuda / Gasto Fijo Original
+        if (item.type === 'INSTALLMENT_DEBT') {
+            if (currentInst >= totalInst) {
+                // Última cuota pagada -> Eliminar la deuda original (fue saldada matemáticamente)
+                await (prisma as any).transaction.delete({ where: { id: item.id } })
+            } else {
+                // Aún quedan cuotas -> Avanzar el contador de la cuota y mover su fecha (para recordatorios base 30 días futuro)
+                await (prisma as any).transaction.update({
+                    where: { id: item.id },
+                    data: {
+                        currentInstallment: currentInst + 1,
+                        date: new Date()
+                    }
+                })
+            }
+        } else {
+            // Es un FIXED_EXPENSE (suscripción continua). Solo actualizamos su fecha "fecha de último pago".
+            await (prisma as any).transaction.update({
+                where: { id: item.id },
+                data: { date: new Date() }
+            })
+        }
+
+        revalidatePath('/')
+        return { success: true }
+    } catch (e: any) {
+        console.error("[registerManualPayment] Error:", e)
+        return { success: false, error: e.message }
+    }
 }

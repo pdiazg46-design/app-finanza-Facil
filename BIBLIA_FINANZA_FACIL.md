@@ -1,5 +1,5 @@
 # La Biblia de Finanza Fácil
-
+**Autor y Arquitecto Principal: Patricio**
 ## 1. Visión y Propósito
 Finanza Fácil es un sistema de gestión financiera y proyección de métricas de libertad orientado a la simplicidad extrema para el usuario final. Su objetivo principal es traducir la complejidad contable en métricas psicológicamente accionables, principalmente el concepto de "Días de Respiro" (Freedom Days).
 
