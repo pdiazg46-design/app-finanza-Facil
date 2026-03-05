@@ -364,7 +364,7 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                                                 </div>
 
                                                 {/* Installments Input for Fixed Payments */}
-                                                {(item.type === 'FIXED_EXPENSE' || item.type === 'INSTALLMENT_DEBT') && (
+                                                {(item.type === 'INSTALLMENT_DEBT') && (
                                                     <>
                                                         <div className="flex items-center justify-between gap-3 py-2 px-3 bg-slate-50 rounded-xl">
                                                             <span className="text-[12px] font-bold uppercase text-slate-700">{t('setup.labels.totalInstallments')}</span>
