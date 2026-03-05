@@ -511,8 +511,8 @@ export function VoiceSimulator({ enableKeyboardShortcut = false }: VoiceSimulato
                                         <h4 className="text-xs font-bold text-slate-700 uppercase tracking-widest">Deudas y Cuotas</h4>
                                     </div>
                                     <p className="text-sm font-medium text-slate-600 pl-4 border-l-2 border-slate-100 italic">
-                                        "Zapatillas <span className="text-orange-600 font-bold">20 lucas la cuota</span> en 3 cuotas" <br />
-                                        "Televisor <span className="text-orange-600 font-bold">25 mil pesos</span> en 12 cuotas"
+                                        "3 cuotas de <span className="text-orange-600 font-bold">20 lucas</span> por zapatillas" <br />
+                                        "12 cuotas de <span className="text-orange-600 font-bold">25 mil pesos</span> por un televisor"
                                     </p>
                                     <p className="text-[10px] text-slate-400 mt-1 pl-4">El motor te preguntará para multiplicar tu valor por el total de cuotas.</p>
                                 </section>

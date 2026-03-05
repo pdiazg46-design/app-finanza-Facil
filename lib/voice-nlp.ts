@@ -171,9 +171,10 @@ function extractAmount(command: string, currency: string = 'CLP'): number {
     const synonyms = LOCALIZED_SYNONYMS[currency] || DEFAULT_AMOUNT_SYNONYMS
 
     // Special pattern: "X cuotas de Y [unit]"
-    const installmentAmountMatch = normalized.match(/(\d+)\s*cuotas?\s+de\s+(\d+)\s*(mil|lucas?|lukas?|soles?|bucks?)/i)
+    const installmentAmountMatch = normalized.match(/(\d+)\s*cuotas?\s+de\s+(\d+(?:[.,\s]*\d+)*)\s*(mil|lucas?|lukas?|palos?|pesos?|soles?|bucks?)?/i)
     if (installmentAmountMatch) {
-        let amount = parseFloat(installmentAmountMatch[2])
+        let rawNumber = installmentAmountMatch[2].replace(/\./g, '').replace(',', '.')
+        let amount = parseFloat(rawNumber)
         const unit = installmentAmountMatch[3]?.toLowerCase()
 
         if (unit && synonyms[unit]) {
@@ -282,10 +283,14 @@ function detectType(command: string): 'SUBSCRIPTION' | 'FIXED_PAGO' | 'VARIABLE_
 function extractName(command: string): string {
     let name = command.toLowerCase().trim()
 
+    // Remove "X cuotas de Y" patterns
+    name = name.replace(/(\d+)\s*cuotas?\s+de\s+(\d+(?:[.,\s]*\d+)*)\s*(mil|lucas?|lukas?|palos?|pesos?|soles?|bucks?)?(?:\s*(pesos|soles|d[oó]lares|bucks))?/gi, '')
+
     // Remove amount patterns (Formatted numbers with dots, spaces or units)
     name = name.replace(/\d+(?:[.,\s]*\d+)*\s*(mil|lucas?|lukas?|palos?|pesos?|millón|millon|clp)/gi, '')
     name = name.replace(/\b(un|una|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|cuarenta|cincuenta|cien|ciento|doscientos|quinientos)\s*(mil|lucas?|lukas?|pesos?|millones?)\b/gi, '')
     name = name.replace(/\d+(?:[.,\s]*\d+)*/g, '')
+    name = name.replace(/\b(pesos|soles|d[oó]lares|bucks|clp)\b/gi, '')
 
     // Remove contribution keywords
     for (const kw of CONTRIBUTION_KEYWORDS) {
