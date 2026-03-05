@@ -23,9 +23,12 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
     const [localBudget, setLocalBudget] = useState<any[]>(() => {
         return budget.map(item => {
             const hasInstallmentsInName = item.name.match(/\((\d+) cuotas\)/);
+            const calculatedInstallments = item.installments || (hasInstallmentsInName ? parseInt(hasInstallmentsInName[1]) : 1);
+            const finalType = (calculatedInstallments > 1 && item.type === 'FIXED_EXPENSE') ? 'INSTALLMENT_DEBT' : item.type;
             return {
                 ...item,
-                installments: item.installments || (hasInstallmentsInName ? parseInt(hasInstallmentsInName[1]) : 1),
+                type: finalType,
+                installments: calculatedInstallments,
                 currentInstallment: item.currentInstallment || 1
             };
         });
@@ -43,9 +46,12 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
     useEffect(() => {
         const enhancedBudget = budget.map(item => {
             const hasInstallmentsInName = item.name.match(/\((\d+) cuotas\)/);
+            const calculatedInstallments = item.installments || (hasInstallmentsInName ? parseInt(hasInstallmentsInName[1]) : 1);
+            const finalType = (calculatedInstallments > 1 && item.type === 'FIXED_EXPENSE') ? 'INSTALLMENT_DEBT' : item.type;
             return {
                 ...item,
-                installments: item.installments || (hasInstallmentsInName ? parseInt(hasInstallmentsInName[1]) : 1),
+                type: finalType,
+                installments: calculatedInstallments,
                 currentInstallment: item.currentInstallment || 1
             };
         });
@@ -288,7 +294,7 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
 
                                     return (
                                         <div key={item.id} className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm relative group">
-                                            {!item.isAutomated && (
+                                            {item.type !== 'VARIABLE_EXPENSE' && (
                                                 <div className="absolute top-4 right-4 flex items-center bg-slate-50 rounded-lg p-0.5 border border-slate-100 z-10 shadow-sm">
                                                     {(item.type === 'FIXED_EXPENSE' || item.type === 'INSTALLMENT_DEBT') && !item.id.startsWith('temp-') && (
                                                         <>
@@ -324,8 +330,8 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                                                             placeholder={t('setup.labels.conceptName')}
                                                             value={item.name}
                                                             onChange={(e) => handleNameChange(item.id, e.target.value)}
-                                                            disabled={item.isAutomated}
-                                                            className={`w-full bg-transparent border-0 text-[17px] font-black text-slate-900 focus:outline-none mb-1 ${item.isAutomated ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                                            disabled={item.type === 'VARIABLE_EXPENSE'}
+                                                            className={`w-full bg-transparent border-0 text-[17px] font-black text-slate-900 focus:outline-none mb-1 ${item.type === 'VARIABLE_EXPENSE' ? 'opacity-70 cursor-not-allowed' : ''}`}
                                                         />
                                                         <div className="flex items-center gap-1.5 p-2 bg-slate-50/50 rounded-xl border border-transparent focus-within:border-blue-200 focus-within:bg-white transition-all">
                                                             <div className="flex items-baseline gap-1 flex-1">
@@ -334,10 +340,10 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                                                                     inputMode="numeric"
                                                                     value={isPrivate ? '$ ••••••' : (editingId === item.id ? item.amount.toString() : formatCurrency(item.amount))}
                                                                     onChange={(e) => handleAmountChange(item.id, e.target.value)}
-                                                                    onFocus={() => !isPrivate && !item.isAutomated && setEditingId(item.id)}
+                                                                    onFocus={() => !isPrivate && item.type !== 'VARIABLE_EXPENSE' && setEditingId(item.id)}
                                                                     onBlur={() => setEditingId(null)}
-                                                                    disabled={isPrivate || item.isAutomated}
-                                                                    className={`bg-transparent border-0 p-0 text-xl font-black text-slate-900 focus:outline-none ${isPrivate || item.isAutomated ? 'cursor-not-allowed' : ''}`}
+                                                                    disabled={isPrivate || item.type === 'VARIABLE_EXPENSE'}
+                                                                    className={`bg-transparent border-0 p-0 text-xl font-black text-slate-900 focus:outline-none ${isPrivate || item.type === 'VARIABLE_EXPENSE' ? 'cursor-not-allowed' : ''}`}
                                                                     style={{ width: `${Math.max(4, (isPrivate ? 8 : (editingId === item.id ? item.amount.toString().length : formatNumber(item.amount).length + 2)))}ch` }}
                                                                 />
                                                                 <span className="text-[14px] text-slate-700 font-black uppercase tracking-tight">{t('setup.credits.perMonth')}</span>
@@ -373,7 +379,8 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                                                                         const val = parseInt(e.target.value) || 1;
                                                                         setLocalBudget(prev => prev.map(b => {
                                                                             if (b.id === item.id) {
-                                                                                return { ...b, installments: val }
+                                                                                const newType = (val > 1 && b.type === 'FIXED_EXPENSE') ? 'INSTALLMENT_DEBT' : b.type;
+                                                                                return { ...b, installments: val, type: newType }
                                                                             }
                                                                             return b
                                                                         }))
