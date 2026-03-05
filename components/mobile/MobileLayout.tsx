@@ -129,23 +129,23 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
                         <div id="mobile-drawer-root" className="absolute inset-0 pointer-events-none z-[100]"></div>
                     </main>
                 </div>
+
+                {/* Welcome Banner (first-time users) */}
+                <WelcomeBanner />
+
+                {/* Setup Drawer mounted globally against layout top */}
+                <SetupDrawer
+                    isOpen={isSetupOpen}
+                    onClose={() => setIsSetupOpen(false)}
+                    budget={fund.budget as any}
+                    assets={(fund as any).assets as any}
+                    partnerInfo={{
+                        name: (fund as any).partnerName,
+                        contribution: (fund as any).partnerContribution
+                    }}
+                    freedomDays={freedomDays || 0}
+                />
             </PrivacyProvider>
-
-            {/* Welcome Banner (first-time users) */}
-            <WelcomeBanner />
-
-            {/* Setup Drawer mounted globally against layout top */}
-            <SetupDrawer
-                isOpen={isSetupOpen}
-                onClose={() => setIsSetupOpen(false)}
-                budget={fund.budget as any}
-                assets={(fund as any).assets as any}
-                partnerInfo={{
-                    name: (fund as any).partnerName,
-                    contribution: (fund as any).partnerContribution
-                }}
-                freedomDays={freedomDays || 0}
-            />
         </>
     )
 }
