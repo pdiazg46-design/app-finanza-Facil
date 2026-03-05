@@ -201,6 +201,11 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
             const { registerManualPayment } = await import('../app/actions/fund-actions')
             const result = await registerManualPayment(id)
             if (result.success) {
+                // Al pagar, la BD cambia inmediatamente por debajo (Server Action).
+                // Pero ESTE componente reactivo sigue abierto con datos antiguos 
+                // que podrían ser guardados y pisar el pago. 
+                // Solución estricta: Cerrar el modal para obligar a un re-mount, 
+                // validando que Next.js inyectará los props nuevos tras revalidatePath.
                 onClose()
             } else {
                 alert("Error al procesar el pago: " + result.error)
