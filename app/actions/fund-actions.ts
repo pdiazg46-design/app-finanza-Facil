@@ -715,10 +715,10 @@ export async function registerManualPayment(transactionId: string) {
 
         const user = await (prisma as any).user.findUnique({
             where: { email: session.user.email },
-            include: { fund: true }
+            include: { sharedFund: true }
         })
 
-        if (!user?.fund) throw new Error("No fund available")
+        if (!user?.sharedFund) throw new Error("No fund available")
 
         // 1. Encontrar la transacción base (la deuda o gasto fijo)
         const item = await (prisma as any).transaction.findUnique({
