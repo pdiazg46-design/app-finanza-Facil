@@ -430,9 +430,9 @@ export function VoiceSimulator({ enableKeyboardShortcut = false }: VoiceSimulato
                         <button
                             onClick={() => setIsTypingMode(false)}
                             className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors flex-shrink-0"
-                            aria-label="Volver al micrófono"
+                            aria-label="Cerrar teclado"
                         >
-                            <Mic className="w-5 h-5" />
+                            <X className="w-5 h-5" />
                         </button>
 
                         <form onSubmit={handleTextSubmit} className="flex-1 flex items-center pr-1">
