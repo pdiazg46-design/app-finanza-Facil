@@ -234,12 +234,13 @@ export async function getLastMovementId() {
  */
 export async function addBudgetItem(name: string, amount: number, type: string = 'FIXED_EXPENSE', installments: number = 1) {
     const fund = await getSharedFund()
+    const finalType = installments > 1 ? 'INSTALLMENT_DEBT' : type;
 
     await prisma.transaction.create({
         data: {
             name,
             amount,
-            type, // Ya debe venir como FIXED_EXPENSE, VARIABLE_EXPENSE o INSTALLMENT_DEBT
+            type: finalType, // Cast to INSTALLMENT_DEBT si hay +1 cuotas
             isAutomated: true,
             installments: installments,
             currentInstallment: 1,
@@ -305,12 +306,19 @@ export async function removeBudgetItem(id: string) {
 export async function updateBudget(id: string, data: { amount: number, name?: string, type?: any, isAutomated?: boolean, installments?: number, currentInstallment?: number }) {
     const item = await prisma.transaction.findUnique({ where: { id } })
     if (item) {
+
+        // Auto-cast a Deuda si le ponen más de 1 cuota
+        let finalType = data.type !== undefined ? data.type : item.type;
+        if (data.installments && data.installments > 1 && finalType === 'FIXED_EXPENSE') {
+            finalType = 'INSTALLMENT_DEBT';
+        }
+
         await prisma.transaction.update({
             where: { id },
             data: {
                 amount: data.amount,
                 name: data.name,
-                type: data.type,
+                type: finalType,
                 isAutomated: data.isAutomated,
                 installments: data.installments,
                 currentInstallment: data.currentInstallment
@@ -393,12 +401,18 @@ export async function syncFullBudget(
     // 2. Procesar Items en orden - USANDO TRANSACCIÓN PARA ATOMICIDAD
     await prisma.$transaction(async (tx) => {
         for (const item of items) {
+
+            // Auto-cast a Deuda si supera 1 cuota
+            const finalType = (item.installments && item.installments > 1 && item.type === 'FIXED_EXPENSE')
+                ? 'INSTALLMENT_DEBT'
+                : item.type;
+
             if (item.action === 'CREATE') {
                 await tx.transaction.create({
                     data: {
                         name: item.name,
                         amount: item.amount,
-                        type: item.type,
+                        type: finalType,
                         isAutomated: true,
                         installments: item.installments || 1,
                         currentInstallment: item.currentInstallment || 1,
@@ -412,6 +426,7 @@ export async function syncFullBudget(
                     data: {
                         name: item.name,
                         amount: item.amount,
+                        type: finalType,
                         installments: item.installments,
                         currentInstallment: item.currentInstallment
                     }
