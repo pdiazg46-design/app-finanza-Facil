@@ -240,7 +240,7 @@ export async function addBudgetItem(name: string, amount: number, type: string =
             name,
             amount,
             type, // Ya debe venir como FIXED_EXPENSE, VARIABLE_EXPENSE o INSTALLMENT_DEBT
-            isAutomated: type === 'VARIABLE_EXPENSE',
+            isAutomated: true,
             installments: installments,
             currentInstallment: 1,
             fundId: fund.id,
@@ -255,7 +255,7 @@ export async function addBudgetItem(name: string, amount: number, type: string =
             if (b.type === 'INSTALLMENT_DEBT' && b.installments && b.installments > 1) {
                 return (b.currentInstallment || 1) <= b.installments
             }
-            return b.type === 'FIXED_EXPENSE' || b.type === 'INSTALLMENT_DEBT' || b.type === 'VARIABLE_EXPENSE'
+            return b.type === 'FIXED_EXPENSE' || b.type === 'INSTALLMENT_DEBT' || (b.type === 'VARIABLE_EXPENSE' && b.isAutomated === true)
         })
         .reduce((sum: number, b: any) => sum + b.amount, 0)
 
@@ -284,7 +284,7 @@ export async function removeBudgetItem(id: string) {
                 if (b.type === 'INSTALLMENT_DEBT' && b.installments && b.installments > 1) {
                     return (b.currentInstallment || 1) <= b.installments
                 }
-                return b.type === 'FIXED_EXPENSE' || b.type === 'INSTALLMENT_DEBT' || b.type === 'VARIABLE_EXPENSE'
+                return b.type === 'FIXED_EXPENSE' || b.type === 'INSTALLMENT_DEBT' || (b.type === 'VARIABLE_EXPENSE' && b.isAutomated === true)
             })
             .reduce((sum: number, b: any) => sum + b.amount, 0)
 
@@ -324,7 +324,7 @@ export async function updateBudget(id: string, data: { amount: number, name?: st
                 if (b.type === 'INSTALLMENT_DEBT' && b.installments && b.installments > 1) {
                     return (b.currentInstallment || 1) <= b.installments
                 }
-                return b.type === 'FIXED_EXPENSE' || b.type === 'INSTALLMENT_DEBT' || b.type === 'VARIABLE_EXPENSE'
+                return b.type === 'FIXED_EXPENSE' || b.type === 'INSTALLMENT_DEBT' || (b.type === 'VARIABLE_EXPENSE' && b.isAutomated === true)
             })
             .reduce((sum: number, b: any) => sum + b.amount, 0)
 
@@ -399,7 +399,7 @@ export async function syncFullBudget(
                         name: item.name,
                         amount: item.amount,
                         type: item.type,
-                        isAutomated: item.type === 'VARIABLE_EXPENSE',
+                        isAutomated: true,
                         installments: item.installments || 1,
                         currentInstallment: item.currentInstallment || 1,
                         fundId: fund.id,
@@ -461,7 +461,7 @@ export async function syncFullBudget(
             if (b.type === 'INSTALLMENT_DEBT' && b.installments && b.installments > 1) {
                 return (b.currentInstallment || 1) <= b.installments
             }
-            return b.type === 'FIXED_EXPENSE' || b.type === 'INSTALLMENT_DEBT' || b.type === 'VARIABLE_EXPENSE'
+            return b.type === 'FIXED_EXPENSE' || b.type === 'INSTALLMENT_DEBT' || (b.type === 'VARIABLE_EXPENSE' && b.isAutomated === true)
         })
         .reduce((sum: number, b: any) => sum + b.amount, 0)
 
@@ -498,19 +498,15 @@ async function calculateVariableAverages(fundId: string) {
     const ninetyDaysAgo = new Date();
     ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
 
-    // Auto-migrate: Ensure all variable services are automated
-    await prisma.transaction.updateMany({
-        where: { fundId, type: 'VARIABLE_EXPENSE', isAutomated: false },
-        data: { isAutomated: true }
-    })
+    // Auto-migrate eliminado para evitar transformar pagos reales en plantillas
 
     // Auto-Provision: Crear items estándar si se detectan movimientos pero no existen en el presupuesto
     const movements = await prisma.transaction.findMany({
-        where: { fundId, type: 'VARIABLE_EXPENSE', date: { gte: ninetyDaysAgo } }
+        where: { fundId, type: 'VARIABLE_EXPENSE', isAutomated: false, date: { gte: ninetyDaysAgo } }
     });
 
     const standardServices = ['Agua', 'Luz', 'Gas', 'Internet', 'Gasto Común', 'Celular'];
-    const currentBudget = await prisma.transaction.findMany({ where: { fundId, type: 'VARIABLE_EXPENSE' } });
+    const currentBudget = await prisma.transaction.findMany({ where: { fundId, type: 'VARIABLE_EXPENSE', isAutomated: true } });
 
     // Hito de Inteligencia 2.0: "Hot Provisioning"
 
@@ -551,6 +547,7 @@ async function calculateVariableAverages(fundId: string) {
         where: {
             fundId,
             type: 'VARIABLE_EXPENSE',
+            isAutomated: false,
             date: { gte: ninetyDaysAgo }
         }
     })
@@ -605,13 +602,27 @@ export async function getFundMetrics() {
     await calculateVariableAverages(fund.id)
 
     // Recargar presupuesto actualizado (Transacciones)
-    const budget = await prisma.transaction.findMany({ where: { fundId: fund.id } })
+    const rawTransactions = await prisma.transaction.findMany({
+        where: { fundId: fund.id },
+        orderBy: { date: 'desc' }
+    });
+
+    // Filtramos las plantillas de presupuesto
+    const budget = rawTransactions.filter((b: any) =>
+        b.isAutomated === true || b.type === 'FIXED_EXPENSE' || b.type === 'INSTALLMENT_DEBT'
+    );
+
+    // Filtramos los movimientos reales (pagos o aportes efectivos)
+    const movements = rawTransactions.filter((m: any) =>
+        m.isAutomated === false && (m.type === 'VARIABLE_EXPENSE' || m.type === 'INCOME')
+    );
+
     const totalBurn = budget
         .filter((b: any) => {
             if (b.type === 'INSTALLMENT_DEBT' && b.installments && b.installments > 1) {
                 return (b.currentInstallment || 1) <= b.installments
             }
-            return b.type === 'FIXED_EXPENSE' || b.type === 'INSTALLMENT_DEBT' || b.type === 'VARIABLE_EXPENSE'
+            return b.type === 'FIXED_EXPENSE' || b.type === 'INSTALLMENT_DEBT' || (b.type === 'VARIABLE_EXPENSE' && b.isAutomated === true)
         })
         .reduce((sum: number, b: any) => sum + b.amount, 0)
 
@@ -623,12 +634,12 @@ export async function getFundMetrics() {
         })
     }
 
-    // Calculamos gastos de este mes (Filtrando type = 'VARIABLE_EXPENSE')
+    // Calculamos gastos de este mes reales (Filtrando type = 'VARIABLE_EXPENSE' desde movements)
     const startOfMonth = new Date();
     startOfMonth.setDate(1);
     startOfMonth.setHours(0, 0, 0, 0);
 
-    const actualMonthExpenses = budget
+    const actualMonthExpenses = movements
         .filter((m: any) => m.type === 'VARIABLE_EXPENSE' && new Date(m.date) >= startOfMonth)
         .reduce((sum: number, m: any) => sum + m.amount, 0)
 
@@ -659,8 +670,8 @@ export async function getFundMetrics() {
     return {
         fund: {
             ...fund,
-            budget, // Transacciones consolidadas
-            movements: budget // Redirigimos movements a budget por compatibilidad de UI temporal
+            budget, // Solo Plantillas
+            movements // Solo Movimientos Físicos Reales
         },
         freedomDays: calculatedFreedomDays,
         totalLiquidReserves: fund.balance + fund.totalSavings + liquidAssets,
