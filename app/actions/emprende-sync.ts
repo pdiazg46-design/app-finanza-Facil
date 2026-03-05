@@ -48,13 +48,13 @@ export async function syncEmprendeWithdrawals() {
         let syncedCount = 0;
 
         for (const withdrawal of emprendeWithdrawals) {
-            // We use the Emprende transaction ID hidden in the description to prevent duplicates
+            // Usamos la fecha exacta (milisegundos) y monto para prevenir duplicados sin ensuciar la descripción visual
             const existingMovement = await prisma.movement.findFirst({
                 where: {
                     fundId: finanzaUser.sharedFund.id,
-                    description: {
-                        contains: `[EMP-${withdrawal.id}]`
-                    }
+                    amount: withdrawal.amount,
+                    date: withdrawal.createdAt,
+                    type: 'INCOME'
                 }
             })
 
@@ -66,7 +66,7 @@ export async function syncEmprendeWithdrawals() {
                         type: 'INCOME',
                         amount: withdrawal.amount,
                         category: 'Ingreso Empresarial',
-                        description: `Ingreso desde Emprende (${withdrawal.paymentMethod || 'CASH'}) [EMP-${withdrawal.id}]`,
+                        description: `Ingreso desde Emprende (${withdrawal.paymentMethod || 'CASH'})`,
                         date: withdrawal.createdAt,
                         installments: 1
                     }
