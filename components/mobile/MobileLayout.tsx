@@ -18,6 +18,8 @@ import { CompassSection } from "@/components/CompassSection"
 import { FreedomDimension } from "@/components/FreedomDimension"
 import Image from "next/image"
 import logo from "../../public/logo.png"
+import { useState } from "react"
+import { SetupDrawer } from "@/components/SetupDrawer"
 
 interface MobileLayoutProps {
     user: any;
@@ -37,6 +39,7 @@ interface MobileLayoutProps {
 
 export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutProps) {
     const { t } = useLocaleContext()
+    const [isSetupOpen, setIsSetupOpen] = useState(false)
     const {
         freedomDays,
         targetDays,
@@ -80,18 +83,12 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
 
 
                                 <div className="scale-90"><PrivacyToggle /></div>
-                                <div className="scale-90">
-                                    <SetupDrawerTrigger
-                                        budget={fund.budget as any}
-                                        assets={(fund as any).assets as any}
-                                        partnerInfo={{
-                                            name: (fund as any).partnerName,
-                                            contribution: (fund as any).partnerContribution
-                                        }}
-                                        freedomDays={freedomDays || 0}
+                                <div className="pl-1">
+                                    <UserProfile
+                                        user={{ name: user.name, email: user.email, image: user.image }}
+                                        onOpenAccounts={() => setIsSetupOpen(true)}
                                     />
                                 </div>
-                                <div className="pl-1"><UserProfile user={{ name: user.name, email: user.email, image: user.image }} /></div>
                             </div>
                         </header>
 
@@ -136,6 +133,19 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
 
             {/* Welcome Banner (first-time users) */}
             <WelcomeBanner />
+
+            {/* Setup Drawer mounted globally against layout top */}
+            <SetupDrawer
+                isOpen={isSetupOpen}
+                onClose={() => setIsSetupOpen(false)}
+                budget={fund.budget as any}
+                assets={(fund as any).assets as any}
+                partnerInfo={{
+                    name: (fund as any).partnerName,
+                    contribution: (fund as any).partnerContribution
+                }}
+                freedomDays={freedomDays || 0}
+            />
         </>
     )
 }

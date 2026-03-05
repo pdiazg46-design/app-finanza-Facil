@@ -2,7 +2,7 @@ import { switchUserPlan } from "@/app/actions/user-actions"
 import { useRouter } from "next/navigation"
 
 import { signOut, useSession } from "next-auth/react"
-import { LogOut, Users, RefreshCw } from "lucide-react"
+import { LogOut, Users, RefreshCw, Wallet } from "lucide-react"
 import { useState } from "react"
 import { AdminUsersModal } from "./AdminUsersModal"
 import { InstallButton } from "./InstallButton"
@@ -15,9 +15,10 @@ interface UserProfileProps {
         email?: string | null
         image?: string | null
     }
+    onOpenAccounts?: () => void
 }
 
-export function UserProfile({ user }: UserProfileProps) {
+export function UserProfile({ user, onOpenAccounts }: UserProfileProps) {
     const [isOpen, setIsOpen] = useState(false)
     const [isAdminOpen, setIsAdminOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -71,6 +72,18 @@ export function UserProfile({ user }: UserProfileProps) {
 
                         <div className="px-1 mt-1">
                             <InstallButton />
+
+                            {onOpenAccounts && (
+                                <button
+                                    onClick={() => {
+                                        setIsOpen(false)
+                                        onOpenAccounts()
+                                    }}
+                                    className="w-full flex items-center justify-center gap-2 py-3 bg-indigo-50/50 text-indigo-700 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-indigo-100 transition-all border border-indigo-100 mb-1 active:scale-95"
+                                >
+                                    <Wallet className="w-3.5 h-3.5" /> Créditos, Suscr. y Bienes
+                                </button>
+                            )}
 
                             <div className="mb-1">
                                 <PremiumUpgradeButton />

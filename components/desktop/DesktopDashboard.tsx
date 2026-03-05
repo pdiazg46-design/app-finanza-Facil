@@ -87,14 +87,6 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                             Dashboard
                         </button>
 
-                        <button
-                            onClick={() => setIsSetupOpen(true)}
-                            className="w-full flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-xl font-medium transition-colors"
-                        >
-                            <Settings className="w-5 h-5" />
-                            Cuentas Claves
-                        </button>
-
                         <button className="w-full flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-xl font-medium transition-colors">
                             <TrendingUp className="w-5 h-5" />
                             Inversiones
@@ -109,7 +101,10 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
                     </div>
 
                     <div className="p-4 border-t border-slate-100">
-                        <DesktopUserProfile user={{ name: user.name, email: user.email, image: user.image }} />
+                        <DesktopUserProfile
+                            user={{ name: user.name, email: user.email, image: user.image }}
+                            onOpenAccounts={() => setIsSetupOpen(true)}
+                        />
                     </div>
                 </aside>
 

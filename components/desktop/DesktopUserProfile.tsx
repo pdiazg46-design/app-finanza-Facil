@@ -1,7 +1,7 @@
 "use client";
 
 import { signOut, useSession } from "next-auth/react"
-import { LogOut, Users, RefreshCw, MoreHorizontal, Sparkles, ShieldCheck } from "lucide-react"
+import { LogOut, Users, RefreshCw, MoreHorizontal, Sparkles, ShieldCheck, Wallet } from "lucide-react"
 import { useState } from "react"
 import { AdminUsersModal } from "../AdminUsersModal"
 import { InstallButton } from "../InstallButton"
@@ -12,9 +12,10 @@ interface DesktopUserProfileProps {
         email?: string | null
         image?: string | null
     }
+    onOpenAccounts?: () => void
 }
 
-export function DesktopUserProfile({ user }: DesktopUserProfileProps) {
+export function DesktopUserProfile({ user, onOpenAccounts }: DesktopUserProfileProps) {
     const [isOpen, setIsOpen] = useState(false)
     const [isAdminOpen, setIsAdminOpen] = useState(false)
     const { data: session } = useSession()
@@ -74,6 +75,18 @@ export function DesktopUserProfile({ user }: DesktopUserProfileProps) {
 
                         <div className="mt-1 space-y-1">
                             <InstallButton />
+
+                            {onOpenAccounts && (
+                                <button
+                                    onClick={() => {
+                                        setIsOpen(false)
+                                        onOpenAccounts()
+                                    }}
+                                    className="w-full flex items-center justify-center gap-2 py-3 bg-indigo-50/50 text-indigo-700 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-indigo-100 transition-all border border-indigo-100 mb-2 active:scale-95 shadow-sm"
+                                >
+                                    <Wallet className="w-4 h-4" /> Créditos, Suscr. y Bienes
+                                </button>
+                            )}
 
                             <button
                                 onClick={() => {
