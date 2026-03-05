@@ -221,9 +221,9 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
     const totalMonthly = localBudget.reduce((sum, b) => sum + b.amount, 0)
 
     const categories: { type: string, label: string, icon: any }[] = [
-        { type: 'FIXED_EXPENSE', label: t('setup.categories.fixedPayments'), icon: CreditCard },
-        { type: 'INSTALLMENT_DEBT', label: t('setup.categories.subscriptions'), icon: Zap },
-        { type: 'VARIABLE_EXPENSE', label: t('setup.categories.variableServices'), icon: RefreshCw }
+        { type: 'INSTALLMENT_DEBT', label: t('setup.categories.fixedPayments'), icon: CreditCard }, // Los Créditos / Deudas en Cuotas
+        { type: 'FIXED_EXPENSE', label: t('setup.categories.subscriptions'), icon: Zap }, // Suscripciones Mensuales Fijas
+        { type: 'VARIABLE_EXPENSE', label: t('setup.categories.variableServices'), icon: RefreshCw } // Servicios Variables
     ]
 
     const drawerContent = (
@@ -264,8 +264,8 @@ export function SetupDrawer({ isOpen, onClose, budget, assets, partnerInfo, free
                             <div className="flex items-center justify-between mb-4 px-1">
                                 <h3 className="text-[14px] font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
                                     <cat.icon className="w-4 h-4" /> {
-                                        cat.type === 'FIXED_EXPENSE' ? t('setup.categories.credits') :
-                                            cat.type === 'INSTALLMENT_DEBT' ? t('setup.categories.subscriptions') :
+                                        cat.type === 'INSTALLMENT_DEBT' ? t('setup.categories.credits') :
+                                            cat.type === 'FIXED_EXPENSE' ? t('setup.categories.subscriptions') :
                                                 t('setup.categories.services')
                                     }
                                     {cat.type === 'VARIABLE_EXPENSE' && (
