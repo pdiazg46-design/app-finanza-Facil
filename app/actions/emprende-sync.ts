@@ -49,7 +49,7 @@ export async function syncEmprendeWithdrawals() {
 
         for (const withdrawal of emprendeWithdrawals) {
             // Usamos la fecha exacta (milisegundos) y monto para prevenir duplicados sin ensuciar la descripción visual
-            const existingMovement = await prisma.movement.findFirst({
+            const existingMovement = await prisma.transaction.findFirst({
                 where: {
                     fundId: finanzaUser.sharedFund.id,
                     amount: withdrawal.amount,
@@ -60,13 +60,13 @@ export async function syncEmprendeWithdrawals() {
 
             if (!existingMovement) {
                 // Sync it over to Finanzas as INCOME
-                await prisma.movement.create({
+                await prisma.transaction.create({
                     data: {
                         fundId: finanzaUser.sharedFund.id,
                         type: 'INCOME',
                         amount: withdrawal.amount,
                         category: 'Ingreso Empresarial',
-                        description: `Ingreso desde Emprende (${withdrawal.paymentMethod || 'CASH'})`,
+                        name: `Ingreso desde Emprende (${withdrawal.paymentMethod || 'CASH'})`,
                         date: withdrawal.createdAt,
                         installments: 1
                     }

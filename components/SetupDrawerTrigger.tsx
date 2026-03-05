@@ -3,10 +3,10 @@
 import { useState } from 'react'
 import { Settings } from 'lucide-react'
 import { SetupDrawer } from './SetupDrawer'
-import { BudgetCategory } from '@/lib/db'
+import { Transaction } from '@prisma/client'
 
 interface SetupDrawerTriggerProps {
-    budget: any[]
+    budget: Transaction[]
     assets?: any[]
     partnerInfo: { name?: string, contribution?: number }
     freedomDays: number

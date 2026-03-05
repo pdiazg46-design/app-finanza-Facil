@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react'
 import { format, isToday, isWithinInterval, subDays, startOfMonth, endOfMonth, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { X, ArrowUpRight, ArrowDownRight, Coffee, ShoppingBag, Utensils, PiggyBank, Trash2 } from 'lucide-react'
-import { Movement } from '@/lib/db'
+import { Transaction } from '@prisma/client'
 import { deleteMovement } from '@/app/actions/fund-actions'
 import { CurrencyText } from './CurrencyText'
 import { useLocaleContext } from './LocaleContext'
@@ -12,7 +12,7 @@ import { useLocaleContext } from './LocaleContext'
 interface HistoryDrawerProps {
     isOpen: boolean
     onClose: () => void
-    movements: Movement[]
+    movements: Transaction[]
     isPrivate: boolean
     isPremium: boolean
     isMobile?: boolean
@@ -47,7 +47,7 @@ export function HistoryDrawer({ isOpen, onClose, movements, isPrivate, isPremium
 
     const totals = useMemo(() => {
         return filteredMovements.reduce((acc, m) => {
-            if (m.type === 'EXPENSE') acc.expenses += m.amount
+            if (m.type === 'VARIABLE_EXPENSE' || m.type === 'FIXED_EXPENSE' || m.type === 'INSTALLMENT_DEBT') acc.expenses += m.amount
             else acc.income += m.amount
             return acc
         }, { expenses: 0, income: 0 })
@@ -55,16 +55,16 @@ export function HistoryDrawer({ isOpen, onClose, movements, isPrivate, isPremium
 
     if (!isOpen) return null
 
-    const getIcon = (type: string, description: string) => {
-        if (type === 'CONTRIBUTION') return <PiggyBank className="w-4 h-4 text-[#2E7D32]/60" />
-        const desc = description.toLowerCase()
+    const getIcon = (type: string, name: string) => {
+        if (type === 'INCOME') return <PiggyBank className="w-4 h-4 text-[#2E7D32]/60" />
+        const desc = name.toLowerCase()
         if (desc.includes('comida') || desc.includes('sushi') || desc.includes('pizza') || desc.includes('almuerzo')) return <Utensils className="w-4 h-4 text-orange-500" />
         if (desc.includes('cafe') || desc.includes('starbucks')) return <Coffee className="w-4 h-4 text-amber-600" />
         return <ShoppingBag className="w-4 h-4 text-atsit-blue" />
     }
 
-    const handleDelete = async (id: string, description: string) => {
-        if (confirm(`¿Seguro que quieres borrar "${description}"?`)) {
+    const handleDelete = async (id: string, name: string) => {
+        if (confirm(`¿Seguro que quieres borrar "${name}"?`)) {
             await deleteMovement(id)
         }
     }
@@ -139,9 +139,9 @@ export function HistoryDrawer({ isOpen, onClose, movements, isPrivate, isPremium
                                     <td className="px-8 py-5">
                                         <div className="flex items-center gap-4">
                                             <div className="w-10 h-10 rounded-2xl bg-slate-50 flex items-center justify-center flex-shrink-0 group-hover:bg-white group-hover:shadow-sm transition-all">
-                                                {getIcon(m.type, m.description)}
+                                                {getIcon(m.type, m.name)}
                                             </div>
-                                            <span className="text-sm font-black text-slate-900 truncate max-w-[200px]">{m.description}</span>
+                                            <span className="text-sm font-black text-slate-900 truncate max-w-[200px]">{m.name}</span>
                                         </div>
                                     </td>
                                     <td className="px-8 py-5">
@@ -156,22 +156,22 @@ export function HistoryDrawer({ isOpen, onClose, movements, isPrivate, isPremium
                                     </td>
                                     <td className="px-8 py-5 text-right">
                                         <div className="flex flex-col items-end">
-                                            <div className={`text-base font-black tracking-tight flex items-center justify-end gap-1 ${m.type === 'EXPENSE' ? 'text-red-600' : 'text-emerald-600'}`}>
+                                            <div className={`text-base font-black tracking-tight flex items-center justify-end gap-1 ${(m.type === 'VARIABLE_EXPENSE' || m.type === 'FIXED_EXPENSE' || m.type === 'INSTALLMENT_DEBT') ? 'text-red-600' : 'text-emerald-600'}`}>
                                                 {isPrivate ? (
                                                     <span className="text-slate-300">••••••</span>
                                                 ) : (
                                                     <>
-                                                        {m.type === 'EXPENSE' ? '-' : '+'}
+                                                        {(m.type === 'VARIABLE_EXPENSE' || m.type === 'FIXED_EXPENSE' || m.type === 'INSTALLMENT_DEBT') ? '-' : '+'}
                                                         <CurrencyText value={m.amount} />
                                                     </>
                                                 )}
-                                                {m.type === 'EXPENSE' ? <ArrowDownRight className="w-4 h-4 ml-1 opacity-50" /> : <ArrowUpRight className="w-4 h-4 ml-1 opacity-50" />}
+                                                {(m.type === 'VARIABLE_EXPENSE' || m.type === 'FIXED_EXPENSE' || m.type === 'INSTALLMENT_DEBT') ? <ArrowDownRight className="w-4 h-4 ml-1 opacity-50" /> : <ArrowUpRight className="w-4 h-4 ml-1 opacity-50" />}
                                             </div>
                                         </div>
                                     </td>
                                     <td className="px-8 py-5 text-right">
                                         <button
-                                            onClick={() => handleDelete(m.id, m.description)}
+                                            onClick={() => handleDelete(m.id, m.name)}
                                             className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
                                         >
                                             <Trash2 className="w-5 h-5" />
@@ -267,32 +267,32 @@ export function HistoryDrawer({ isOpen, onClose, movements, isPrivate, isPremium
                         filteredMovements.map((m) => (
                             <div key={m.id} className="group flex items-center gap-4 py-1 border-b border-slate-50 last:border-0 pb-4">
                                 <div className="w-11 h-11 rounded-2xl bg-slate-50 flex items-center justify-center flex-shrink-0">
-                                    {getIcon(m.type, m.description)}
+                                    {getIcon(m.type, m.name)}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-[14px] font-bold text-slate-900 truncate">{m.description}</p>
+                                    <p className="text-[14px] font-bold text-slate-900 truncate">{m.name}</p>
                                     <p className="text-[11px] text-slate-400 font-medium">
                                         {format(new Date(m.date), "EEEE d 'de' MMMM", { locale: es })}
                                     </p>
                                 </div>
                                 <div className="text-right flex items-center gap-3">
                                     <div>
-                                        <p className={`text-[15px] font-black tracking-tight ${m.type === 'EXPENSE' ? 'text-[#D32F2F]/80' : 'text-[#2E7D32]/80'}`}>
+                                        <p className={`text-[15px] font-black tracking-tight ${(m.type === 'VARIABLE_EXPENSE' || m.type === 'FIXED_EXPENSE' || m.type === 'INSTALLMENT_DEBT') ? 'text-[#D32F2F]/80' : 'text-[#2E7D32]/80'}`}>
                                             {isPrivate ? (
                                                 <span className="text-slate-300">••••••</span>
                                             ) : (
                                                 <CurrencyText
                                                     value={m.amount}
-                                                    prefix={m.type === 'EXPENSE' ? '-' : '+'}
+                                                    prefix={(m.type === 'VARIABLE_EXPENSE' || m.type === 'FIXED_EXPENSE' || m.type === 'INSTALLMENT_DEBT') ? '-' : '+'}
                                                 />
                                             )}
                                         </p>
                                         <div className="flex justify-end mt-0.5">
-                                            {m.type === 'EXPENSE' ? <ArrowDownRight className="w-3 h-3 text-red-400" /> : <ArrowUpRight className="w-3 h-3 text-emerald-500" />}
+                                            {(m.type === 'VARIABLE_EXPENSE' || m.type === 'FIXED_EXPENSE' || m.type === 'INSTALLMENT_DEBT') ? <ArrowDownRight className="w-3 h-3 text-red-400" /> : <ArrowUpRight className="w-3 h-3 text-emerald-500" />}
                                         </div>
                                     </div>
                                     <button
-                                        onClick={() => handleDelete(m.id, m.description)}
+                                        onClick={() => handleDelete(m.id, m.name)}
                                         className="p-2 text-slate-500 hover:text-red-400 transition-colors"
                                     >
                                         <Trash2 className="w-4 h-4" />

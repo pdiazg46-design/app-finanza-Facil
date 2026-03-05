@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { format, isToday } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { ArrowUpRight, ArrowDownRight, Coffee, ShoppingBag, Utensils, PiggyBank, Trash2, Eye, EyeOff } from 'lucide-react'
-import { Movement } from '@/lib/db'
+import { Transaction } from '@prisma/client'
 import { deleteMovement } from '../app/actions/fund-actions'
 import { HistoryDrawer } from './HistoryDrawer'
 import { usePrivacy } from './PrivacyContext'
@@ -12,7 +12,7 @@ import { CurrencyText } from './CurrencyText'
 import { useLocaleContext } from './LocaleContext'
 
 interface MovementsListProps {
-    movements: Movement[]
+    movements: Transaction[]
     isPremium: boolean
     isMobile?: boolean
 }
@@ -33,16 +33,16 @@ export function MovementsList({ movements, isPremium, isMobile = false }: Moveme
         )
     }
 
-    const getIcon = (type: string, description: string) => {
-        if (type === 'CONTRIBUTION') return <PiggyBank className="w-4 h-4 text-[#2E7D32]/60" />
-        const desc = description.toLowerCase()
+    const getIcon = (type: string, name: string) => {
+        if (type === 'INCOME') return <PiggyBank className="w-4 h-4 text-[#2E7D32]/60" />
+        const desc = name.toLowerCase()
         if (desc.includes('comida') || desc.includes('sushi') || desc.includes('pizza') || desc.includes('almuerzo')) return <Utensils className="w-4 h-4 text-orange-500" />
         if (desc.includes('cafe') || desc.includes('starbucks')) return <Coffee className="w-4 h-4 text-amber-600" />
         return <ShoppingBag className="w-4 h-4 text-atsit-blue" />
     }
 
-    const handleDelete = async (id: string, description: string) => {
-        if (confirm(`¿Seguro que quieres borrar "${description}"?`)) {
+    const handleDelete = async (id: string, name: string) => {
+        if (confirm(`¿Seguro que quieres borrar "${name}"?`)) {
             await deleteMovement(id)
         }
     }
@@ -75,31 +75,31 @@ export function MovementsList({ movements, isPremium, isMobile = false }: Moveme
                             <div key={m.id} className="group bg-white rounded-2xl p-3 shadow-sm border border-slate-50 flex items-center gap-3 transition-all active:scale-[0.98] relative overflow-hidden">
                                 {/* Icon Container */}
                                 <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center flex-shrink-0">
-                                    {getIcon(m.type, m.description)}
+                                    {getIcon(m.type, m.name)}
                                 </div>
 
                                 {/* Info */}
                                 <div className="flex-1 min-w-0">
                                     <p className="text-[14px] font-black text-slate-900 truncate tracking-tight">
-                                        {m.description}
+                                        {m.name}
                                     </p>
                                     <p className="text-[11px] text-slate-700 font-bold mt-1">
                                         {format(new Date(m.date), "HH:mm", { locale: es })}
-                                        {m.installments > 1 && ` • ${m.installments} cuotas`}
+                                        {m.type === 'INSTALLMENT_DEBT' && m.installments && m.installments > 1 && ` • Cuota ${m.currentInstallment}/${m.installments}`}
                                     </p>
                                 </div>
 
                                 {/* Amount & Actions */}
                                 <div className="text-right flex items-center gap-1.5">
                                     <div className="min-w-[80px]">
-                                        <div className={`text-[15px] font-black tracking-tight font-[family-name:var(--font-montserrat)] ${m.type === 'EXPENSE' ? 'text-red-700' : 'text-emerald-700'}`}>
+                                        <div className={`text-[15px] font-black tracking-tight font-[family-name:var(--font-montserrat)] ${(m.type === 'VARIABLE_EXPENSE' || m.type === 'FIXED_EXPENSE' || m.type === 'INSTALLMENT_DEBT') ? 'text-red-700' : 'text-emerald-700'}`}>
                                             <CurrencyText
                                                 value={m.amount}
-                                                prefix={m.type === 'EXPENSE' ? '-' : '+'}
+                                                prefix={(m.type === 'VARIABLE_EXPENSE' || m.type === 'FIXED_EXPENSE' || m.type === 'INSTALLMENT_DEBT') ? '-' : '+'}
                                             />
                                         </div>
                                         <div className="flex items-center justify-end mt-0.5">
-                                            {m.type === 'EXPENSE' ? (
+                                            {(m.type === 'VARIABLE_EXPENSE' || m.type === 'FIXED_EXPENSE' || m.type === 'INSTALLMENT_DEBT') ? (
                                                 <ArrowDownRight className="w-2.5 h-2.5 text-[#D32F2F]/60" />
                                             ) : (
                                                 <ArrowUpRight className="w-2.5 h-2.5 text-[#2E7D32]/60" />
@@ -109,7 +109,7 @@ export function MovementsList({ movements, isPremium, isMobile = false }: Moveme
 
                                     <div className="flex items-center">
                                         <button
-                                            onClick={() => handleDelete(m.id, m.description)}
+                                            onClick={() => handleDelete(m.id, m.name)}
                                             className="p-1.5 text-slate-500 hover:text-red-400 transition-colors"
                                         >
                                             <Trash2 className="w-3.5 h-3.5" />

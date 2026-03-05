@@ -130,10 +130,10 @@ export async function processVoiceCommand(text: string) {
             }
 
             // Inteligencia de Categorización y Upsert
-            let type: string = 'FIXED_PAGO'
+            let type: string = installments > 1 ? 'INSTALLMENT_DEBT' : 'FIXED_EXPENSE'
             const subKeywords = ['netflix', 'spotify', 'disney', 'amazon', 'hbo', 'suscripcion', 'internet', 'celular']
             if (subKeywords.some(w => concept.toLowerCase().includes(w))) {
-                type = 'SUBSCRIPTION'
+                type = 'FIXED_EXPENSE' // Las suscripciones son gastos fijos
             }
 
             const fund = await getSharedFund()
@@ -159,7 +159,7 @@ export async function processVoiceCommand(text: string) {
                     success: true,
                     type: 'CONFIG',
                     data: {
-                        message: `Concepto "${concept}" agregado como ${type === 'SUBSCRIPTION' ? 'Suscripción' : 'Pago Fijo'}`,
+                        message: `Concepto "${concept}" agregado como ${type === 'INSTALLMENT_DEBT' ? 'Deuda en Cuotas' : 'Gasto Fijo'}`,
                         amount,
                         sync: true
                     }
@@ -229,19 +229,16 @@ export async function processVoiceCommand(text: string) {
                     input.includes('mensual') || input.includes('suscripción')
 
                 if (isRecurringCandidate) {
-                    let type: string = 'FIXED_PAGO'
-                    // For variable services, we might want to default to VARIABLE_SERVICE if it matches utility keywords
-                    // But current logic defaults to FIXED_PAGO or SUBSCRIPTION.
-                    // Let's refine the type detection.
+                    let type: string = installments > 1 ? 'INSTALLMENT_DEBT' : 'FIXED_EXPENSE'
 
                     if (['netflix', 'spotify', 'disney', 'amazon', 'hbo', 'suscripcion'].some(w => description.toLowerCase().includes(w))) {
-                        type = 'SUBSCRIPTION'
+                        type = 'FIXED_EXPENSE'
                     } else if (['luz', 'agua', 'gas', 'gasto comun', 'gastos comunes', 'celular'].some(w => description.toLowerCase().includes(w))) {
-                        type = 'VARIABLE_SERVICE'
+                        type = 'VARIABLE_EXPENSE'
                     }
 
-                    await addBudgetItem(description.charAt(0).toUpperCase() + description.slice(1), amount, type)
-                    syncMessage = ` (Aprendido como ${type === 'VARIABLE_SERVICE' ? 'Servicio Variable' : type === 'SUBSCRIPTION' ? 'Suscripción' : 'Gasto Fijo'} ✨)`
+                    await addBudgetItem(description.charAt(0).toUpperCase() + description.slice(1), amount, type, installments)
+                    syncMessage = ` (Aprendido como ${type === 'VARIABLE_EXPENSE' ? 'Servicio Variable' : type === 'INSTALLMENT_DEBT' ? 'Deuda a Cuotas' : 'Gasto Fijo'} ✨)`
                 }
             }
 

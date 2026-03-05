@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { X, Save, TrendingDown, Users, DollarSign, Plus, Trash2, Zap, CreditCard, RefreshCw } from 'lucide-react'
 import { PrivacyToggle } from '@/components/PrivacyToggle'
 import { syncFullBudget } from '@/app/actions/fund-actions'
-import { BudgetCategory, CategoryType } from '@/lib/db'
+import { Transaction } from '@prisma/client'
 import { usePrivacy } from '@/components/PrivacyContext'
 import { CurrencyText } from '@/components/CurrencyText'
 import { useLocaleContext } from '@/components/LocaleContext'
@@ -13,7 +13,7 @@ import { formatCurrency, formatNumber } from '@/lib/currency-formatter'
 interface DesktopSetupDrawerProps {
     isOpen: boolean
     onClose: () => void
-    budget: BudgetCategory[]
+    budget: Transaction[]
     assets?: { id: string, name: string, value: number, type: string }[]
     partnerInfo: { name?: string, contribution?: number }
     freedomDays: number
@@ -77,14 +77,20 @@ export function DesktopSetupDrawer({ isOpen, onClose, budget, assets, partnerInf
         setLocalBudget(prev => prev.map(b => b.id === id ? { ...b, name } : b))
     }
 
-    const handleAddItem = (type: CategoryType) => {
-        const newItem: BudgetCategory & { installments?: number } = {
+    const handleAddItem = (type: string) => {
+        const newItem: Transaction = {
             id: 'temp-' + Math.random().toString(36).substr(2, 9),
             name: '',
             amount: 0,
             type,
-            isAutomated: false, // Variable service auto-check logic relies on backend usually, default false here
-            installments: 1
+            isAutomated: false,
+            installments: 1,
+            fundId: '',
+            category: 'General',
+            date: new Date(),
+            currentInstallment: 1,
+            createdAt: new Date(),
+            updatedAt: new Date()
         }
         setLocalBudget(prev => [newItem, ...prev])
     }
@@ -193,10 +199,10 @@ export function DesktopSetupDrawer({ isOpen, onClose, budget, assets, partnerInf
 
     const totalMonthly = localBudget.reduce((sum, b) => sum + b.amount, 0)
 
-    const categories: { type: CategoryType, label: string, icon: any }[] = [
-        { type: 'FIXED_PAGO', label: t('setup.categories.fixedPayments'), icon: CreditCard },
-        { type: 'SUBSCRIPTION', label: t('setup.categories.subscriptions'), icon: Zap },
-        { type: 'VARIABLE_SERVICE', label: t('setup.categories.variableServices'), icon: RefreshCw }
+    const categories: { type: string, label: string, icon: any }[] = [
+        { type: 'FIXED_EXPENSE', label: t('setup.categories.fixedPayments'), icon: CreditCard },
+        { type: 'INSTALLMENT_DEBT', label: t('setup.categories.subscriptions'), icon: Zap },
+        { type: 'VARIABLE_EXPENSE', label: t('setup.categories.variableServices'), icon: RefreshCw }
     ]
 
     return (
@@ -240,15 +246,15 @@ export function DesktopSetupDrawer({ isOpen, onClose, budget, assets, partnerInf
                                 <div className="flex items-center justify-between mb-4 px-1">
                                     <h3 className="text-[14px] font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
                                         <cat.icon className="w-4 h-4" /> {
-                                            cat.type === 'FIXED_PAGO' ? t('setup.categories.credits') :
-                                                cat.type === 'SUBSCRIPTION' ? t('setup.categories.subscriptions') :
+                                            cat.type === 'FIXED_EXPENSE' ? t('setup.categories.credits') :
+                                                cat.type === 'INSTALLMENT_DEBT' ? t('setup.categories.subscriptions') :
                                                     t('setup.categories.services')
                                         }
-                                        {cat.type === 'VARIABLE_SERVICE' && (
+                                        {cat.type === 'VARIABLE_EXPENSE' && (
                                             <span className="ml-2 bg-blue-100 text-blue-700 text-[11px] px-2 py-0.5 rounded-full lowercase font-bold">{t('setup.labels.automatic')}</span>
                                         )}
                                     </h3>
-                                    {cat.type !== 'VARIABLE_SERVICE' && (
+                                    {cat.type !== 'VARIABLE_EXPENSE' && (
                                         <button
                                             onClick={() => handleAddItem(cat.type)}
                                             className="p-1.5 px-4 bg-slate-100 text-slate-700 rounded-full text-[13px] font-black uppercase hover:bg-atsit-blue hover:text-white transition-colors border border-slate-200"
@@ -322,7 +328,7 @@ export function DesktopSetupDrawer({ isOpen, onClose, budget, assets, partnerInf
                                                     </div>
 
                                                     {/* Installments Input for Fixed Payments */}
-                                                    {item.type === 'FIXED_PAGO' && (
+                                                    {(item.type === 'FIXED_EXPENSE' || item.type === 'INSTALLMENT_DEBT') && (
                                                         <>
                                                             <div className="flex items-center justify-between gap-3 py-2 px-3 bg-slate-50 rounded-xl">
                                                                 <span className="text-[12px] font-bold uppercase text-slate-700">{t('setup.labels.totalInstallments')}</span>
@@ -386,7 +392,7 @@ export function DesktopSetupDrawer({ isOpen, onClose, budget, assets, partnerInf
                                                         </>
                                                     )}
 
-                                                    {item.type === 'VARIABLE_SERVICE' && (
+                                                    {item.type === 'VARIABLE_EXPENSE' && (
                                                         <div className="bg-emerald-50 text-emerald-600 px-3 py-2 rounded-lg flex items-center gap-2">
                                                             <RefreshCw className="w-3 h-3" />
                                                             <span className="text-[9px] font-bold uppercase">{t('setup.labels.automaticAverage')}</span>
@@ -394,7 +400,7 @@ export function DesktopSetupDrawer({ isOpen, onClose, budget, assets, partnerInf
                                                     )}
                                                 </div>
 
-                                                {item.type === 'VARIABLE_SERVICE' && (
+                                                {item.type === 'VARIABLE_EXPENSE' && (
                                                     <p className="text-[8px] text-slate-400 font-medium mt-2 italic px-1">
                                                         {t('setup.labels.autoRecalculateNote')}
                                                     </p>

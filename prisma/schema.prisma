@@ -57,58 +57,51 @@ model VerificationToken {
 }
 
 model SharedFund {
-  id                  String       @id @default(cuid())
-  name                String       @default("Nuestro Fondo Común")
-  balance             Float        @default(0)
-  monthlyBurnRate     Float        @default(0)
-  totalSavings        Float        @default(0)
-  partnerName         String       @default("Pareja")
-  partnerContribution Float        @default(0)
-  userId              String       @unique
-  createdAt           DateTime     @default(now())
-  updatedAt           DateTime     @updatedAt
-  budget              BudgetItem[]
+  id                  String        @id @default(cuid())
+  name                String        @default("Nuestro Fondo Común")
+  balance             Float         @default(0)
+  monthlyBurnRate     Float         @default(0)
+  totalSavings        Float         @default(0)
+  partnerName         String        @default("Pareja")
+  partnerContribution Float         @default(0)
+  userId              String        @unique
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  budget              Transaction[] @relation("FundTransactions")
   assets              Asset[]
-  movements           Movement[]
-  user                User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model BudgetItem {
-  id                   String     @id @default(cuid())
-  name                 String
-  amount               Float
-  type                 String
-  isAutomated          Boolean    @default(false)
-  installments         Int?       @default(1)
-  currentInstallment   Int?       @default(1)
-  installmentStartDate DateTime?  @default(now())
-  fundId               String
-  createdAt            DateTime   @default(now())
-  updatedAt            DateTime   @updatedAt
-  fund                 SharedFund @relation(fields: [fundId], references: [id], onDelete: Cascade)
+model Transaction {
+  id     String @id @default(cuid())
+  name   String
+  amount Float
+  type   String // 'INCOME', 'FIXED_EXPENSE', 'VARIABLE_EXPENSE', 'INSTALLMENT_DEBT'
+
+  // Lógica de Cuotas (Solo aplica si type == 'INSTALLMENT_DEBT')
+  installments       Int? @default(1)
+  currentInstallment Int? @default(1)
+
+  // Fechas y tracking
+  date        DateTime @default(now()) // Cuándo ocurrió o cuándo inició la deuda
+  isAutomated Boolean  @default(false)
+  category    String   @default("General")
+
+  // Relaciones
+  fundId String
+  fund   SharedFund @relation("FundTransactions", fields: [fundId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Asset {
   id        String     @id @default(cuid())
   name      String
   value     Float
-  type      String     // 'PROPERTY', 'VEHICLE', 'INVESTMENT', 'OTHER'
+  type      String // 'PROPERTY', 'VEHICLE', 'INVESTMENT', 'OTHER'
   fundId    String
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   fund      SharedFund @relation(fields: [fundId], references: [id], onDelete: Cascade)
-}
-
-model Movement {
-  id           String     @id @default(cuid())
-  type         String
-  description  String
-  amount       Float
-  date         DateTime   @default(now())
-  installments Int        @default(1)
-  category     String     @default("General")
-  fundId       String
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  fund         SharedFund @relation(fields: [fundId], references: [id], onDelete: Cascade)
 }

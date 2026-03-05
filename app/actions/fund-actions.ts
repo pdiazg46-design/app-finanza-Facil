@@ -26,12 +26,7 @@ export async function getSharedFund() {
             include: {
                 sharedFund: {
                     include: {
-                        budget: true,
-                        // Sacamos assets de aquí para hacerlo resiliente
-                        movements: {
-                            orderBy: { date: 'desc' },
-                            take: 100
-                        }
+                        budget: true
                     }
                 }
             }
@@ -57,8 +52,7 @@ export async function getSharedFund() {
                     partnerContribution: 0
                 },
                 include: {
-                    budget: true,
-                    movements: true
+                    budget: true
                 }
             })
 
@@ -95,13 +89,13 @@ export async function getSharedFund() {
         const budgetUpdates: Promise<any>[] = []
 
         for (const item of fund.budget) {
-            if (item.installments && item.installments > 1 && item.installmentStartDate) {
-                const monthsElapsed = getMonthsDifference(item.installmentStartDate, now)
+            if (item.installments && item.installments > 1 && item.date) {
+                const monthsElapsed = getMonthsDifference(item.date, now)
                 const newCurrentInstallment = Math.min(monthsElapsed + 1, item.installments)
 
                 if (newCurrentInstallment !== (item.currentInstallment || 1)) {
                     budgetUpdates.push(
-                        prisma.budgetItem.update({
+                        prisma.transaction.update({
                             where: { id: item.id },
                             data: { currentInstallment: newCurrentInstallment }
                         })
@@ -148,14 +142,16 @@ export async function registerExpense(data: { description: string, amount: numbe
             where: { id: fund.id },
             data: { balance: { decrement: data.amount } }
         }),
-        prisma.movement.create({
+        prisma.transaction.create({
             data: {
-                type: 'EXPENSE',
-                description: data.description,
+                name: data.description,
+                type: 'VARIABLE_EXPENSE',
                 amount: data.amount,
                 installments: data.installments || 1,
+                currentInstallment: 1, // Start at 1
                 category: data.category || 'General',
-                fundId: fund.id
+                fundId: fund.id,
+                date: new Date()
             }
         })
     ])
@@ -175,14 +171,16 @@ export async function addContribution(amount: number, userId: string) {
             where: { id: fund.id },
             data: { balance: { increment: amount } }
         }),
-        prisma.movement.create({
+        prisma.transaction.create({
             data: {
-                type: 'CONTRIBUTION',
-                description: 'Aporte al Fondo',
+                name: 'Aporte al Fondo',
+                type: 'INCOME',
                 amount: amount,
                 installments: 1,
+                currentInstallment: 1,
                 category: 'Aporte',
-                fundId: fund.id
+                fundId: fund.id,
+                date: new Date()
             }
         })
     ])
@@ -195,19 +193,19 @@ export async function addContribution(amount: number, userId: string) {
  * Elimina un movimiento y revierte su impacto en el balance
  */
 export async function deleteMovement(id: string) {
-    const movement = await prisma.movement.findUnique({ where: { id } })
+    const trx = await prisma.transaction.findUnique({ where: { id } })
 
-    if (movement) {
+    if (trx) {
         await prisma.$transaction([
             prisma.sharedFund.update({
-                where: { id: movement.fundId },
+                where: { id: trx.fundId },
                 data: {
-                    balance: movement.type === 'EXPENSE'
-                        ? { increment: movement.amount }
-                        : { decrement: movement.amount }
+                    balance: (trx.type === 'VARIABLE_EXPENSE' || trx.type === 'FIXED_EXPENSE' || trx.type === 'INSTALLMENT_DEBT')
+                        ? { increment: trx.amount }
+                        : { decrement: trx.amount }
                 }
             }),
-            prisma.movement.delete({ where: { id } })
+            prisma.transaction.delete({ where: { id } })
         ])
 
         revalidatePath('/')
@@ -221,7 +219,8 @@ export async function deleteMovement(id: string) {
  * Obtiene el ID del último movimiento registrado
  */
 export async function getLastMovementId() {
-    const last = await prisma.movement.findFirst({
+    const last = await prisma.transaction.findFirst({
+        where: { type: { in: ['INCOME', 'VARIABLE_EXPENSE'] } }, // Filtra solo transacciones per-se, no deudas
         orderBy: { createdAt: 'desc' }
     })
     return last ? last.id : null
@@ -230,29 +229,30 @@ export async function getLastMovementId() {
 /**
  * Agrega un nuevo concepto al presupuesto
  */
-export async function addBudgetItem(name: string, amount: number, type: string = 'FIXED_PAGO', installments: number = 1) {
+export async function addBudgetItem(name: string, amount: number, type: string = 'FIXED_EXPENSE', installments: number = 1) {
     const fund = await getSharedFund()
 
-    await prisma.budgetItem.create({
+    await prisma.transaction.create({
         data: {
             name,
             amount,
-            type,
-            isAutomated: type === 'VARIABLE_SERVICE',
+            type, // Ya debe venir como FIXED_EXPENSE, VARIABLE_EXPENSE o INSTALLMENT_DEBT
+            isAutomated: type === 'VARIABLE_EXPENSE',
             installments: installments,
             currentInstallment: 1,
-            fundId: fund.id
+            fundId: fund.id,
+            date: new Date()
         }
     })
 
     // Actualizar burn rate del fondo
-    const budget = await prisma.budgetItem.findMany({ where: { fundId: fund.id } })
+    const budget = await prisma.transaction.findMany({ where: { fundId: fund.id } })
     const totalBurn = budget
         .filter((b: any) => {
-            if (b.type === 'FIXED_PAGO' && b.installments && b.installments > 1) {
+            if (b.type === 'INSTALLMENT_DEBT' && b.installments && b.installments > 1) {
                 return (b.currentInstallment || 1) <= b.installments
             }
-            return true
+            return b.type === 'FIXED_EXPENSE' || b.type === 'INSTALLMENT_DEBT' || b.type === 'VARIABLE_EXPENSE'
         })
         .reduce((sum: number, b: any) => sum + b.amount, 0)
 
@@ -269,19 +269,19 @@ export async function addBudgetItem(name: string, amount: number, type: string =
  * Elimina un concepto del presupuesto
  */
 export async function removeBudgetItem(id: string) {
-    const item = await prisma.budgetItem.findUnique({ where: { id } })
+    const item = await prisma.transaction.findUnique({ where: { id } })
     if (item) {
         const fundId = item.fundId
-        await prisma.budgetItem.delete({ where: { id } })
+        await prisma.transaction.delete({ where: { id } })
 
         // Recalcular burn rate
-        const budget = await prisma.budgetItem.findMany({ where: { fundId } })
+        const budget = await prisma.transaction.findMany({ where: { fundId } })
         const totalBurn = budget
             .filter((b: any) => {
-                if (b.type === 'FIXED_PAGO' && b.installments && b.installments > 1) {
+                if (b.type === 'INSTALLMENT_DEBT' && b.installments && b.installments > 1) {
                     return (b.currentInstallment || 1) <= b.installments
                 }
-                return true
+                return b.type === 'FIXED_EXPENSE' || b.type === 'INSTALLMENT_DEBT' || b.type === 'VARIABLE_EXPENSE'
             })
             .reduce((sum: number, b: any) => sum + b.amount, 0)
 
@@ -300,9 +300,9 @@ export async function removeBudgetItem(id: string) {
  * Actualiza un item del presupuesto
  */
 export async function updateBudget(id: string, data: { amount: number, name?: string, type?: any, isAutomated?: boolean, installments?: number, currentInstallment?: number }) {
-    const item = await prisma.budgetItem.findUnique({ where: { id } })
+    const item = await prisma.transaction.findUnique({ where: { id } })
     if (item) {
-        await prisma.budgetItem.update({
+        await prisma.transaction.update({
             where: { id },
             data: {
                 amount: data.amount,
@@ -315,13 +315,13 @@ export async function updateBudget(id: string, data: { amount: number, name?: st
         })
 
         // Recalcular burn rate
-        const budget = await prisma.budgetItem.findMany({ where: { fundId: item.fundId } })
+        const budget = await prisma.transaction.findMany({ where: { fundId: item.fundId } })
         const totalBurn = budget
             .filter((b: any) => {
-                if (b.type === 'FIXED_PAGO' && b.installments && b.installments > 1) {
+                if (b.type === 'INSTALLMENT_DEBT' && b.installments && b.installments > 1) {
                     return (b.currentInstallment || 1) <= b.installments
                 }
-                return true
+                return b.type === 'FIXED_EXPENSE' || b.type === 'INSTALLMENT_DEBT' || b.type === 'VARIABLE_EXPENSE'
             })
             .reduce((sum: number, b: any) => sum + b.amount, 0)
 
@@ -391,19 +391,20 @@ export async function syncFullBudget(
     await prisma.$transaction(async (tx) => {
         for (const item of items) {
             if (item.action === 'CREATE') {
-                await tx.budgetItem.create({
+                await tx.transaction.create({
                     data: {
                         name: item.name,
                         amount: item.amount,
                         type: item.type,
-                        isAutomated: item.type === 'VARIABLE_SERVICE',
+                        isAutomated: item.type === 'VARIABLE_EXPENSE',
                         installments: item.installments || 1,
                         currentInstallment: item.currentInstallment || 1,
-                        fundId: fund.id
+                        fundId: fund.id,
+                        date: new Date()
                     }
                 })
             } else if (item.action === 'UPDATE') {
-                await tx.budgetItem.update({
+                await tx.transaction.update({
                     where: { id: item.id },
                     data: {
                         name: item.name,
@@ -413,7 +414,7 @@ export async function syncFullBudget(
                     }
                 })
             } else if (item.action === 'DELETE') {
-                await tx.budgetItem.delete({
+                await tx.transaction.delete({
                     where: { id: item.id }
                 })
             }
@@ -450,14 +451,14 @@ export async function syncFullBudget(
     })
 
     // 4. Recalcular Burn Rate Total una sola vez - FILTRANDO ITEMS TERMINADOS
-    const updatedBudget = await prisma.budgetItem.findMany({ where: { fundId: fund.id } })
+    const updatedBudget = await prisma.transaction.findMany({ where: { fundId: fund.id } })
     const totalBurn = updatedBudget
         .filter((b: any) => {
             // Solo incluimos en el gasto mensual si no es un pago fijo terminado
-            if (b.type === 'FIXED_PAGO' && b.installments && b.installments > 1) {
+            if (b.type === 'INSTALLMENT_DEBT' && b.installments && b.installments > 1) {
                 return (b.currentInstallment || 1) <= b.installments
             }
-            return true
+            return b.type === 'FIXED_EXPENSE' || b.type === 'INSTALLMENT_DEBT' || b.type === 'VARIABLE_EXPENSE'
         })
         .reduce((sum: number, b: any) => sum + b.amount, 0)
 
@@ -495,25 +496,20 @@ async function calculateVariableAverages(fundId: string) {
     ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
 
     // Auto-migrate: Ensure all variable services are automated
-    await prisma.budgetItem.updateMany({
-        where: { fundId, type: 'VARIABLE_SERVICE', isAutomated: false },
+    await prisma.transaction.updateMany({
+        where: { fundId, type: 'VARIABLE_EXPENSE', isAutomated: false },
         data: { isAutomated: true }
     })
 
     // Auto-Provision: Crear items estándar si se detectan movimientos pero no existen en el presupuesto
-    const movements = await prisma.movement.findMany({
-        where: { fundId, type: 'EXPENSE', date: { gte: ninetyDaysAgo } }
+    const movements = await prisma.transaction.findMany({
+        where: { fundId, type: 'VARIABLE_EXPENSE', date: { gte: ninetyDaysAgo } }
     });
 
     const standardServices = ['Agua', 'Luz', 'Gas', 'Internet', 'Gasto Común', 'Celular'];
-    const currentBudget = await prisma.budgetItem.findMany({ where: { fundId } });
+    const currentBudget = await prisma.transaction.findMany({ where: { fundId, type: 'VARIABLE_EXPENSE' } });
 
     // Hito de Inteligencia 2.0: "Hot Provisioning"
-    // Permitimos auto-crear un servicio estándar si:
-    // 1. El usuario tiene el presupuesto vacío (usuario nuevo).
-    // 2. O, si el usuario acaba de registrar un movimiento para ese servicio (últimas 48h)
-    //    y el item NO existe en su presupuesto actual.
-    // Esto evita recrear "items fantasma" viejos pero permite que nuevos comandos de voz funcionen de inmediato.
 
     const isBudgetEmpty = currentBudget.length === 0;
     const fortyEightHoursAgo = new Date();
@@ -526,44 +522,45 @@ async function calculateVariableAverages(fundId: string) {
         if (!exists) {
             // Buscamos movimientos: o cualquiera si está vacío, o solo recientes si ya tiene presupuesto
             const hasMatches = movements.some(m => {
-                const descNormalized = normalizeString(m.description, true);
+                const descNormalized = normalizeString(m.name, true); // Cambiado description -> name en Transacion
                 const isMatch = descNormalized.includes(serviceNormalized);
 
                 if (isBudgetEmpty) return isMatch;
-                // Si no está vacío, solo auto-creamos si el movimiento es muy reciente (Hot Provisioning)
                 return isMatch && new Date(m.date) >= fortyEightHoursAgo;
             });
 
             if (hasMatches) {
-                await prisma.budgetItem.create({
+                await prisma.transaction.create({
                     data: {
                         name: service,
                         amount: 0,
-                        type: 'VARIABLE_SERVICE',
+                        type: 'VARIABLE_EXPENSE',
                         isAutomated: true,
-                        fundId: fundId
+                        fundId: fundId,
+                        date: new Date()
                     }
                 });
             }
         }
     }
 
-    const relevantMovements = await prisma.movement.findMany({
+    const relevantMovements = await prisma.transaction.findMany({
         where: {
             fundId,
-            type: 'EXPENSE',
+            type: 'VARIABLE_EXPENSE',
             date: { gte: ninetyDaysAgo }
         }
     })
 
-    const budgetItems = await prisma.budgetItem.findMany({
-        where: { fundId, type: 'VARIABLE_SERVICE', isAutomated: true }
+    const budgetItems = await prisma.transaction.findMany({
+        where: { fundId, type: 'VARIABLE_EXPENSE', isAutomated: true }
     })
 
     for (const item of budgetItems) {
         const itemName = normalizeString(item.name, true)
         const matches = relevantMovements.filter((m: any) => {
-            const desc = normalizeString(m.description, true)
+            if (m.id === item.id) return false; // Don't match the budget placeholder itself
+            const desc = normalizeString(m.name, true) // Cambiado description -> name
             // Matching agresivo: Coincidencia total, parcial o por palabras clave significativas
             if (desc.includes(itemName) || itemName.includes(desc)) return true;
 
@@ -577,8 +574,6 @@ async function calculateVariableAverages(fundId: string) {
         if (matches.length > 0) {
             const total = matches.reduce((sum: number, m: any) => sum + m.amount, 0)
 
-            // Lógica Proactiva: Dividimos por los meses en que REALMENTE hubo registros
-            // Esto es más intuitivo para el usuario que promediar por la edad del fondo
             const distinctMonths = new Set(matches.map((m: any) => {
                 const date = new Date(m.date);
                 return `${date.getFullYear()}-${date.getMonth()}`;
@@ -588,7 +583,7 @@ async function calculateVariableAverages(fundId: string) {
             const average = Math.floor(total / monthsToDivide)
 
             if (item.amount !== average) {
-                await prisma.budgetItem.update({
+                await prisma.transaction.update({
                     where: { id: item.id },
                     data: { amount: average }
                 })
@@ -603,17 +598,17 @@ async function calculateVariableAverages(fundId: string) {
 export async function getFundMetrics() {
     const fund = await getSharedFund()
 
-    // Ejecutamos motor de promedios
+    // Ejecutamos motor de promedios (ahora todo está en Transaction)
     await calculateVariableAverages(fund.id)
 
-    // Recargar presupuesto actualizado
-    const budget = await prisma.budgetItem.findMany({ where: { fundId: fund.id } })
+    // Recargar presupuesto actualizado (Transacciones)
+    const budget = await prisma.transaction.findMany({ where: { fundId: fund.id } })
     const totalBurn = budget
         .filter((b: any) => {
-            if (b.type === 'FIXED_PAGO' && b.installments && b.installments > 1) {
+            if (b.type === 'INSTALLMENT_DEBT' && b.installments && b.installments > 1) {
                 return (b.currentInstallment || 1) <= b.installments
             }
-            return true
+            return b.type === 'FIXED_EXPENSE' || b.type === 'INSTALLMENT_DEBT' || b.type === 'VARIABLE_EXPENSE'
         })
         .reduce((sum: number, b: any) => sum + b.amount, 0)
 
@@ -625,20 +620,13 @@ export async function getFundMetrics() {
         })
     }
 
-    // Calculamos gastos de este mes
+    // Calculamos gastos de este mes (Filtrando type = 'VARIABLE_EXPENSE')
     const startOfMonth = new Date();
     startOfMonth.setDate(1);
     startOfMonth.setHours(0, 0, 0, 0);
 
-    const movements = await prisma.movement.findMany({
-        where: {
-            fundId: fund.id,
-            date: { gte: startOfMonth }
-        }
-    })
-
-    const actualMonthExpenses = movements
-        .filter((m: any) => m.type === 'EXPENSE')
+    const actualMonthExpenses = budget
+        .filter((m: any) => m.type === 'VARIABLE_EXPENSE' && new Date(m.date) >= startOfMonth)
         .reduce((sum: number, m: any) => sum + m.amount, 0)
 
     // Días de libertad - INTEGRACIÓN DE INVERSIONES COMO RESPALDO LÍQUIDO
@@ -651,7 +639,7 @@ export async function getFundMetrics() {
 
     // Cálculo de Deuda Total (Pasivos Fijos con cuotas restantes)
     const totalDebt = budget
-        .filter((b: any) => b.type === 'FIXED_PAGO' && b.installments && b.installments > 1)
+        .filter((b: any) => b.type === 'INSTALLMENT_DEBT' && b.installments && b.installments > 1)
         .reduce((sum: number, b: any) => {
             const remainingInstallments = Math.max(0, b.installments - (b.currentInstallment - 1));
             return sum + (b.amount * remainingInstallments);
@@ -668,11 +656,8 @@ export async function getFundMetrics() {
     return {
         fund: {
             ...fund,
-            budget,
-            movements: await prisma.movement.findMany({
-                where: { fundId: fund.id },
-                orderBy: { date: 'desc' }
-            })
+            budget, // Transacciones consolidadas
+            movements: budget // Redirigimos movements a budget por compatibilidad de UI temporal
         },
         freedomDays: calculatedFreedomDays,
         totalLiquidReserves: fund.balance + fund.totalSavings + liquidAssets,
