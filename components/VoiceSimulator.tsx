@@ -180,7 +180,25 @@ export function VoiceSimulator({ enableKeyboardShortcut = false }: VoiceSimulato
             setStatus(t('voice.saving'))
 
             let result;
-            if (parsed.type === 'CONTRIBUTION') {
+            if (parsed.type === 'PAYMENT_ACTION') {
+                setStatus("Buscando cuota...");
+                const { processVoicePaymentAction } = await import('../app/actions/fund-actions');
+                const actionResult = await processVoicePaymentAction(parsed.name);
+
+                if (!actionResult.success) {
+                    setStatus(actionResult.error || "No encontré esa deuda");
+                    setTimeout(() => {
+                        setStatus(null);
+                        setInterimTranscript("");
+                    }, 4000);
+                    setIsProcessing(false);
+                    return;
+                }
+
+                parsed.amount = actionResult.amount || 0;
+                parsed.name = actionResult.matchedName || parsed.name;
+                result = { success: true };
+            } else if (parsed.type === 'CONTRIBUTION') {
                 result = await addContribution(parsed.amount, 'user-voice')
             } else {
                 result = await registerExpense({
@@ -194,13 +212,18 @@ export function VoiceSimulator({ enableKeyboardShortcut = false }: VoiceSimulato
             if (result.success) {
                 // Calculate impact if it's an expense
                 let impact = undefined;
-                if (parsed.type !== 'CONTRIBUTION') {
+                if (parsed.type !== 'CONTRIBUTION' && parsed.type !== 'PAYMENT_ACTION') {
                     const { fund } = await getFundMetrics();
                     impact = FinanceEngine.calculateExpenseImpact(parsed.amount, fund.monthlyBurnRate);
                 }
 
                 setLastResult({ name: parsed.name, amount: parsed.amount, impact })
-                setStatus(parsed.type === 'CONTRIBUTION' ? t('voice.incomeSaved') : t('voice.saved'))
+
+                let successMessage = t('voice.saved');
+                if (parsed.type === 'CONTRIBUTION') successMessage = t('voice.incomeSaved');
+                else if (parsed.type === 'PAYMENT_ACTION') successMessage = "✅ Cuota Pagada";
+
+                setStatus(successMessage)
 
                 router.refresh()
 
@@ -429,9 +452,22 @@ export function VoiceSimulator({ enableKeyboardShortcut = false }: VoiceSimulato
                                         <h4 className="text-xs font-bold text-slate-700 uppercase tracking-widest">Deudas y Cuotas</h4>
                                     </div>
                                     <p className="text-sm font-medium text-slate-600 pl-4 border-l-2 border-slate-100 italic">
-                                        "Zapatillas 60 lucas en 3 cuotas" <br />
-                                        "Televisor 300 mil en 12 cuotas"
+                                        "Zapatillas <span className="text-orange-600 font-bold">20 lucas la cuota</span> en 3 cuotas" <br />
+                                        "Televisor <span className="text-orange-600 font-bold">25 mil pesos</span> en 12 cuotas"
                                     </p>
+                                    <p className="text-[10px] text-slate-400 mt-1 pl-4">El motor te preguntará para multiplicar tu valor por el total de cuotas.</p>
+                                </section>
+
+                                <section>
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <div className="w-2 h-2 rounded-full bg-rose-500"></div>
+                                        <h4 className="text-xs font-bold text-slate-700 uppercase tracking-widest">Ejecución de Pagos ⚡</h4>
+                                    </div>
+                                    <p className="text-sm font-medium text-slate-600 pl-4 border-l-2 border-slate-100 italic">
+                                        "Pagué la mensualidad de Netflix" <br />
+                                        "Ya pagué la cuota del auto"
+                                    </p>
+                                    <p className="text-[10px] text-slate-400 mt-1 pl-4">Finanza Fácil buscará tu deuda y la pagará solita sin que le dictes montos.</p>
                                 </section>
 
                                 <section>

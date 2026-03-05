@@ -780,3 +780,80 @@ export async function registerManualPayment(transactionId: string) {
         return { success: false, error: e.message }
     }
 }
+
+/**
+ * Escanea los Gastos Fijos y Deudas del usuario intentando encontrar 
+ * la mejor coincidencia (Fuzzy String Match) con el comando de voz dictado,
+ * para luego ejecutar su pago (materialización).
+ */
+export async function processVoicePaymentAction(spokenRawName: string) {
+    try {
+        const session = await auth()
+        if (!session?.user?.email) return { success: false, error: "No autenticado" }
+
+        const user = await (prisma as any).user.findUnique({
+            where: { email: session.user.email },
+            include: { sharedFund: true }
+        })
+
+        if (!user?.sharedFund) return { success: false, error: "Cuenta inactiva" }
+
+        // Buscar cuentas fijas vivas
+        const budgetItems = await (prisma as any).transaction.findMany({
+            where: {
+                fundId: user.sharedFund.id,
+                type: { in: ['FIXED_EXPENSE', 'INSTALLMENT_DEBT'] }
+            }
+        });
+
+        if (!budgetItems || budgetItems.length === 0) {
+            return { success: false, error: "No tienes deudas activas" };
+        }
+
+        const cleanSpokenName = spokenRawName.toLowerCase().trim()
+        const spokenWords = cleanSpokenName.split(/\s+/).filter(w => w.length > 2);
+
+        let bestMatch = null;
+        let bestScore = 0;
+
+        for (const item of budgetItems) {
+            const itemName = item.name.toLowerCase();
+            let score = 0;
+
+            if (itemName === cleanSpokenName) {
+                score = 100;
+            } else {
+                for (const w of spokenWords) {
+                    if (itemName.includes(w)) score += 10;
+                }
+                if (itemName.includes(cleanSpokenName)) score += 50;
+            }
+
+            if (score > bestScore) {
+                bestScore = score;
+                bestMatch = item;
+            }
+        }
+
+        if (!bestMatch || bestScore < 10) {
+            return { success: false, error: `No encontré deuda parecida a "${spokenRawName}"` };
+        }
+
+        // Match exitoso -> Liquidar la plata con la rutina matriz de Pago Manual
+        const payResult = await registerManualPayment(bestMatch.id);
+
+        if (payResult.success) {
+            return {
+                success: true,
+                matchedName: bestMatch.name,
+                amount: bestMatch.amount
+            };
+        } else {
+            return { success: false, error: "Error al inyectar el cobro: " + payResult.error };
+        }
+
+    } catch (e: any) {
+        console.error("[processVoicePaymentAction] Error:", e)
+        return { success: false, error: "Crash al procesar el pago" }
+    }
+}

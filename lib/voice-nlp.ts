@@ -4,7 +4,7 @@
 export interface ParsedCommand {
     name: string
     amount: number
-    type: 'SUBSCRIPTION' | 'FIXED_PAGO' | 'VARIABLE_SERVICE' | 'CONTRIBUTION'
+    type: 'SUBSCRIPTION' | 'FIXED_PAGO' | 'VARIABLE_SERVICE' | 'CONTRIBUTION' | 'PAYMENT_ACTION'
     installments: number
     confidence: number
 }
@@ -120,6 +120,11 @@ const CONTRIBUTION_KEYWORDS = [
     'aporte', 'ingreso', 'abono', 'sueldo', 'abone', 'puse', 'agregue', 'agrego', 'sume', 'deposite', 'cargue', 'sumar', 'sumé'
 ]
 
+// Payment Action keywords
+const PAYMENT_KEYWORDS = [
+    'pagué', 'pagado', 'pague', 'pago de', 'ya pague', 'listo el', 'pague la cuota', 'pague cuota', 'pagada', 'pagada la cuota'
+]
+
 // Installment detection patterns
 const INSTALLMENT_PATTERNS = [
     /(\d+)\s*cuotas?/i,
@@ -233,8 +238,13 @@ function extractInstallments(command: string): number {
 /**
  * Detect expense type based on keywords
  */
-function detectType(command: string): 'SUBSCRIPTION' | 'FIXED_PAGO' | 'VARIABLE_SERVICE' | 'CONTRIBUTION' {
+function detectType(command: string): 'SUBSCRIPTION' | 'FIXED_PAGO' | 'VARIABLE_SERVICE' | 'CONTRIBUTION' | 'PAYMENT_ACTION' {
     const normalized = command.toLowerCase()
+
+    // Check payment keywords first
+    if (PAYMENT_KEYWORDS.some(kw => normalized.includes(kw))) {
+        return 'PAYMENT_ACTION'
+    }
 
     // Check for installments first (strong indicator of FIXED_PAGO)
     if (extractInstallments(command) > 1) {
@@ -283,8 +293,14 @@ function extractName(command: string): string {
         name = name.replace(regex, '')
     }
 
+    // Remove payment keywords
+    for (const kw of PAYMENT_KEYWORDS) {
+        const regex = new RegExp(`\\b${kw}\\b`, 'gi')
+        name = name.replace(regex, '')
+    }
+
     // Remove common filler words
-    const fillers = ['de', 'en', 'el', 'la', 'los', 'las', 'un', 'una', 'por', 'para', 'al', 'fondo', 'común', 'comun', 'mi', 'nuestro', 'pago', 'pagos', 'cuenta', 'cuentas']
+    const fillers = ['de', 'en', 'el', 'la', 'los', 'las', 'un', 'una', 'por', 'para', 'al', 'fondo', 'común', 'comun', 'mi', 'nuestro', 'nuestra', 'tu', 'su', 'pago', 'pagos', 'cuenta', 'cuentas', 'cuota', 'cuotas', 'mensualidad', 'mes']
     const words = name.split(/\s+/).filter(w => w && !fillers.includes(w))
 
     name = words.join(' ').trim()
@@ -304,16 +320,19 @@ export function parseVoiceCommand(command: string, currency: string = 'CLP'): Pa
     const normalized = command.toLowerCase().trim()
     console.log(`🎤 Voice command [${currency}]:`, normalized)
 
+    // Detect type first to know if we need strict amount checks
+    const type = detectType(normalized)
+
     // Extract amount
     const amount = extractAmount(normalized, currency)
-    if (!amount || amount === 0) {
+
+    if (type !== 'PAYMENT_ACTION' && (!amount || amount === 0)) {
         console.log('❌ No valid amount found')
         return null
     }
 
     // Extract name
     let name = extractName(normalized)
-    const type = detectType(normalized)
 
     // Fallback names for specific types if empty
     if (!name) {
