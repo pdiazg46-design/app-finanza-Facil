@@ -4,7 +4,7 @@ import { FreedomCircle } from "@/components/FreedomCircle"
 import { VoiceSimulator } from "@/components/VoiceSimulator"
 import { ShieldCheck, Sparkles, LayoutDashboard, Wallet, TrendingUp, Settings, LogOut } from "lucide-react"
 import { MovementsList } from "@/components/MovementsList"
-import { SetupDrawerTrigger } from "@/components/SetupDrawerTrigger"
+
 import { PrivacyProvider } from "@/components/PrivacyContext"
 import { useLocaleContext } from "@/components/LocaleContext"
 import { DesktopUserProfile } from "@/components/desktop/DesktopUserProfile"
