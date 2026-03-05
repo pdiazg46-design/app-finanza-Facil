@@ -104,6 +104,10 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
 
                             <CompassSection freedomDays={freedomDays || 0} />
 
+                            <div className="mt-6 mb-6 relative z-20">
+                                <MovementsList movements={fund.movements as any} isPremium={isPremium} isMobile={true} />
+                            </div>
+
                             {/* Cognitive Decision cards Section */}
                             <TranslatedLiquidityCards
                                 commonBalance={(fund as any).balance}
@@ -119,8 +123,6 @@ export function MobileLayout({ user, isPremium, fund, metrics }: MobileLayoutPro
                                 totalAssets={totalAssets}
                                 netWorth={netWorth}
                             />
-
-                            <MovementsList movements={fund.movements as any} isPremium={isPremium} isMobile={true} />
                         </div>
 
                         {/* Voice Simulator */}

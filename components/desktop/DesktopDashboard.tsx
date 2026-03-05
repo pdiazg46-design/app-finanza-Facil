@@ -217,13 +217,13 @@ export function DesktopDashboard({ user, isPremium, fund, metrics }: DesktopDash
 
                         </div>
 
-                        {/* ZONA INFERIOR (20% - Reference) */}
-                        <div className="mt-8 border-t-2 border-slate-100 pt-8 opacity-60 hover:opacity-100 transition-opacity duration-500">
-                            <h3 className="text-black font-black text-xl mb-6 flex items-center gap-3">
-                                MOVIMIENTOS RECIENTES
-                                <span className="px-2 py-1 bg-slate-100 text-slate-500 text-[10px] rounded-md uppercase tracking-widest font-bold">Historial</span>
+                        {/* ZONA INFERIOR (Movimientos Recientes) */}
+                        <div className="mt-8 pt-4">
+                            <h3 className="text-black font-black text-xl mb-4 flex items-center gap-3">
+                                ACTIVIDAD RECIENTE
+                                <span className="px-2 py-1 bg-blue-100 text-blue-700 text-[10px] rounded-md uppercase tracking-widest font-bold">Hoy</span>
                             </h3>
-                            <div className="grid grid-cols-1">
+                            <div className="grid grid-cols-1 bg-white p-6 rounded-[2rem] shadow-sm border border-slate-200">
                                 <MovementsList movements={fund.movements as any} isPremium={isPremium} />
                             </div>
                         </div>
