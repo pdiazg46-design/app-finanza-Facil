@@ -24,10 +24,12 @@ Finanza Fácil **NO** depende de que otros sistemas le empujen datos (Push). Imp
 2. **Abstracción de Deuda Técnica:** Las cuotas y vencimientos deben autogestionarse en base a una fecha de inicio.
 3. **Resiliencia PWA:** El modelo debe soportar estado offline y sincronización diferida para la aplicación móvil.
 
-## 4. Motor NLP y Voz (Pan-American Localization)
-El sistema utiliza un motor de Procesamiento de Lenguaje Natural (NLP) ajustado a las variaciones lingüísticas del español panamericano (Chile, Argentina, Colombia, México, etc.).
+## 4. Motor NLP Híbrido (Voz y Texto Asíncrono)
+El sistema utiliza un motor de Procesamiento de Lenguaje Natural (NLP) ajustado a las variaciones lingüísticas del español panamericano (Chile, Argentina, Colombia, México, etc.). 
+- **Dualidad de Ingreso:** La abstracción cognitiva funciona tanto para captura de audio (Voz) como para tipeo manual silencioso (Teclado). Un comando escrito (`"Zapatos 50 lucas"`) atraviesa las mismas redes neuronales y reglas de negocio que un audio.
 - **Extracción de Intención:** Categoriza automáticamente entre Ingresos (`CONTRIBUTION`), Retiros (`CASH_WITHDRAWAL`), Gastos Variables (`VARIABLE_SERVICE`) y Pagos Fijos (`FIXED_PAGO`).
 - **Normalización Numérica:** Maneja slang financiero ("lucas", "palos", "k") de forma agnóstica a la configuración regional del dispositivo.
+- **Modelado Gramatical de Deudas:** El motor opera bajo el modelo mental humano de cuota multiplicadora. El estándar estricto procesado por el engine es: `"X cuotas de Y [moneda/slang] por [Producto]"`. El NLP automáticamente multiplica X e Y para calcular la deuda total, y aísla el nombre del `[Producto]`.
 
 ## 5. Reglas de Negocio Centrales
 
@@ -39,7 +41,11 @@ Es la métrica reina. Se calcula dividiendo el capital líquido disponible entre
 El sistema avanza automáticamente el contador de cuotas de una deuda según el mes calendario.
 - Cuando la `Cuota Actual` excede el `Total de Cuotas`, la deuda se excluye automáticamente de la "Tasa de Quema Mensual", provocando un aumento instantáneo en los Días de Respiro (Gamificación financiera).
 
-## 6. Playbook de Operaciones y Mantenimiento
+## 6. Arquitectura UX/UI: Activity Flow (Flujo de Confirmación Instantánea)
+Para reducir la carga cognitiva (Principio de Incertidumbre), Finanza Fácil obliga a sus interfaces (Mobile y Desktop) a renderizar la "Actividad Reciente" (MovementsList) **inmediatamente debajo de la Brújula Financiera principal**.
+Esto garantiza que al registrar un gasto vía Voz o Texto, el componente de transacciones empuje el resto de las tarjetas (Liquidez, Activos) hacia abajo, otorgando confirmación visual instantánea de que el comando neuronal fue guardado exitosamente.
+
+## 7. Playbook de Operaciones y Mantenimiento
 *(Sección a expandir según requerimientos de despliegue y debugging)*
 
 *   **Despliegue Multiplataforma:** Considerar la estrategia PWA vs CapacitorJS para asegurar la distribución en iOS/Android manteniendo una base de código unificada (Vercel/Next.js).
