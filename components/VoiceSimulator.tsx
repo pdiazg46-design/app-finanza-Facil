@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Mic, Loader2 } from "lucide-react"
+import { Mic, Loader2, HelpCircle, X } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { parseVoiceCommand, generateConfirmationMessage, ParsedCommand } from "@/lib/voice-nlp"
 import { registerExpense, addContribution, getFundMetrics } from '../app/actions/fund-actions'
@@ -27,6 +27,7 @@ export function VoiceSimulator({ enableKeyboardShortcut = false }: VoiceSimulato
     const [isProcessing, setIsProcessing] = useState(false)
     const [isRecording, setIsRecording] = useState(false)
     const [isPreparing, setIsPreparing] = useState(false)
+    const [isHelpOpen, setIsHelpOpen] = useState(false)
     const [status, setStatus] = useState<string | null>(null)
     const [interimTranscript, setInterimTranscript] = useState("")
     const [pendingCommand, setPendingCommand] = useState<ParsedCommand | null>(null)
@@ -342,33 +343,120 @@ export function VoiceSimulator({ enableKeyboardShortcut = false }: VoiceSimulato
                     </div>
                 )}
 
-                {/* Botón Circular - Hold to Talk (WhatsApp style) */}
-                <button
-                    onMouseDown={(e) => { e.preventDefault(); startRecording(); }}
-                    onMouseUp={stopRecording}
-                    onMouseLeave={stopRecording}
-                    onTouchStart={(e) => { e.preventDefault(); startRecording(); }}
-                    onTouchEnd={stopRecording}
-                    disabled={isProcessing || isPreparing || !!pendingCommand}
-                    className={`h-16 w-16 rounded-full shadow-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-110 border-0 relative overflow-hidden group select-none touch-none
-                    ${isRecording ? 'bg-red-600 scale-110' : isPreparing ? 'bg-amber-500' : 'bg-[#0056B3] hover:bg-[#003870]'}
-                    ${pendingCommand ? 'opacity-50' : ''}
-                `}
-                >
-                    {isProcessing || isPreparing ? (
-                        <Loader2 className="h-7 w-7 text-white animate-spin" />
-                    ) : (
-                        <Mic className="h-8 w-8 text-white" strokeWidth={2.5} />
-                    )}
+                {/* Contenedor del Mic y Botón de Ayuda */}
+                <div className="relative flex items-center justify-center w-full">
+                    <button
+                        onMouseDown={(e) => { e.preventDefault(); startRecording(); }}
+                        onMouseUp={stopRecording}
+                        onMouseLeave={stopRecording}
+                        onTouchStart={(e) => { e.preventDefault(); startRecording(); }}
+                        onTouchEnd={stopRecording}
+                        disabled={isProcessing || isPreparing || !!pendingCommand}
+                        className={`h-16 w-16 rounded-full shadow-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-110 border-0 relative overflow-hidden group select-none touch-none z-10
+                        ${isRecording ? 'bg-red-600 scale-110' : isPreparing ? 'bg-amber-500' : 'bg-[#0056B3] hover:bg-[#003870]'}
+                        ${pendingCommand ? 'opacity-50' : ''}
+                    `}
+                    >
+                        {isProcessing || isPreparing ? (
+                            <Loader2 className="h-7 w-7 text-white animate-spin" />
+                        ) : (
+                            <Mic className="h-8 w-8 text-white" strokeWidth={2.5} />
+                        )}
 
-                    {/* Ondas de audio cuando graba */}
-                    {isRecording && (
-                        <>
-                            <div className="absolute inset-0 border-4 border-white/30 rounded-full animate-ping" />
-                            <div className="absolute inset-0 border-4 border-white/20 rounded-full animate-ping" style={{ animationDelay: '0.2s' }} />
-                        </>
-                    )}
-                </button>
+                        {/* Ondas de audio cuando graba */}
+                        {isRecording && (
+                            <>
+                                <div className="absolute inset-0 border-4 border-white/30 rounded-full animate-ping" />
+                                <div className="absolute inset-0 border-4 border-white/20 rounded-full animate-ping" style={{ animationDelay: '0.2s' }} />
+                            </>
+                        )}
+                    </button>
+
+                    {/* Botón de Ayuda (Posicionado a la derecha del mic) */}
+                    <button
+                        onClick={() => setIsHelpOpen(true)}
+                        className="absolute right-8 md:right-16 h-10 w-10 bg-white/90 backdrop-blur text-blue-600 rounded-full shadow-lg flex items-center justify-center border border-blue-100 hover:bg-blue-50 transition-all active:scale-95"
+                        aria-label="Ver ejemplos de comandos de voz"
+                    >
+                        <HelpCircle className="w-5 h-5" />
+                    </button>
+                </div>
+
+                {/* Modal de Ayuda de Comandos */}
+                {isHelpOpen && (
+                    <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200">
+                        <div className="w-full max-w-sm bg-white rounded-3xl shadow-2xl overflow-hidden animate-in slide-in-from-bottom-8 sm:slide-in-from-bottom-0 sm:zoom-in-95 pointer-events-auto">
+                            <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                                <div>
+                                    <h3 className="font-black text-slate-800 text-lg">Guía de Comandos</h3>
+                                    <p className="text-xs text-slate-500 font-medium">Ejemplos para hablarle a Finanza Fácil</p>
+                                </div>
+                                <button
+                                    onClick={() => setIsHelpOpen(false)}
+                                    className="p-2 bg-slate-100 hover:bg-slate-200 rounded-full transition-colors text-slate-500"
+                                >
+                                    <X className="w-5 h-5" />
+                                </button>
+                            </div>
+
+                            <div className="p-5 flex flex-col gap-4 max-h-[60vh] overflow-y-auto">
+                                <section>
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                                        <h4 className="text-xs font-bold text-slate-700 uppercase tracking-widest">Gastos Variables</h4>
+                                    </div>
+                                    <p className="text-sm font-medium text-slate-600 pl-4 border-l-2 border-slate-100 italic">
+                                        "Almuerzo 15 lucas" <br />
+                                        "Uber 5 mil pesos"
+                                    </p>
+                                </section>
+
+                                <section>
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <div className="w-2 h-2 rounded-full bg-purple-500"></div>
+                                        <h4 className="text-xs font-bold text-slate-700 uppercase tracking-widest">Gastos Fijos</h4>
+                                    </div>
+                                    <p className="text-sm font-medium text-slate-600 pl-4 border-l-2 border-slate-100 italic">
+                                        "Arriendo 400 mil fijo" <br />
+                                        "Luz 25 lucas"
+                                    </p>
+                                    <p className="text-[10px] text-slate-400 mt-1 pl-4">El sistema detecta palabras como "fijo" o el rubro (luz, agua, internet).</p>
+                                </section>
+
+                                <section>
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                                        <h4 className="text-xs font-bold text-slate-700 uppercase tracking-widest">Deudas y Cuotas</h4>
+                                    </div>
+                                    <p className="text-sm font-medium text-slate-600 pl-4 border-l-2 border-slate-100 italic">
+                                        "Zapatillas 60 lucas en 3 cuotas" <br />
+                                        "Televisor 300 mil en 12 cuotas"
+                                    </p>
+                                </section>
+
+                                <section>
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+                                        <h4 className="text-xs font-bold text-slate-700 uppercase tracking-widest">Ingresos y Abonos</h4>
+                                    </div>
+                                    <p className="text-sm font-medium text-slate-600 pl-4 border-l-2 border-slate-100 italic">
+                                        "Sueldo 1 millón ingreso" <br />
+                                        "Abono 50 lucas"
+                                    </p>
+                                </section>
+                            </div>
+
+                            <div className="p-4 bg-slate-50 border-t border-slate-100">
+                                <button
+                                    onClick={() => setIsHelpOpen(false)}
+                                    className="w-full py-3 bg-slate-900 text-white rounded-xl font-bold text-sm hover:bg-slate-800 transition-colors active:scale-95"
+                                >
+                                    ¡Entendido!
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 {/* Instruction text */}
                 {!isRecording && !pendingCommand && !status && (
