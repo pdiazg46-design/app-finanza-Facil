@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Mic, Loader2, HelpCircle, X } from "lucide-react"
+import { Mic, Loader2, HelpCircle, X, Keyboard, Send } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { parseVoiceCommand, generateConfirmationMessage, ParsedCommand } from "@/lib/voice-nlp"
 import { registerExpense, addContribution, getFundMetrics } from '../app/actions/fund-actions'
@@ -28,6 +28,8 @@ export function VoiceSimulator({ enableKeyboardShortcut = false }: VoiceSimulato
     const [isRecording, setIsRecording] = useState(false)
     const [isPreparing, setIsPreparing] = useState(false)
     const [isHelpOpen, setIsHelpOpen] = useState(false)
+    const [isTypingMode, setIsTypingMode] = useState(false)
+    const [textValue, setTextValue] = useState("")
     const [status, setStatus] = useState<string | null>(null)
     const [interimTranscript, setInterimTranscript] = useState("")
     const [pendingCommand, setPendingCommand] = useState<ParsedCommand | null>(null)
@@ -297,6 +299,15 @@ export function VoiceSimulator({ enableKeyboardShortcut = false }: VoiceSimulato
         setTimeout(() => setStatus(null), 2000)
     }
 
+    const handleTextSubmit = (e?: React.FormEvent) => {
+        if (e) e.preventDefault()
+        if (textValue.trim().length > 2 && !isProcessing && !pendingCommand) {
+            handleProcessCommand(textValue.trim())
+            setTextValue("")
+            setIsTypingMode(false)
+        }
+    }
+
     // Keyboard Shortcut Logic
     useEffect(() => {
         if (!enableKeyboardShortcut) return
@@ -366,44 +377,92 @@ export function VoiceSimulator({ enableKeyboardShortcut = false }: VoiceSimulato
                     </div>
                 )}
 
-                {/* Contenedor del Mic y Botón de Ayuda */}
-                <div className="relative flex items-center justify-center w-full">
-                    <button
-                        onMouseDown={(e) => { e.preventDefault(); startRecording(); }}
-                        onMouseUp={stopRecording}
-                        onMouseLeave={stopRecording}
-                        onTouchStart={(e) => { e.preventDefault(); startRecording(); }}
-                        onTouchEnd={stopRecording}
-                        disabled={isProcessing || isPreparing || !!pendingCommand}
-                        className={`h-16 w-16 rounded-full shadow-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-110 border-0 relative overflow-hidden group select-none touch-none z-10
-                        ${isRecording ? 'bg-red-600 scale-110' : isPreparing ? 'bg-amber-500' : 'bg-[#0056B3] hover:bg-[#003870]'}
-                        ${pendingCommand ? 'opacity-50' : ''}
-                    `}
-                    >
-                        {isProcessing || isPreparing ? (
-                            <Loader2 className="h-7 w-7 text-white animate-spin" />
-                        ) : (
-                            <Mic className="h-8 w-8 text-white" strokeWidth={2.5} />
-                        )}
+                {/* Interfaz Principal Switchable (Micrófono vs Texto) */}
+                {!isTypingMode ? (
+                    <div className="relative flex items-center justify-center w-full">
+                        {/* Botón de Ayuda (Posicionado a la izquierda del mic) */}
+                        <button
+                            onClick={() => setIsHelpOpen(true)}
+                            className={`absolute right-[calc(50%+40px)] md:right-[calc(50%+45px)] h-10 w-10 bg-white/90 backdrop-blur text-blue-600 rounded-full shadow-lg flex items-center justify-center border border-blue-100 hover:bg-blue-50 transition-all active:scale-95 z-20 ${pendingCommand ? 'opacity-0 select-none pointer-events-none' : 'opacity-100'}`}
+                            aria-label="Ver ejemplos de comandos de voz"
+                        >
+                            <HelpCircle className="w-5 h-5" />
+                        </button>
 
-                        {/* Ondas de audio cuando graba */}
-                        {isRecording && (
-                            <>
-                                <div className="absolute inset-0 border-4 border-white/30 rounded-full animate-ping" />
-                                <div className="absolute inset-0 border-4 border-white/20 rounded-full animate-ping" style={{ animationDelay: '0.2s' }} />
-                            </>
-                        )}
-                    </button>
+                        <button
+                            onMouseDown={(e) => { e.preventDefault(); startRecording(); }}
+                            onMouseUp={stopRecording}
+                            onMouseLeave={stopRecording}
+                            onTouchStart={(e) => { e.preventDefault(); startRecording(); }}
+                            onTouchEnd={stopRecording}
+                            disabled={isProcessing || isPreparing || !!pendingCommand}
+                            className={`h-16 w-16 rounded-full shadow-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-110 border-0 relative overflow-hidden group select-none touch-none z-30
+                            ${isRecording ? 'bg-red-600 scale-110' : isPreparing ? 'bg-amber-500' : 'bg-[#0056B3] hover:bg-[#003870]'}
+                            ${pendingCommand ? 'opacity-50' : ''}
+                        `}
+                        >
+                            {isProcessing || isPreparing ? (
+                                <Loader2 className="h-7 w-7 text-white animate-spin" />
+                            ) : (
+                                <Mic className="h-8 w-8 text-white" strokeWidth={2.5} />
+                            )}
 
-                    {/* Botón de Ayuda (Posicionado a la derecha del mic) */}
-                    <button
-                        onClick={() => setIsHelpOpen(true)}
-                        className="absolute right-8 md:right-16 h-10 w-10 bg-white/90 backdrop-blur text-blue-600 rounded-full shadow-lg flex items-center justify-center border border-blue-100 hover:bg-blue-50 transition-all active:scale-95"
-                        aria-label="Ver ejemplos de comandos de voz"
-                    >
-                        <HelpCircle className="w-5 h-5" />
-                    </button>
-                </div>
+                            {/* Ondas de audio cuando graba */}
+                            {isRecording && (
+                                <>
+                                    <div className="absolute inset-0 border-4 border-white/30 rounded-full animate-ping" />
+                                    <div className="absolute inset-0 border-4 border-white/20 rounded-full animate-ping" style={{ animationDelay: '0.2s' }} />
+                                </>
+                            )}
+                        </button>
+
+                        {/* Botón de Teclado (Posicionado a la derecha del mic) */}
+                        <button
+                            onClick={() => setIsTypingMode(true)}
+                            className={`absolute left-[calc(50%+40px)] md:left-[calc(50%+45px)] h-10 w-10 bg-white/90 backdrop-blur text-slate-600 rounded-full shadow-lg flex items-center justify-center border border-slate-200 hover:bg-slate-50 transition-all active:scale-95 z-20 ${pendingCommand ? 'opacity-0 select-none pointer-events-none' : 'opacity-100'}`}
+                            aria-label="Escribir comando manualmente"
+                        >
+                            <Keyboard className="w-5 h-5" />
+                        </button>
+                    </div>
+                ) : (
+                    <div className="w-full bg-white rounded-full shadow-2xl p-2 flex items-center gap-2 border border-slate-200 animate-in fade-in slide-in-from-bottom-2 pointer-events-auto z-40 relative">
+                        <button
+                            onClick={() => setIsTypingMode(false)}
+                            className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors flex-shrink-0"
+                            aria-label="Volver al micrófono"
+                        >
+                            <Mic className="w-5 h-5" />
+                        </button>
+
+                        <form onSubmit={handleTextSubmit} className="flex-1 flex items-center pr-1">
+                            <input
+                                type="text"
+                                autoFocus
+                                value={textValue}
+                                onChange={(e) => setTextValue(e.target.value)}
+                                placeholder="Ej: Zapatos 50 lucas..."
+                                className="w-full bg-transparent border-none focus:outline-none focus:ring-0 text-[15px] font-medium text-slate-800 placeholder:text-slate-400 px-2 py-1 placeholder:font-normal"
+                                disabled={isProcessing}
+                            />
+
+                            <button
+                                type="submit"
+                                disabled={textValue.trim().length <= 2 || isProcessing}
+                                className={`p-2 rounded-full transition-all flex-shrink-0 ${textValue.trim().length > 2
+                                    ? 'bg-[#0056B3] text-white shadow-md active:scale-95'
+                                    : 'bg-slate-100 text-slate-400'
+                                    }`}
+                            >
+                                {isProcessing ? (
+                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                ) : (
+                                    <Send className="w-4 h-4 ml-0.5" />
+                                )}
+                            </button>
+                        </form>
+                    </div>
+                )}
 
                 {/* Modal de Ayuda de Comandos */}
                 {isHelpOpen && (
